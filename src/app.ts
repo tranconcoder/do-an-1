@@ -6,11 +6,18 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 
+// Services
+import HandleErrorService from './services/handleError.service';
+
+// Database
+import MongoDB from './app/db.app';
+
 // Configs
 import { API_VERSION } from './configs/server.config';
 
 // Routes
 import rootRoute from './routes';
+import { NotFoundErrorResponse } from './response/error.response';
 
 const app = express();
 
@@ -37,6 +44,11 @@ app.use(helmet());
 app.use(compression());
 
 //
+// Database
+//
+MongoDB.getInstance().connect();
+
+//
 // Routes
 //
 // Append newest API version if not found
@@ -52,9 +64,10 @@ app.use(apiRoute, rootRoute);
 
 // Handle 404 route
 app.use((_, __, next) => {
-	next(new Error('404 Not Found'));
+	next(new NotFoundErrorResponse('Route not exist!'));
 });
 
 // Error handler
+app.use(HandleErrorService.middleware);
 
 export default app;
