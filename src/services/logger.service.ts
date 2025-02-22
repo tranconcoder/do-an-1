@@ -1,6 +1,5 @@
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
-import { v4 } from 'uuid';
 
 const consoleTransport = new winston.transports.Console({
 	format: winston.format.combine(
@@ -33,7 +32,7 @@ const loggerService = winston.createLogger({
 	transports: [fileTransport],
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
 	loggerService.add(consoleTransport);
 }
 
