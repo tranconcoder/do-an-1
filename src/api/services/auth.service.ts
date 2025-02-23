@@ -13,6 +13,8 @@ import {
 
 // Services
 import UserService from './user.service';
+import KeyTokenService from './keyToken.service';
+import JwtService from './jwt.service';
 
 export default class AuthService {
 	public static signUp = async ({
@@ -30,24 +32,49 @@ export default class AuthService {
 		if (userExist) throw new NotFoundErrorResponse('User is exists!');
 
 		//
-		// Create new user
+		// Save new user to database
 		//
-		const userId = await UserService.createUser({
+		const user = await UserService.saveUser({
 			phoneNumber,
 			email,
 			password,
 			fullName,
-			role: new mongoose.Types.ObjectId('123'),
+			role: new mongoose.Types.ObjectId(),
 		});
-		if (!userId) throw new ForbiddenErrorResponse('Create user failed!');
+		if (!user) throw new ForbiddenErrorResponse('Create user failed!');
 
 		//
-		// Generate key pair
+		// Generate key and jwt token
 		//
+		const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
+		const jwtTokenPair = await JwtService.generateJwtPair({
+			privateKey,
+			payload: {
+				userId: user.id,
+				role: user.role.toString(),
+			},
+		});
+		if (jwtTokenPair === null) {
+			throw new ForbiddenErrorResponse('Generate jwt token failed!');
+		}
 
-		return {
-			accessToken: '123',
-			refreshToken: '234',
-		};
+		//
+		// Save key token to database
+		//
+		const keySaved = await KeyTokenService.saveKeyToken({
+			user: user.id,
+			privateKey,
+			publicKey,
+			...jwtTokenPair,
+		});
+		if (!keySaved) {
+			// Clean up user saved
+			await UserService.removeUser(user.id);
+
+			// Throw error
+			throw new ForbiddenErrorResponse('Save key token failed!');
+		}
+
+		return jwtTokenPair;
 	};
 }

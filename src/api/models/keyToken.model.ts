@@ -1,25 +1,72 @@
 import { InferRawDocType, Schema, model } from 'mongoose';
+import KeyTokenService from '../services/keyToken.service';
+import {
+	ACCESS_TOKEN_SIGN_OPTIONS,
+	REFRESH_TOKEN_SIGN_OPTIONS,
+} from '../../configs/jwt.config';
 
 export const KEY_TOKEN_MODEL_NAME = 'KeyToken';
 export const KEY_TOKEN_COLLECTION_NAME = 'key_tokens';
 
 const keyTokenSchemaDefinition = {
-	user_id: {
+	user: {
 		type: Schema.Types.ObjectId,
+		ref: 'User',
 		required: true,
 	},
-	refresh_token: {
+	private_key: {
+		type: String,
+		required: true,
+	},
+	public_key: {
+		type: String,
+		required: true,
+	},
+	access_tokens: {
 		type: [
 			{
-				type: String,
-				required: true,
-				expires: 100,
+				token: {
+					type: String,
+					required: true,
+				},
+				expired_at: {
+					type: Date,
+					default: () =>
+						new Date(
+							Date.now() +
+								(ACCESS_TOKEN_SIGN_OPTIONS.expiresIn as number) * 1000
+						),
+				},
 			},
 		],
+		default: [],
 	},
-	refresh_token_black_list: {
-		type: Array,
-		required: true,
+	refresh_tokens: {
+		type: [
+			{
+				token: {
+					type: String,
+					required: true,
+				},
+				expired_at: {
+					type: Date,
+					default: () =>
+						new Date(
+							Date.now() +
+								(REFRESH_TOKEN_SIGN_OPTIONS.expiresIn as number) * 1000
+						),
+				},
+			},
+		],
+		default: [],
+	},
+	refresh_tokens_banned: {
+		type: [String],
+		default: [],
+	},
+	access_tokens_banned: {
+		type: [String],
+		default: [],
 	},
 };
 
