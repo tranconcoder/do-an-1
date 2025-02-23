@@ -26,7 +26,7 @@ export default class HandleErrorService {
 
 	private static development: ErrorHandler = (error, _, res, next) => {
 		// Log error
-		loggerService.error(error.toString());
+		loggerService.getInstance().error(error.toString());
 
 		// Send error response
 		res.status(error.statusCode).json(error.get());
@@ -37,7 +37,7 @@ export default class HandleErrorService {
 		const logId = uuid();
 
 		// Log error
-		loggerService.error(error.toString(), { id: logId });
+		loggerService.getInstance().error(error.toString(), { id: logId });
 
 		// Send error response
 		res.status(error.statusCode).json({

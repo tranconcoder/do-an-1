@@ -1,39 +1,61 @@
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
+import { getFileTransport } from '../../configs/logger.config';
+import { NODE_ENV } from '../../configs/server.config';
+import { ObjectAnyKeys } from '../types/object';
 
-const consoleTransport = new winston.transports.Console({
-	format: winston.format.combine(
-		winston.format.colorize(),
-		winston.format.printf((info) => `[${info.level}]: ${info.message}`)
-	),
-});
+// Singleton pattern
+export default class LoggerService {
+	private static instance: LoggerService;
 
-const fileTransport = new winston.transports.DailyRotateFile({
-	level: 'info',
-	format: winston.format.combine(
-		winston.format.metadata(),
-		winston.format.timestamp(),
-		winston.format.printf((info: any) => {
-			const id = info?.metadata?.id;
-			const idText = id ? `(${id}) ` : '';
+	// Loggers for different levels
+	private logInfo: winston.Logger;
+	private logWarn: winston.Logger;
+	private logError: winston.Logger;
 
-			return `${idText}[${info.timestamp}] [${info.level}]: ${info.message}`;
-		})
-	),
-	zippedArchive: true,
-	filename: '%DATE%.log',
-	dirname: 'logs',
-	datePattern: 'yyyy/[weeks]-ww/[day]-d',
-	maxFiles: '30d',
-	maxSize: '50m',
-});
+	private constructor() {
+		// Config logger
+		this.logInfo = winston.createLogger({
+			transports: this.getListTransport('info'),
+		});
+		this.logWarn = winston.createLogger({
+			transports: this.getListTransport('warn'),
+		});
+		this.logError = winston.createLogger({
+			transports: this.getListTransport('error'),
+		});
+	}
 
-const loggerService = winston.createLogger({
-	transports: [fileTransport],
-});
+	public static getInstance = () => {
+		if (!this.instance) {
+			this.instance = new LoggerService();
+		}
 
-if (process.env.NODE_ENV === 'development') {
-	loggerService.add(consoleTransport);
+		return this.instance;
+	};
+
+	public info = (message: string, metadata: ObjectAnyKeys = {}) => {
+		this.logInfo.info(message, metadata);
+	};
+
+	public error = (message: string, metadata: ObjectAnyKeys = {}) => {
+		this.logError.error(message, metadata);
+	};
+
+	public warn = (message: string, metadata: ObjectAnyKeys = {}) => {
+		this.logWarn.warn(message, metadata);
+	};
+
+	private getListTransport = (
+		level: Parameters<typeof getFileTransport>[0]
+	) => {
+		const transportList: Array<winston.transport> = [getFileTransport(level)];
+
+		if (NODE_ENV === 'development') {
+			const consoleTransport = new winston.transports.Console();
+			transportList.push(consoleTransport);
+		}
+
+		return transportList;
+	};
 }
-
-export default loggerService;

@@ -14,13 +14,17 @@ const userSchema = new Schema(
 		},
 		email: {
 			type: String,
-			required: true,
 			unique: true,
 		},
 		password: {
 			type: String,
 			required: true,
 		},
+		fullName: {
+			type: String,
+			required: true,
+		},
+		dayOfBirth: Date,
 		role: {
 			type: Schema.Types.ObjectId,
 			ref: ROLE_COLLECTION_NAME,

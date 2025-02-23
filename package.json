@@ -6,7 +6,8 @@
 	"author": "tvconss <tranconcoder@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "NODE_ENV=development tsx --watch server.ts"
+		"dev": "NODE_ENV=development tsx --watch server.ts",
+		"start": "NODE_ENV=production tsx server.ts"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.5",
