@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import ErrorResponse, {
-	NotFoundErrorResponse,
-} from '../response/error.response';
-import { CreatedResponse } from '../response/success.response';
+
+// Route child
+import authRoute from './auth';
 
 const rootRoute = Router();
 
-rootRoute.get('/', (_, res, next) => {
-	next(new NotFoundErrorResponse());
-});
+rootRoute.use('/auth', authRoute);
 
 export default rootRoute;

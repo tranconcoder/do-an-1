@@ -17,7 +17,6 @@ import { API_VERSION } from './configs/server.config';
 // Routes
 import rootRoute from './api/routes';
 import { NotFoundErrorResponse } from './api/response/error.response';
-import { redirectToApiVersion } from './api/middlewares/redirect.middleware';
 
 const app = express();
 
@@ -50,9 +49,7 @@ MongoDB.getInstance().connect();
 // Routes
 //
 // Append newest API version if not found
-const apiPath = `/${API_VERSION}/api`;
-app.use('/', redirectToApiVersion(apiPath));
-app.use(apiPath, rootRoute);
+app.use([`/${API_VERSION}/api`, '/'], rootRoute);
 
 // Handle 404 route
 app.use((_, __, next) => {
