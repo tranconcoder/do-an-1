@@ -30,8 +30,6 @@ app.use(express.raw());
 app.use(express.text());
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
-// Static files
-app.use('/public', express.static(path.join(__dirname, '../public')));
 
 //
 // Middleware
