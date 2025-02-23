@@ -27,10 +27,12 @@ const userSchemaDefinition = {
 	role: {
 		type: Schema.Types.ObjectId,
 		ref: ROLE_COLLECTION_NAME,
-		// required: true,
+		default: null,
+		required: true,
 	},
 } as const;
 const userSchema = new Schema(userSchemaDefinition, {
+	collection: USER_COLLECTION_NAME,
 	timestamps: {
 		updatedAt: 'updated_at',
 		createdAt: 'created_at',
