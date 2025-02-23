@@ -1,3 +1,3 @@
-export type ObjectAnyKeys = Object & {
-	[key: string]: any;
+export type ObjectAnyKeys<T = any> = Object & {
+	[key: string]: T;
 };

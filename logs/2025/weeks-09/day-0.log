@@ -14,3 +14,7 @@
 [2025-02-23T04:04:23.982Z] [info]: Server closed
 [2025-02-23T04:49:45.574Z] [info]: Server closed
 [2025-02-23T04:49:45.600Z] [info]: Server closed
+[2025-02-23T04:53:43.953Z] [error]: 500::TypeError::The "headers" argument must be an instance of Headers or Map. Received an instance of Object::
+[2025-02-23T05:04:31.852Z] [info]: Server closed
+[2025-02-23T05:04:31.867Z] [info]: Server closed
+[2025-02-23T05:04:31.882Z] [info]: Server closed
