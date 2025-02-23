@@ -9,7 +9,10 @@
 		"dev": "NODE_ENV=development tsx --watch server.ts"
 	},
 	"devDependencies": {
+		"@types/compression": "^1.7.5",
 		"@types/express": "^5.0.0",
+		"@types/lodash": "^4.17.15",
+		"@types/morgan": "^1.9.9",
 		"@types/node": "^22.13.5",
 		"tsx": "^4.19.3",
 		"typescript": "^5.7.3"
@@ -24,6 +27,7 @@
 		"mongodb": "^6.13.1",
 		"mongoose": "^8.10.1",
 		"morgan": "^1.10.0",
+		"pm2": "^5.4.3",
 		"uuid": "^11.1.0",
 		"winston": "^3.17.0",
 		"winston-daily-rotate-file": "^5.0.0"

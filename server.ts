@@ -1,8 +1,13 @@
-import './src/helpers/loadEnv.helper';
-import { HOST, PORT, BASE_URL } from './src/configs/server.config';
+// Load env
+import './src/api/helpers/loadEnv.helper';
+
+// Configs
+import { HOST, PORT, BASE_URL, DB_URL } from './src/configs/server.config';
+
+// App
 import app from './src/app';
+import loggerService from './src/api/services/logger.service';
 import MongoDB from './src/app/db.app';
-import loggerService from './src/services/logger.service';
 
 const server = app.listen(PORT, HOST, () => {
 	console.log(`Server is running on ${BASE_URL}`);

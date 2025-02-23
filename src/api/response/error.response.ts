@@ -5,18 +5,37 @@ import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
 
 export default class ErrorResponse {
+	private readonly file: StringOrUndefined;
+
 	public constructor(
 		public readonly statusCode: StatusCodes,
 		public readonly name: string = 'ErrorResponse',
-		public readonly message: StringOrUndefined = StatusCodes[statusCode]
+		public readonly message: StringOrUndefined = StatusCodes[statusCode],
+		public readonly routePath: StringOrUndefined = undefined
 	) {
 		this.statusCode = statusCode;
 		this.name = name;
 		this.message = message;
+		this.routePath = routePath;
+		this.file = new Error()?.stack
+			?.split('\n')
+			?.at(2)
+			?.split('/')
+			?.slice(-2)
+			?.join('/')
+			?.slice(0, -1);
+
+		if (this.file && !this.file.includes('index')) {
+			this.file = this.file.split('/').at(-1);
+		}
 	}
 
 	public get() {
 		return _.pick(this, ['statusCode', 'name', 'message']);
+	}
+
+	public toString() {
+		return `${this.statusCode}::${this.name}::${this.message}::`;
 	}
 }
 

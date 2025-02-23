@@ -1,13 +1,12 @@
 import express from 'express';
 
 // Libs
-import path from 'path';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 
 // Services
-import HandleErrorService from './services/handleError.service';
+import HandleErrorService from './api/services/handleError.service';
 
 // Database
 import MongoDB from './app/db.app';
@@ -16,8 +15,9 @@ import MongoDB from './app/db.app';
 import { API_VERSION } from './configs/server.config';
 
 // Routes
-import rootRoute from './routes';
-import { NotFoundErrorResponse } from './response/error.response';
+import rootRoute from './api/routes';
+import { NotFoundErrorResponse } from './api/response/error.response';
+import { redirectToApiVersion } from './api/middlewares/redirect.middleware';
 
 const app = express();
 
@@ -50,15 +50,9 @@ MongoDB.getInstance().connect();
 // Routes
 //
 // Append newest API version if not found
-const apiRoute = `/${API_VERSION}/api`;
-app.use('/', (req, res, next) => {
-	if (!req.path.startsWith(apiRoute)) {
-		res.redirect(`${apiRoute}${req.path}`);
-	} else {
-		next();
-	}
-});
-app.use(apiRoute, rootRoute);
+const apiPath = `/${API_VERSION}/api`;
+app.use('/', redirectToApiVersion(apiPath));
+app.use(apiPath, rootRoute);
 
 // Handle 404 route
 app.use((_, __, next) => {

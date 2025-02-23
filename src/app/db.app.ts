@@ -2,7 +2,7 @@
 import mongoose, { MongooseError } from 'mongoose';
 
 // Services
-import loggerService from '../services/logger.service';
+import loggerService from '../api/services/logger.service';
 
 // Configs
 import {
@@ -10,7 +10,7 @@ import {
 	DB_MIN_POOL_SIZE,
 	DB_MAX_POOL_SIZE,
 	NODE_ENV,
-} from './../configs/server.config';
+} from '../configs/server.config';
 
 export default class MongoDB {
 	private static instance: MongoDB;

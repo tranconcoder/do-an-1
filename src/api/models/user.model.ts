@@ -1,7 +1,8 @@
 import { Schema, model } from 'mongoose';
+import { ROLE_COLLECTION_NAME } from './role.model';
 
 export const USER_MODEL_NAME = 'User';
-export const COLLECTION_NAME = 'users';
+export const USER_COLLECTION_NAME = 'users';
 
 const userSchema = new Schema(
 	{
@@ -20,6 +21,11 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		role: {
+			type: Schema.Types.ObjectId,
+			ref: ROLE_COLLECTION_NAME,
+			required: true,
+		},
 	},
 	{
 		timestamps: {
@@ -29,4 +35,4 @@ const userSchema = new Schema(
 	}
 );
 
-export default model(USER_MODEL_NAME, userSchema, COLLECTION_NAME);
+export default model(USER_MODEL_NAME, userSchema, USER_COLLECTION_NAME);

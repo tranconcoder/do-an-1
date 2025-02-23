@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import ErrorResponse from '../response/error.response';
-import { NODE_ENV } from '../configs/server.config';
 import loggerService from './logger.service';
 import { v7 as uuid } from 'uuid';
+import { NODE_ENV } from '../../configs/server.config';
 
 type ErrorHandler = (
 	error: ErrorResponse,
@@ -26,7 +26,7 @@ export default class HandleErrorService {
 
 	private static development: ErrorHandler = (error, _, res, next) => {
 		// Log error
-		loggerService.error(error.get());
+		loggerService.error(error.toString());
 
 		// Send error response
 		res.status(error.statusCode).json(error.get());
@@ -37,7 +37,7 @@ export default class HandleErrorService {
 		const logId = uuid();
 
 		// Log error
-		loggerService.error(error.get(), { id: logId });
+		loggerService.error(error.toString(), { id: logId });
 
 		// Send error response
 		res.status(error.statusCode).json({
