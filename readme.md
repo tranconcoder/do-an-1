@@ -31,42 +31,4 @@
 
 ## 2. Cấu trúc dự án
 
-📦 Root
-
-├── 📂 logs/ # Application logs directory
-
-├── 📂 build/ # Compiled TypeScript output
-
-├── 📂 src/
-
-│ ├── 📂 apps/ # Application initialization
-
-│ └── 📂 api/
-
-│ ├── 📂 services/ # Business logic layer
-
-│ ├── 📂 controllers/ # Request handlers
-
-│ ├── 📂 middlewares/ # Express middleware functions
-
-│ ├── 📂 models/ # Database models
-
-│ ├── 📂 routes/ # API route definitions
-
-│ ├── 📂 utils/ # Utility functions
-
-│ ├── 📂 helpers/ # Helper functions
-
-│ ├── 📂 types/ # TypeScript type definitions
-
-│ └── 📂 validations/ # Request validation schemas
-
-├── 📂 configs/ # Configuration files
-
-├── 📄 .env.development.local # Development environment variables
-
-├── 📄 .env.production.local # Production environment variables
-
-├── 📄 server.ts # Application entry point
-
-└── 📄 .gitignore # Git ignore rules
+![screenshot](images/code.png)
