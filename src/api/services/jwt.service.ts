@@ -1,41 +1,66 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { JwtSignArgs, JwtSignPayload, JwtVerityArgs } from '../types/jwt';
+import type {
+    JwtPair,
+    JwtSignArgs,
+    JwtSignPayload,
+    JwtVerityArgs,
+} from "../types/jwt";
+
 import {
-	ACCESS_TOKEN_SIGN_OPTIONS,
-	REFRESH_TOKEN_SIGN_OPTIONS,
-} from '../../configs/jwt.config';
-import { jwtSignAsync } from '../utils/jwt.util';
+    ACCESS_TOKEN_SIGN_OPTIONS,
+    REFRESH_TOKEN_SIGN_OPTIONS,
+} from "../../configs/jwt.config";
+import jwt from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
+import { jwtSignAsync } from "../utils/jwt.util";
 
 export default class JwtService {
-	public static generateJwtPair = async ({
-		privateKey,
-		payload,
-	}: JwtSignArgs) => {
-		try {
-			const [accessToken, refreshToken] = await Promise.all([
-				jwtSignAsync(payload, privateKey, ACCESS_TOKEN_SIGN_OPTIONS),
-				jwtSignAsync(payload, privateKey, REFRESH_TOKEN_SIGN_OPTIONS),
-			]);
+    /* ================================================== */
+    /*          GENERATE REFRESH TOKEN AND ACCESS         */
+    /* ================================================== */
+    public static generateJwtPair = async ({
+        privateKey,
+        payload,
+    }: JwtSignArgs): Promise<JwtPair | null> => {
+        try {
+            const [accessToken, refreshToken] = await Promise.all([
+                jwtSignAsync(payload, privateKey, ACCESS_TOKEN_SIGN_OPTIONS),
+                jwtSignAsync(payload, privateKey, REFRESH_TOKEN_SIGN_OPTIONS),
+            ]);
 
-			return {
-				accessToken,
-				refreshToken,
-			};
-		} catch (error) {
-			return null;
-		}
-	};
+            return {
+                accessToken,
+                refreshToken,
+            };
+        } catch (error) {
+            return null;
+        }
+    };
 
-	public static verifyJwt = ({
-		token,
-		publicKey,
-	}: JwtVerityArgs): JwtSignPayload | null => {
-		try {
-			const decoded = jwt.verify(token, publicKey);
+    /* ================================================== */
+    /*                  VERIFY JWT TOKEN                  */
+    /* ================================================== */
+    public static verifyJwt = ({
+        token,
+        publicKey,
+    }: JwtVerityArgs): JwtSignPayload | null => {
+        try {
+            const decoded = jwt.verify(token, publicKey);
 
-			return decoded as JwtSignPayload;
-		} catch (error) {
-			return null;
-		}
-	};
+            return decoded as JwtSignPayload;
+        } catch (error) {
+            return null;
+        }
+    };
+
+
+    /* ================================================== */
+    /*                 PARSE TOKEN PAYLOAD                */
+    /* ================================================== */
+    public static parseJwtPayload = (token: string): JwtSignPayload | null => {
+        try {
+            return jwtDecode<JwtSignPayload>(token)
+        } catch (error) {
+            return null;
+        }
+    }
 }

@@ -1,4 +1,3 @@
-import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import type { ObjectAnyKeys } from '../types/object';
 import type { SignUpSchema } from '../validations/joi/signUp.joi';
 
@@ -11,6 +10,9 @@ import {
 	NotFoundErrorResponse,
 	ForbiddenErrorResponse,
 } from '../response/error.response';
+
+// Configs
+import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 
 // Services
 import UserService from './user.service';
@@ -78,7 +80,7 @@ export default class AuthService {
 	};
 
 	/* ===================================================== */
-	/*                         LOGIN;                        */
+	/*                         LOGIN                         */
 	/* ===================================================== */
 	public static login = async ({
 		phoneNumber,
@@ -117,6 +119,12 @@ export default class AuthService {
 		});
 		if (!saveNewTokenSuccess) throw error;
 
-		return jwtTokenPair;
+        return jwtTokenPair;
 	};
+
+	/* ===================================================== */
+	/*                         LOGOUT                        */
+	/* ===================================================== */
+	public static logout = async () => {
+	}
 }

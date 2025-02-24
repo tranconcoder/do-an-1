@@ -17,5 +17,6 @@ authRoute.post(
 	joiValidate(loginSchema),
 	catchError(AuthController.login)
 );
+authRoute.post("/logout", catchError(AuthController.logout));
 
 export default authRoute;

@@ -23,5 +23,5 @@ process.on('SIGINT', () => {
 	});
 
 	// Push notification to developer...
-	loggerService.info('Server closed');
+	loggerService.getInstance().error('Server closed');
 });
