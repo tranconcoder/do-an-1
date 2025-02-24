@@ -14,25 +14,26 @@ import {
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
+import { JwtPair } from '../types/jwt';
+import { LoginSchema } from '../validations/joi/login.joi';
 
 export default class AuthService {
+	/* ===================================================== */
+	/*                        SIGN UP                        */
+	/* ===================================================== */
 	public static signUp = async ({
 		phoneNumber,
 		email,
 		password,
 		fullName,
 	}: SignUpSchema): Promise<ObjectAnyKeys> => {
-		/* ------------------------------------------------------ */
-		/*                 Check if user is exists                */
-		/* ------------------------------------------------------ */
+		/* --------------- Check if user is exists -------------- */
 		const userIsExist = await UserService.checkUserExist({
 			$or: [{ phoneNumber }, { email }],
 		});
 		if (userIsExist) throw new NotFoundErrorResponse('User is exists!');
 
-		/* ------------------------------------------------------ */
-		/*                Save new user to database               */
-		/* ------------------------------------------------------ */
+		/* ------------- Save new user to database ------------ */
 		const userSaved = await UserService.saveUser({
 			phoneNumber,
 			email,
@@ -42,9 +43,7 @@ export default class AuthService {
 		});
 		if (!userSaved) throw new ForbiddenErrorResponse('Create user failed!');
 
-		/* ------------------------------------------------------ */
-		/*               Generate key and jwt token               */
-		/* ------------------------------------------------------ */
+		/* ------------ Generate key and jwt token ------------ */
 		const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
 		const jwtTokenPair = await JwtService.generateJwtPair({
 			privateKey,
@@ -57,9 +56,7 @@ export default class AuthService {
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 		}
 
-		/* ------------------------------------------------------ */
-		/*               Save key token to database               */
-		/* ------------------------------------------------------ */
+		/* ------------ Save key token to database ------------ */
 		const keySaved = await KeyTokenService.saveKeyToken({
 			user: userSaved.id,
 			privateKey,
@@ -75,5 +72,26 @@ export default class AuthService {
 		}
 
 		return jwtTokenPair;
+	};
+
+	/* ===================================================== */
+	/*                         LOGIN;                        */
+	/* ===================================================== */
+	public static login = async ({
+		phoneNumber,
+		password,
+	}: LoginSchema): Promise<JwtPair> => {
+		// Prepare error
+		const error = new ForbiddenErrorResponse(
+			'Phone number or password is incorrect!'
+		);
+
+		// Check if user is exists
+		const user = await UserService.checkUserExist({ phoneNumber });
+		if (!user) throw error;
+
+		// Check password
+
+		return { accessToken: '', refreshToken: '' };
 	};
 }
