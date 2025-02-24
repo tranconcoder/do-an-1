@@ -3,7 +3,6 @@ import type { SignUpSchema } from '../validations/joi/signUp.joi';
 
 // Libs
 import mongoose from 'mongoose';
-import crypto from 'crypto';
 
 // Handle error
 import {
@@ -23,53 +22,53 @@ export default class AuthService {
 		password,
 		fullName,
 	}: SignUpSchema): Promise<ObjectAnyKeys> => {
-		//
-		// Check if user is exists
-		//
-		const userExist = await UserService.checkUserExist({
+		/* ------------------------------------------------------ */
+		/*                 Check if user is exists                */
+		/* ------------------------------------------------------ */
+		const userIsExist = await UserService.checkUserExist({
 			$or: [{ phoneNumber }, { email }],
 		});
-		if (userExist) throw new NotFoundErrorResponse('User is exists!');
+		if (userIsExist) throw new NotFoundErrorResponse('User is exists!');
 
-		//
-		// Save new user to database
-		//
-		const user = await UserService.saveUser({
+		/* ------------------------------------------------------ */
+		/*                Save new user to database               */
+		/* ------------------------------------------------------ */
+		const userSaved = await UserService.saveUser({
 			phoneNumber,
 			email,
 			password,
 			fullName,
 			role: new mongoose.Types.ObjectId(),
 		});
-		if (!user) throw new ForbiddenErrorResponse('Create user failed!');
+		if (!userSaved) throw new ForbiddenErrorResponse('Create user failed!');
 
-		//
-		// Generate key and jwt token
-		//
+		/* ------------------------------------------------------ */
+		/*               Generate key and jwt token               */
+		/* ------------------------------------------------------ */
 		const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
 		const jwtTokenPair = await JwtService.generateJwtPair({
 			privateKey,
 			payload: {
-				userId: user.id,
-				role: user.role.toString(),
+				userId: userSaved.id,
+				role: userSaved.role.toString(),
 			},
 		});
 		if (jwtTokenPair === null) {
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 		}
 
-		//
-		// Save key token to database
-		//
+		/* ------------------------------------------------------ */
+		/*               Save key token to database               */
+		/* ------------------------------------------------------ */
 		const keySaved = await KeyTokenService.saveKeyToken({
-			user: user.id,
+			user: userSaved.id,
 			privateKey,
 			publicKey,
 			...jwtTokenPair,
 		});
 		if (!keySaved) {
 			// Clean up user saved
-			await UserService.removeUser(user.id);
+			UserService.removeUser(userSaved.id);
 
 			// Throw error
 			throw new ForbiddenErrorResponse('Save key token failed!');

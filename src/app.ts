@@ -7,6 +7,7 @@ import compression from 'compression';
 
 // Services
 import HandleErrorService from './api/services/handleError.service';
+import ScheduledService from './api/services/scheduled.service';
 
 // Database
 import MongoDB from './app/db.app';
@@ -20,9 +21,9 @@ import { NotFoundErrorResponse } from './api/response/error.response';
 
 const app = express();
 
-//
-// Express middleware
-//
+/* ====================================================== */
+/*                   EXPRESS MIDDLEWARE                   */
+/* ====================================================== */
 // Body parser
 app.use(express.json());
 app.use(express.raw());
@@ -30,9 +31,9 @@ app.use(express.text());
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-//
-// Middleware
-//
+/* ====================================================== */
+/*                       MIDDLEWARE;                      */
+/* ====================================================== */
 // Morgan
 app.use(morgan('dev'));
 // Helmet for security
@@ -40,14 +41,17 @@ app.use(helmet());
 // Compression
 app.use(compression());
 
-//
-// Database
-//
+/* ====================================================== */
+/*                        DATABASE;                       */
+/* ====================================================== */
 MongoDB.getInstance().connect();
 
-//
-// Routes
-//
+// Start service
+ScheduledService.cleanUpKeyToken.start();
+
+/* ====================================================== */
+/*                         ROUTES;                        */
+/* ====================================================== */
 // Append newest API version if not found
 app.use([`/${API_VERSION}/api`, '/'], rootRoute);
 

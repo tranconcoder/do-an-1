@@ -1,9 +1,10 @@
-import { InferRawDocType, Schema, model } from 'mongoose';
+import mongoose, { InferRawDocType, Schema, model } from 'mongoose';
 import KeyTokenService from '../services/keyToken.service';
 import {
 	ACCESS_TOKEN_SIGN_OPTIONS,
 	REFRESH_TOKEN_SIGN_OPTIONS,
 } from '../../configs/jwt.config';
+import JwtService from '../services/jwt.service';
 
 export const KEY_TOKEN_MODEL_NAME = 'KeyToken';
 export const KEY_TOKEN_COLLECTION_NAME = 'key_tokens';
@@ -76,6 +77,9 @@ const keyTokenSchema = new Schema(keyTokenSchemaDefinition, {
 		updatedAt: 'updated_at',
 	},
 	collection: KEY_TOKEN_COLLECTION_NAME,
+	statics: {
+		cleanUpInvalidTokens: async function () {},
+	},
 });
 
 export type KeyTokenModel = InferRawDocType<typeof keyTokenSchemaDefinition>;
