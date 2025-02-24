@@ -31,4 +31,4 @@
 
 ## 2. Cấu trúc dự án
 
-![screenshot](images/code.png)
+![project_structure](/images/code.png)
