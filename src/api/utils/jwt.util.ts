@@ -5,15 +5,12 @@ export const jwtSignAsync = async (
 	payload: JwtPayload,
 	privateKey: PrivateKey,
 	options: SignOptions
-): Promise<StringOrUndefined> => {
+): Promise<string> => {
 	return new Promise((resolve, reject) => {
 		jwt.sign(payload, privateKey, options, (err, token) => {
-			console.log(err);
-			if (err) {
+			if (err || !token) {
 				return reject(err);
 			}
-
-			console.log('token', token);
 
 			resolve(token);
 		});

@@ -17,9 +17,6 @@ export default class JwtService {
 				jwtSignAsync(payload, privateKey, REFRESH_TOKEN_SIGN_OPTIONS),
 			]);
 
-			console.log('accessToken', accessToken);
-			console.log('refreshToken', refreshToken);
-
 			return {
 				accessToken,
 				refreshToken,

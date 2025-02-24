@@ -61,7 +61,7 @@ export default class AuthService {
 
 		/* ------------ Save key token to database ------------ */
 		const keySaved = await KeyTokenService.saveKeyToken({
-			user: userSaved.id,
+			userId: userSaved.id,
 			privateKey,
 			publicKey,
 			...jwtTokenPair,
@@ -87,11 +87,11 @@ export default class AuthService {
 		/* ------------------- Prepare error ------------------ */
 		const error = new ForbiddenErrorResponse(
 			'Phone number or password is incorrect!',
-			true
+			false
 		);
 
 		/* -------------- Check if user is exists ------------- */
-		const user = await UserService.checkUserExist({ phoneNumber });
+		const user = await UserService.findOneUser({ phoneNumber });
 		if (!user) throw error;
 
 		/* ------------------ Check password ------------------ */
@@ -101,7 +101,22 @@ export default class AuthService {
 
 		/* --------- Generate token and send response --------- */
 		const { private_key } = await KeyTokenService.getTokenByUserId(user._id);
+		const jwtTokenPair = await JwtService.generateJwtPair({
+			privateKey: private_key,
+			payload: {
+				userId: user._id.toString(),
+				role: user.role.toString(),
+			},
+		});
+		if (!jwtTokenPair) throw error;
 
-		return { accessToken: '', refreshToken: '' };
+		/* ------ Save jwt token pair to key token model ------ */
+		const saveNewTokenSuccess = await KeyTokenService.saveNewJwtToken({
+			userId: user._id.toString(),
+			...jwtTokenPair,
+		});
+		if (!saveNewTokenSuccess) throw error;
+
+		return jwtTokenPair;
 	};
 }

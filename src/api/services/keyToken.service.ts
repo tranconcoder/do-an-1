@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import keyTokenModel, { KeyTokenModel } from '../models/keyToken.model';
 import { ObjectAnyKeys } from '../types/object';
 import mongoose from 'mongoose';
+import { SaveKeyTokenArgs, SaveNewJwtTokenArgs } from '../types/keyToken';
 export default class KeyTokenService {
 	public static getTokenByUserId = async (
 		userId: string | mongoose.Types.ObjectId
@@ -12,14 +13,14 @@ export default class KeyTokenService {
 	};
 
 	public static saveKeyToken = async ({
-		user,
+		userId,
 		privateKey,
 		publicKey,
 		accessToken,
 		refreshToken,
-	}: ObjectAnyKeys) => {
+	}: SaveKeyTokenArgs) => {
 		const keyToken = await keyTokenModel.create({
-			user,
+			user: userId,
 			private_key: privateKey,
 			public_key: publicKey,
 			access_tokens: [{ token: accessToken }],
@@ -27,6 +28,30 @@ export default class KeyTokenService {
 		});
 
 		return keyToken._id;
+	};
+
+	public static saveNewJwtToken = async ({
+		userId,
+		accessToken,
+		refreshToken,
+	}: SaveNewJwtTokenArgs) => {
+		const updateResult = await keyTokenModel.updateOne(
+			{
+				user: userId,
+			},
+			{
+				$push: {
+					access_tokens: {
+						token: accessToken,
+					},
+					refresh_tokens: {
+						token: refreshToken,
+					},
+				},
+			}
+		);
+
+		return updateResult.modifiedCount > 0;
 	};
 
 	public static generateTokenPair = () => {

@@ -24,6 +24,6 @@ export default class AuthController {
 		new OkResponse({
 			message: 'Login success!',
 			metadata: await AuthService.login(req.body),
-		});
+		}).send(res);
 	};
 }
