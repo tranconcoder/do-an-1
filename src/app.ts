@@ -47,7 +47,7 @@ app.use(compression());
 MongoDB.getInstance().connect();
 
 // Start service
-ScheduledService.cleanUpKeyToken.start();
+ScheduledService.cleanUpKeyTokenCronJob.start();
 
 /* ====================================================== */
 /*                         ROUTES;                        */
