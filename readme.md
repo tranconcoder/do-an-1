@@ -34,8 +34,8 @@
 |- logs/
 |- build/
 |- src/
+|---- apps/
 |---- api/
-|------- apps/
 |------- services/
 |------- controllers/
 |------- middlewares/
@@ -51,8 +51,3 @@
 |- .env.production.local
 |- server.ts
 |- .gitignore
-|
-|
-|
-|
-|
