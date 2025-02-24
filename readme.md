@@ -28,3 +28,31 @@
 4. Joi extract type: lấy type của schema đã tạo trong typescript
 5. Lodash: công cụ tương tác object, array
 6. UUID: tạo uuid ngẫu nhiên cho hệ thống.
+
+## 2. Cấu trúc dự án
+
+|- logs/
+|- build/
+|- src/
+|---- api/
+|------- apps/
+|------- services/
+|------- controllers/
+|------- middlewares/
+|------- models/
+|------- routes/
+|------- utils/
+|------- helpers/
+|------- types/
+|------- validations/
+|---- configs/
+|------- /
+|- .env.development.local
+|- .env.production.local
+|- server.ts
+|- .gitignore
+|
+|
+|
+|
+|
