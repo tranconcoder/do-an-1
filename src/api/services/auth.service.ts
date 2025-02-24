@@ -1,8 +1,10 @@
+import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import type { ObjectAnyKeys } from '../types/object';
 import type { SignUpSchema } from '../validations/joi/signUp.joi';
 
 // Libs
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 // Handle error
 import {
@@ -34,10 +36,11 @@ export default class AuthService {
 		if (userIsExist) throw new NotFoundErrorResponse('User is exists!');
 
 		/* ------------- Save new user to database ------------ */
+		const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
 		const userSaved = await UserService.saveUser({
 			phoneNumber,
 			email,
-			password,
+			password: hashPassword,
 			fullName,
 			role: new mongoose.Types.ObjectId(),
 		});
@@ -81,16 +84,23 @@ export default class AuthService {
 		phoneNumber,
 		password,
 	}: LoginSchema): Promise<JwtPair> => {
-		// Prepare error
+		/* ------------------- Prepare error ------------------ */
 		const error = new ForbiddenErrorResponse(
-			'Phone number or password is incorrect!'
+			'Phone number or password is incorrect!',
+			true
 		);
 
-		// Check if user is exists
+		/* -------------- Check if user is exists ------------- */
 		const user = await UserService.checkUserExist({ phoneNumber });
 		if (!user) throw error;
 
-		// Check password
+		/* ------------------ Check password ------------------ */
+		const hashPassword = user.password;
+		const isPasswordMatch = await bcrypt.compare(password, hashPassword);
+		if (!isPasswordMatch) throw error;
+
+		/* --------- Generate token and send response --------- */
+		const { private_key } = await KeyTokenService.getTokenByUserId(user._id);
 
 		return { accessToken: '', refreshToken: '' };
 	};

@@ -28,3 +28,13 @@
 [2025-02-23T18:00:57.051Z] [error]: 500::Error::Can't use $oid::
 [2025-02-23T18:04:20.164Z] [error]: 404::NotFound::User is exists!::
 [2025-02-23T18:04:31.394Z] [error]: 403::Forbidden::Save key token failed!::
+[2025-02-24T07:34:30.612Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-02-24T07:35:07.315Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-02-24T07:35:13.528Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T07:36:22.030Z] [error]: HIDE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T07:36:24.040Z] [error]: HIDE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T07:36:28.332Z] [error]: HIDE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T07:36:33.813Z] [error]: HIDE::403::Forbidden::Phone number or password is incorrect!::
+(019536e4-4b37-708f-952c-c778415c7ddc) [2025-02-24T07:38:06.029Z] [error]: HIDE::500::MongooseError::Operation `users.findOne()` buffering timed out after 10000ms::
+[2025-02-24T07:38:19.353Z] [error]: MongoServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
+(019536e5-3bcf-754e-b9ad-57fc06104203) [2025-02-24T07:39:07.612Z] [error]: HIDE::403::Forbidden::Phone number or password is incorrect!::

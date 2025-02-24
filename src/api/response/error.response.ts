@@ -11,11 +11,13 @@ export default class ErrorResponse {
 		public readonly statusCode: StatusCodes,
 		public readonly name: string = 'ErrorResponse',
 		public readonly message: StringOrUndefined = StatusCodes[statusCode],
+		public readonly hideOnProduction: boolean = true,
 		public readonly routePath: StringOrUndefined = undefined
 	) {
 		this.statusCode = statusCode;
 		this.name = name;
 		this.message = message;
+		this.hideOnProduction = hideOnProduction;
 		this.routePath = routePath;
 		this.file = new Error()?.stack
 			?.split('\n')
@@ -29,27 +31,37 @@ export default class ErrorResponse {
 			this.file = this.file.split('/').at(-1);
 		}
 	}
-
 	public get() {
 		return _.pick(this, ['statusCode', 'name', 'message']);
 	}
 
 	public toString() {
-		return `${this.statusCode}::${this.name}::${this.message}::`;
+		const hideOnProductTitle = this.hideOnProduction ? 'HIDE' : 'VISIBLE';
+
+		return `${hideOnProductTitle}::${this.statusCode}::${this.name}::${this.message}::`;
 	}
 }
 
 export class InternalServerErrorResponse extends ErrorResponse {
 	public constructor(
-		message: string = StatusCodes[StatusCodes.INTERNAL_SERVER_ERROR]
+		message: string = StatusCodes[StatusCodes.INTERNAL_SERVER_ERROR],
+		hideOnProduction: boolean = true
 	) {
-		super(StatusCodes.INTERNAL_SERVER_ERROR, 'InternalServerError', message);
+		super(
+			StatusCodes.INTERNAL_SERVER_ERROR,
+			'InternalServerError',
+			message,
+			hideOnProduction
+		);
 	}
 }
 
 export class BadRequestErrorResponse extends ErrorResponse {
-	public constructor(message: string = StatusCodes[StatusCodes.BAD_REQUEST]) {
-		super(StatusCodes.BAD_REQUEST, 'BadRequest', message);
+	public constructor(
+		message: string = StatusCodes[StatusCodes.BAD_REQUEST],
+		hideOnProduction: boolean = true
+	) {
+		super(StatusCodes.BAD_REQUEST, 'BadRequest', message, hideOnProduction);
 	}
 }
 
@@ -60,19 +72,28 @@ export class UnauthorizedErrorResponse extends ErrorResponse {
 }
 
 export class NotFoundErrorResponse extends ErrorResponse {
-	public constructor(message: string = StatusCodes[StatusCodes.NOT_FOUND]) {
-		super(StatusCodes.NOT_FOUND, 'NotFound', message);
+	public constructor(
+		message: string = StatusCodes[StatusCodes.NOT_FOUND],
+		hideOnProduction: boolean = true
+	) {
+		super(StatusCodes.NOT_FOUND, 'NotFound', message, hideOnProduction);
 	}
 }
 
 export class ForbiddenErrorResponse extends ErrorResponse {
-	public constructor(message: string = StatusCodes[StatusCodes.FORBIDDEN]) {
-		super(StatusCodes.FORBIDDEN, 'Forbidden', message);
+	public constructor(
+		message: string = StatusCodes[StatusCodes.FORBIDDEN],
+		hideOnProduction: boolean = true
+	) {
+		super(StatusCodes.FORBIDDEN, 'Forbidden', message, hideOnProduction);
 	}
 }
 
 export class ConflictErrorResponse extends ErrorResponse {
-	public constructor(message: string = StatusCodes[StatusCodes.CONFLICT]) {
-		super(StatusCodes.CONFLICT, 'Conflict', message);
+	public constructor(
+		message: string = StatusCodes[StatusCodes.CONFLICT],
+		hideOnProduction: boolean = true
+	) {
+		super(StatusCodes.CONFLICT, 'Conflict', message, hideOnProduction);
 	}
 }

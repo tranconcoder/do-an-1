@@ -1,4 +1,4 @@
-import type { ObjectId, RootFilterQuery } from 'mongoose';
+import type { RootFilterQuery } from 'mongoose';
 import type { UserModel } from '../models/user.model';
 
 import userModel from '../models/user.model';
