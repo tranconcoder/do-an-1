@@ -1,6 +1,6 @@
 # Những kiến thức đạt được trong quá trình làm dự án
 
-## Những packages cần thiết
+## 1. Những packages cần thiết
 
 ### Nhóm trợ dev thuận tiện
 
