@@ -57,7 +57,9 @@ export default class AuthService {
 				role: userSaved.role.toString(),
 			},
 		});
-		if (jwtTokenPair === null) {
+		if (!jwtTokenPair) {
+			// Clean up user saved
+			UserService.removeUser(userSaved.id);
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 		}
 
@@ -71,8 +73,6 @@ export default class AuthService {
 		if (!keySaved) {
 			// Clean up user saved
 			UserService.removeUser(userSaved.id);
-
-			// Throw error
 			throw new ForbiddenErrorResponse('Save key token failed!');
 		}
 
@@ -86,20 +86,15 @@ export default class AuthService {
 		phoneNumber,
 		password,
 	}: LoginSchema): Promise<JwtPair> => {
-		/* ------------------- Prepare error ------------------ */
-		const error = new ForbiddenErrorResponse(
-			'Phone number or password is incorrect!',
-			false
-		);
-
 		/* -------------- Check if user is exists ------------- */
 		const user = await UserService.findOneUser({ phoneNumber });
-		if (!user) throw error;
+		if (!user) throw new NotFoundErrorResponse('User not found!');
 
 		/* ------------------ Check password ------------------ */
 		const hashPassword = user.password;
 		const isPasswordMatch = await bcrypt.compare(password, hashPassword);
-		if (!isPasswordMatch) throw error;
+		if (!isPasswordMatch)
+			throw new ForbiddenErrorResponse('Password is wrong!');
 
 		/* --------- Generate token and send response --------- */
 		const { private_key } = await KeyTokenService.getTokenByUserId(user._id);
@@ -110,21 +105,22 @@ export default class AuthService {
 				role: user.role.toString(),
 			},
 		});
-		if (!jwtTokenPair) throw error;
+		if (!jwtTokenPair)
+			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 
 		/* ------ Save jwt token pair to key token model ------ */
 		const saveNewTokenSuccess = await KeyTokenService.saveNewJwtToken({
 			userId: user._id.toString(),
 			...jwtTokenPair,
 		});
-		if (!saveNewTokenSuccess) throw error;
+		if (!saveNewTokenSuccess)
+			throw new ForbiddenErrorResponse('Save jwt token failed!');
 
-        return jwtTokenPair;
+		return jwtTokenPair;
 	};
 
 	/* ===================================================== */
 	/*                         LOGOUT                        */
 	/* ===================================================== */
-	public static logout = async () => {
-	}
+	public static logout = async () => {};
 }

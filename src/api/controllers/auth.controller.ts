@@ -1,9 +1,6 @@
 import type { RequestHandler } from 'express';
 import AuthService from '../services/auth.service';
-import {
-	CreatedResponse,
-	OkResponse,
-} from '../response/success.response';
+import { CreatedResponse, OkResponse } from '../response/success.response';
 
 export default class AuthController {
 	/* ===================================================== */
@@ -26,15 +23,15 @@ export default class AuthController {
 		}).send(res);
 	};
 
-    /* ===================================================== */
-    /*                         LOGOUT                        */
-    /* ===================================================== */
-    public static logout: RequestHandler = async (req, res, next) => {
-        await AuthService.logout();
+	/* ===================================================== */
+	/*                         LOGOUT                        */
+	/* ===================================================== */
+	public static logout: RequestHandler = async (req, res, next) => {
+		await AuthService.logout();
 
-        new OkResponse({
-            name: "Logout",
-            message: "Logout success!",
-        }).send(res)
-    }
+		new OkResponse({
+			name: 'Logout',
+			message: 'Logout success!',
+		}).send(res);
+	};
 }

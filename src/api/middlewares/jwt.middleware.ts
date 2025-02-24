@@ -1,34 +1,46 @@
 import { RequestHandler } from 'express';
-import { ForbiddenErrorResponse } from '../response/error.response';
+import {
+	ForbiddenErrorResponse,
+	NotFoundErrorResponse,
+} from '../response/error.response';
 import catchError from './catchError.middleware';
 import JwtService from '../services/jwt.service';
 import KeyTokenService from '../services/keyToken.service';
 
 export const checkAuth: RequestHandler = catchError(async (req, res, next) => {
-	const error = new ForbiddenErrorResponse('Permission denied!', false);
-
 	/* -------------- Get token from header ------------- */
 	const authHeader = req.headers.authorization;
-	const token = authHeader && authHeader.split(' ').at(1);
-	if (!token) throw error;
+	const accessToken = authHeader && authHeader.split(' ').at(1);
+	if (!accessToken) throw new NotFoundErrorResponse('Token not found!');
 
 	/* --------------- Parse token payload -------------- */
-	const payloadParse = JwtService.parseJwtPayload(token);
-	if (!payloadParse || !payloadParse.userId) throw error;
+	const payloadParsed = JwtService.parseJwtPayload(accessToken);
+	if (!payloadParsed || !payloadParsed.userId)
+		throw new ForbiddenErrorResponse('Invalid token payload!');
 
-	/* ------------------ Verify token ------------------ */
+	/* -------------- Check token is valid -------------- */
+	const keyToken = await KeyTokenService.getTokenByUserId(payloadParsed.userId);
+	if (!keyToken) throw new ForbiddenErrorResponse('Invalid token!');
+
 	const {
 		public_key: publicKey,
 		access_tokens: accessTokens,
 		access_tokens_banned: accessTokensBanned,
-	} = await KeyTokenService.getTokenByUserId(payloadParse.userId);
+	} = keyToken;
+
+	/* ------------ Check token in blacklist ------------ */
+	const isTokenBanned = accessToken in accessTokensBanned;
+	if (isTokenBanned) throw new ForbiddenErrorResponse('Token is banned!');
+
+	/* ------------ Check token in token list ------------ */
+	const isTokenValid = accessTokens.some(
+		({ token }: { token: string }) => accessToken === token
+	);
+	if (!isTokenValid) throw new ForbiddenErrorResponse('Token is removed!');
 
 	/* ------------ Check token in whitelist ------------ */
-	if (!publicKey || token in accessTokensBanned || !(token in accessTokens))
-		throw error;
-
-	const payload = JwtService.verifyJwt({ token, publicKey });
-	if (!payload) throw error;
+	const payload = JwtService.verifyJwt({ token: accessToken, publicKey });
+	if (!payload) throw new ForbiddenErrorResponse('Can not verify token!');
 
 	/* --------------- Attach payload to req ------------ */
 	req.userId = payload.userId;

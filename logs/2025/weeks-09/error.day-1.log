@@ -60,3 +60,29 @@
 [2025-02-24T07:52:56.310Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
 [2025-02-24T07:52:59.552Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
 [2025-02-24T08:10:49.229Z] [error]: HIDE::500::ObjectParameterError::Parameter "obj" to Document() must be an object, got "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2JjMjM5OTAxNjNlMzE2YmJlM2NiZGMiLCJyb2xlIjoiNjdiYzIzOTkwMTYzZTMxNmJiZTNjYmRiIiwiaWF0IjoxNzQwMzg0NjQ5LCJleHAiOjE3NDA0NzEwNDl9.OpDuG3NiWrxAABoG4ghhSG0AVrx42Ih5LT9YRvkfrodmVvseHeFNSycL1ucJb3R7xcaM73B8cOd6tbX6xef3MMWGlEK-D2TZQ1XIqr_6vdKp_bIBR2DvDOF3vo1nQSkCL5bRn271i3IPd6k6hTIsFT1WOc5G8saAnOByiqb4n119Yhin43KJaXJw5Ead5kwB9dQVHdN36iZvrq7gTiduJfodZ4GZjKOBVmYstoFTWEASR54M8e7hAoYW1Cn_U1JEsxYy-8QzeXVy9FzWgtHMSJKbm6NjbNIsteZ9cZAqB5VHqL8s0_-7ct7pKzun264a5ltug8k66jlIf48BmvUVdPxS_Zg3onpPQNpWC_k-INw3ZkNBuTtHPqP62peC3r32ppb86a3Rd63gWb270aqf1EZe0AiTRpIyC-RrQrNzygsfj7ozuV1odBbit7URBi4Dagn9gxNIkVjtF9Dnl49V5yknfWo803Jxhl9bRRnJC0P7l1b_GjHqKqtT-tDg6UFTChOFO8HCj_NK-A4zjNMK8jfP47ro_BIj9FyjJyF3UReHPP6FMI2YnRGD15SEQyZjdmedMOX8r7O35IukVMj4sWl0LbGHNojuDIgJxZKKuNrdoiJum9cAPhz0zHCeEZDPLqqj65IiHNoeu4WsL9L0psOTo9crZwwUNmtpewpmM70" (type string)::
+[2025-02-24T14:35:46.030Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T14:35:55.493Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T14:35:57.890Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T14:36:00.173Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T14:36:02.816Z] [error]: VISIBLE::403::Forbidden::Phone number or password is incorrect!::
+[2025-02-24T14:36:52.259Z] [error]: HIDE::403::Forbidden::Generate jwt token failed!::
+[2025-02-24T14:37:31.684Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-02-24T14:38:09.773Z] [error]: HIDE::403::Forbidden::Generate jwt token failed!::
+[2025-02-24T14:39:08.138Z] [error]: HIDE::403::Forbidden::Generate jwt token failed!::
+[2025-02-24T14:39:47.695Z] [error]: HIDE::403::Forbidden::Generate jwt token failed!::
+[2025-02-24T14:41:30.081Z] [error]: VISIBLE::403::Forbidden::Permission denied!::
+[2025-02-24T14:59:40.968Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-02-24T15:01:01.297Z] [error]: HIDE::403::Forbidden::Token is banned!::
+[2025-02-24T15:02:39.390Z] [error]: HIDE::403::Forbidden::Token is banned!::
+[2025-02-24T15:03:06.958Z] [error]: HIDE::403::Forbidden::Token is banned!::
+[2025-02-24T15:03:10.503Z] [error]: Server closed
+[2025-02-24T15:03:10.518Z] [error]: Server closed
+[2025-02-24T15:03:10.533Z] [error]: Server closed
+[2025-02-24T15:03:18.269Z] [error]: HIDE::403::Forbidden::Token is banned!::
+[2025-02-24T15:19:04.784Z] [error]: TokenExpiredError: jwt expired
+[2025-02-24T15:19:04.787Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-02-24T15:20:21.711Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-02-24T15:20:40.275Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-02-24T15:21:08.053Z] [error]: Server closed
+[2025-02-24T15:21:08.071Z] [error]: Server closed
+[2025-02-24T15:21:08.071Z] [error]: Server closed
