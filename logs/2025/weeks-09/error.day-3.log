@@ -1,0 +1,108 @@
+[2025-02-25T17:00:00.060Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:00:23.044Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:01:00.060Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:02:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:02:17.185Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:02:23.823Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:02:31.738Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:02:59.669Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:03:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:03:40.054Z] [error]: Server closed
+[2025-02-25T17:03:40.074Z] [error]: Server closed
+[2025-02-25T17:03:40.084Z] [error]: Server closed
+[2025-02-25T17:03:48.458Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:04:00.021Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:04:00.029Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:04:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:04:20.614Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:04:59.244Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:05:00.007Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:05:00.059Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:05:33.955Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:06:00.058Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:06:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:07:00.004Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:07:00.039Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:08:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:08:00.063Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:09:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:09:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:09:29.243Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-02-25T17:10:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:10:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:10:18.623Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-02-25T17:10:18.624Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-02-25T17:10:24.106Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:11:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:11:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:11:09.630Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:11:31.275Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:11:40.103Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:12:00.039Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:12:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:12:14.029Z] [error]: HIDE::500::BSONError::input must be a 24 character hex string, 12 byte Uint8Array, or an integer::
+[2025-02-25T17:12:28.529Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-02-25T17:12:59.739Z] [error]: HIDE::500::MongooseError::Operation `key_tokens.findOne()` buffering timed out after 10000ms::
+[2025-02-25T17:13:00.060Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:13:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:13:22.138Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "{ userId: '67bc9b0da22dc17929e68b07' }" (type Object) at path "user" for model "KeyToken"::
+[2025-02-25T17:14:00.015Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:14:00.054Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:14:33.193Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "SchemaObjectId {
+  path: '67bc9b0da22dc17929e68b07',
+  instance: 'ObjectId',
+  validators: [],
+  getters: [],
+  setters: [],
+  _presplitPath: [ '67bc9b0da22dc17929e68b07' ],
+  options: SchemaObjectIdOptions {},
+  _index: null,
+  [Symbol(mongoose#schemaType)]: true
+}" (type SchemaObjectId) at path "user" for model "KeyToken"::
+[2025-02-25T17:15:00.047Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:15:00.060Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:16:00.056Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:16:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:16:35.884Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "SchemaObjectId {
+  path: '67bc9b0da22dc17929e68b07',
+  instance: 'ObjectId',
+  validators: [],
+  getters: [],
+  setters: [],
+  _presplitPath: [ '67bc9b0da22dc17929e68b07' ],
+  options: SchemaObjectIdOptions {},
+  _index: null,
+  [Symbol(mongoose#schemaType)]: true
+}" (type SchemaObjectId) at path "user" for model "KeyToken"::
+[2025-02-25T17:17:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:17:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:17:02.884Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "SchemaObjectId {
+  path: '67bc9b0da22dc17929e68b07',
+  instance: 'ObjectId',
+  validators: [],
+  getters: [],
+  setters: [],
+  _presplitPath: [ '67bc9b0da22dc17929e68b07' ],
+  options: SchemaObjectIdOptions {},
+  _index: null,
+  [Symbol(mongoose#schemaType)]: true
+}" (type SchemaObjectId) at path "user" for model "KeyToken"::
+[2025-02-25T17:17:50.689Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "SchemaObjectId {
+  path: '67bc9b0da22dc17929e68b07',
+  instance: 'ObjectId',
+  validators: [],
+  getters: [],
+  setters: [],
+  _presplitPath: [ '67bc9b0da22dc17929e68b07' ],
+  options: SchemaObjectIdOptions {},
+  _index: null,
+  [Symbol(mongoose#schemaType)]: true
+}" (type SchemaObjectId) at path "user" for model "KeyToken"::
+[2025-02-25T17:18:00.049Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:18:00.063Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:18:49.512Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-02-25T17:19:00.041Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:19:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T17:19:08.039Z] [error]: Server closed
+[2025-02-25T17:19:08.066Z] [error]: Server closed
+[2025-02-25T17:19:08.070Z] [error]: Server closed

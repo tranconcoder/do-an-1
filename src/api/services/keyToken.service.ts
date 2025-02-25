@@ -12,9 +12,10 @@ export default class KeyTokenService {
 	/*                  GET TOKEN BY USER ID                 */
 	/* ===================================================== */
 	public static getTokenByUserId = async (
-		userId: string | mongoose.Types.ObjectId
+		userId: string
 	): Promise<KeyTokenModel | null> => {
-		return await keyTokenModel.findOne({ user: userId }).lean();
+		const id = new mongoose.Types.ObjectId(userId);
+		return await keyTokenModel.findOne({ user: id });
 	};
 
 	/* ===================================================== */
