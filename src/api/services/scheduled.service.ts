@@ -11,42 +11,56 @@ import LoggerService from './logger.service';
 
 // Libs
 import { CronJob } from 'cron';
+import { asyncFilter } from '../utils/array.utils';
 
 export default class ScheduledService {
 	/* ===================================================== */
 	/*          CLEANUP KEY TOKEN EXPIRED OR BANNED          */
 	/* ===================================================== */
 	private static handleCleanUpKeyToken = async () => {
-		const allKeyTokens = await keyTokenModel.find();
+		try {
+			const allKeyTokens = await keyTokenModel.find();
+			let count = 0;
 
-		allKeyTokens.forEach(async (keyToken) => {
-			const { id, refresh_tokens } = keyToken;
+			for (const keyToken of allKeyTokens) {
+				/* ------------------ Initial value ------------------ */
+				const { public_key, refresh_tokens, access_tokens } = keyToken;
 
-			try {
-				const validRefreshTokens = refresh_tokens.filter((token) => {
-					// Check expired time
-					const { expired_at: expired_at, token: refreshToken } = token;
-					const now = new Date();
+				const cleanupTokenList = async (
+					tokens: string[],
+					publicKey: string
+				) => {
+					return await asyncFilter(tokens, async (token) => {
+						const isValidToken = !!(await JwtService.verifyJwt({
+							token,
+							publicKey,
+						}));
+						if (!isValidToken) count++;
 
-					if (now > expired_at) return false;
-
-					// Check jwt valid
-					return !!JwtService.verifyJwt({
-						token: refreshToken,
-						publicKey: keyToken.public_key,
+						return isValidToken;
 					});
-				});
+				};
 
-				keyToken.set('refresh_tokens', validRefreshTokens);
+				/* ------------------ Handle cleanup ----------------- */
+				const [accessTokensCleaned, refreshTokensCleaned] = await Promise.all([
+					cleanupTokenList(access_tokens, public_key),
+					cleanupTokenList(refresh_tokens, public_key),
+				]);
+
+				/* ------------------ Save to database ----------------- */
+				keyToken.set('access_tokens', accessTokensCleaned);
+				keyToken.set('refresh_tokens', refreshTokensCleaned);
+
 				await keyToken.save();
-			} catch (error: any) {
-				const message =
-					error?.toString() ||
-					`Error: can't verify refresh token of key token ${id}`;
-
-				LoggerService.getInstance().error(message);
 			}
-		});
+
+			LoggerService.getInstance().info(
+				`Cleanup key token: ${count} tokens cleaned`
+			);
+		} catch (error) {
+			const message = error?.toString() || 'Error: cleanup key token';
+			LoggerService.getInstance().error(message);
+		}
 	};
 
 	public static cleanUpKeyTokenCronJob = CronJob.from({

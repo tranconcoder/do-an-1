@@ -2,6 +2,7 @@ import type {
 	JwtPair,
 	JwtSignArgs,
 	JwtSignPayload,
+	JwtVerifyPairArgs,
 	JwtVerityArgs,
 } from '../types/jwt';
 
@@ -13,6 +14,7 @@ import jwt from 'jsonwebtoken';
 import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '../utils/jwt.util';
 import LoggerService from './logger.service';
+import { ForbiddenErrorResponse } from '../response/error.response';
 
 export default class JwtService {
 	/* ================================================== */
@@ -43,17 +45,37 @@ export default class JwtService {
 	/* ================================================== */
 	/*                  VERIFY JWT TOKEN                  */
 	/* ================================================== */
-	public static verifyJwt = ({
+	public static verifyJwt = async ({
 		token,
 		publicKey,
-	}: JwtVerityArgs): JwtSignPayload | null => {
-		try {
-			const decoded = jwt.verify(token, publicKey);
+	}: JwtVerityArgs): Promise<JwtSignPayload | null> => {
+		return new Promise((resolve) => {
+			jwt.verify(token, publicKey, (error, decoded) => {
+				if (error) resolve(null);
+				else resolve(decoded as JwtSignPayload);
+			});
+		});
+	};
+	public static verifyJwtPair = async ({
+		accessToken,
+		refreshToken,
+		publicKey,
+	}: JwtVerifyPairArgs) => {
+		const [decodedAccessToken, decodedRefreshToken] = await Promise.all([
+			this.verifyJwt({ token: accessToken, publicKey }),
+			this.verifyJwt({ token: refreshToken, publicKey }),
+		]);
 
-			return decoded as JwtSignPayload;
-		} catch (error) {
-			return null;
+		if (
+			decodedAccessToken?.userId !== decodedRefreshToken?.userId ||
+			decodedAccessToken?.role !== decodedRefreshToken?.role
+		) {
+			throw new ForbiddenErrorResponse(
+				"Access token and refresh token don't match"
+			);
 		}
+
+		return decodedAccessToken as JwtSignPayload;
 	};
 
 	/* ================================================== */

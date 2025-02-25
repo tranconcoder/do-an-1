@@ -1,7 +1,7 @@
-import { NextFunction, RequestHandler, Request, Response } from 'express';
+import type { RequestHandler } from 'express';
 
 export default function catchError(cb: RequestHandler): RequestHandler {
-	return async (req: Request, res: Response, next: NextFunction) => {
+	return async (req, res, next) => {
 		try {
 			await cb(req, res, next);
 		} catch (err) {

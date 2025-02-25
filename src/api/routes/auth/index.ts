@@ -4,15 +4,19 @@ import { Router } from 'express';
 import AuthController from '../../controllers/auth.controller';
 
 // Joi
-import signUpSchema from '../../validations/joi/signUp.joi';
-import loginSchema from '../../validations/joi/login.joi';
+import {
+	loginSchema,
+	signUpSchema,
+	logoutSchema,
+} from '../../validations/joi/auth.joi';
 
 // Middlewares
 import catchError from '../../middlewares/catchError.middleware';
 import joiValidate from '../../middlewares/joiValidate.middleware';
-import { checkAuth } from '../../middlewares/jwt.middleware';
+import { authenticate } from '../../middlewares/jwt.middleware';
 
 const authRoute = Router();
+const authRouteValidate = Router();
 
 authRoute.post(
 	'/sign-up',
@@ -24,6 +28,17 @@ authRoute.post(
 	joiValidate(loginSchema),
 	catchError(AuthController.login)
 );
-authRoute.post('/logout', checkAuth, catchError(AuthController.logout));
+authRoute.use(authRouteValidate);
+
+/* ====================================================== */
+/*                     VALIDATE ROUTE                     */
+/* ====================================================== */
+authRouteValidate.use(authenticate);
+
+authRouteValidate.post(
+	'/logout',
+	joiValidate(logoutSchema),
+	catchError(AuthController.logout)
+);
 
 export default authRoute;

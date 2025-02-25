@@ -1,5 +1,5 @@
+import { RemoveRefreshTokenArgs } from './../types/keyToken.d';
 import { SaveKeyTokenArgs, SaveNewJwtTokenArgs } from '../types/keyToken';
-import { ObjectAnyKeys } from '../types/object';
 
 // Libs
 import crypto from 'crypto';
@@ -14,10 +14,8 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	public static getTokenByUserId = async (
 		userId: string | mongoose.Types.ObjectId
-	): Promise<KeyTokenModel | ObjectAnyKeys> => {
-		const keyToken = await keyTokenModel.findOne({ user: userId }).lean();
-
-		return keyToken ? keyToken : {};
+	): Promise<KeyTokenModel | null> => {
+		return await keyTokenModel.findOne({ user: userId }).lean();
 	};
 
 	/* ===================================================== */
@@ -34,11 +32,11 @@ export default class KeyTokenService {
 			user: userId,
 			private_key: privateKey,
 			public_key: publicKey,
-			access_tokens: [{ token: accessToken }],
-			refresh_tokens: [{ token: refreshToken }],
+			access_tokens: [accessToken],
+			refresh_tokens: [refreshToken],
 		});
 
-		return keyToken._id;
+		return keyToken ? keyToken._id : null;
 	};
 
 	/* ===================================================== */
@@ -53,8 +51,8 @@ export default class KeyTokenService {
 			{ user: userId },
 			{
 				$push: {
-					access_tokens: { token: accessToken },
-					refresh_tokens: { token: refreshToken },
+					access_tokens: accessToken,
+					refresh_tokens: refreshToken,
 				},
 			}
 		);
@@ -77,5 +75,18 @@ export default class KeyTokenService {
 				format: 'pem',
 			},
 		});
+	};
+
+	/* ===================================================== */
+	/*                  REMOVE REFRESH TOKEN                 */
+	/* ===================================================== */
+	public static removeRefreshToken = async ({
+		userId,
+		refreshToken,
+	}: RemoveRefreshTokenArgs) => {
+		return await keyTokenModel.updateOne(
+			{ user: userId },
+			{ $pull: { refresh_tokens: refreshToken } }
+		);
 	};
 }

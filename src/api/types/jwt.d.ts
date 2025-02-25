@@ -27,6 +27,10 @@ export interface JwtVerityArgs {
 	publicKey: PublicKey;
 }
 
+export interface JwtVerifyPairArgs extends JwtPair {
+	publicKey: PublicKey;
+}
+
 export interface JwtPair {
 	accessToken: string;
 	refreshToken: string;

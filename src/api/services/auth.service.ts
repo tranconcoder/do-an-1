@@ -1,5 +1,10 @@
 import type { ObjectAnyKeys } from '../types/object';
-import type { SignUpSchema } from '../validations/joi/signUp.joi';
+import type {
+	LoginSchema,
+	LogoutSchema,
+	SignUpSchema,
+} from '../validations/joi/auth.joi';
+import type { JwtPair } from '../types/jwt';
 
 // Libs
 import mongoose from 'mongoose';
@@ -11,6 +16,8 @@ import {
 	ForbiddenErrorResponse,
 } from '../response/error.response';
 
+// Schema
+
 // Configs
 import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 
@@ -18,8 +25,6 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
-import { JwtPair } from '../types/jwt';
-import { LoginSchema } from '../validations/joi/login.joi';
 
 export default class AuthService {
 	/* ===================================================== */
@@ -97,9 +102,13 @@ export default class AuthService {
 			throw new ForbiddenErrorResponse('Password is wrong!');
 
 		/* --------- Generate token and send response --------- */
-		const { private_key } = await KeyTokenService.getTokenByUserId(user._id);
+		const keyToken = await KeyTokenService.getTokenByUserId(user._id);
+		if (!keyToken)
+			throw new ForbiddenErrorResponse('Error while get keyToken!');
+
+		/* -------------- Generate jwt token pair ------------- */
 		const jwtTokenPair = await JwtService.generateJwtPair({
-			privateKey: private_key,
+			privateKey: keyToken.private_key,
 			payload: {
 				userId: user._id.toString(),
 				role: user.role.toString(),
@@ -122,5 +131,31 @@ export default class AuthService {
 	/* ===================================================== */
 	/*                         LOGOUT                        */
 	/* ===================================================== */
-	public static logout = async () => {};
+	public static logout = async ({
+		userId,
+		refreshToken,
+	}: LogoutSchema & { userId: string }) => {
+		/* ------------------ Check key token ----------------- */
+		const keyToken = await KeyTokenService.getTokenByUserId(userId);
+		if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
+
+		/* --------------- Verify jwt token pair -------------- */
+		const decoded = await JwtService.verifyJwt({
+			token: refreshToken,
+			publicKey: keyToken.public_key,
+		});
+		if (decoded?.userId !== userId)
+			throw new ForbiddenErrorResponse('Refresh token payload is invalid!');
+
+		/* ------------ Check refresh in valid list ----------- */
+		const isTokenInValidList = refreshToken in keyToken.refresh_tokens;
+		if (!isTokenInValidList)
+			throw new ForbiddenErrorResponse('Refresh token is invalid!');
+
+		/* ----- Handle remove refresh token in valid list ---- */
+		await KeyTokenService.removeRefreshToken({
+			userId,
+			refreshToken,
+		});
+	};
 }

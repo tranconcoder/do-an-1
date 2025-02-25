@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import ErrorResponse from '../response/error.response';
 
 export default function joiValidate(joiSchema: Schema) {
-	return async (req: Request, res: Response, next: NextFunction) => {
+	return async (req: Request, _: Response, next: NextFunction) => {
 		try {
 			await joiSchema.validate(req.body);
 

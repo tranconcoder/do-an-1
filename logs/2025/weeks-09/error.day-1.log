@@ -86,3 +86,18 @@
 [2025-02-24T15:21:08.053Z] [error]: Server closed
 [2025-02-24T15:21:08.071Z] [error]: Server closed
 [2025-02-24T15:21:08.071Z] [error]: Server closed
+[2025-02-24T15:56:00.093Z] [error]: TypeError: Cannot read properties of undefined (reading 'filter')
+[2025-02-24T15:57:00.128Z] [error]: TypeError: Cannot read properties of undefined (reading 'filter')
+[2025-02-24T15:58:00.152Z] [error]: TypeError: Cannot read properties of undefined (reading 'filter')
+[2025-02-24T15:58:45.760Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-02-24T15:58:52.920Z] [error]: HIDE::500::CastError::Cast to [string] failed for value "[\n' +
+  '  {\n' +
+  "    token: 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2JjODRkOWU4ZjhlMzRhODhiOWYwYWYiLCJyb2xlIjoiNjdiYzg0ZDllOGY4ZTM0YTg4YjlmMGFlIiwiaWF0IjoxNzQwNDEyNzMyLCJleHAiOjE3NDA0OTkxMzJ9.RInt7EoVJNr-T_izDP4lNlgwoZrC49pXwsw1_ypV3ZPnflmuLNedQ5KAdl539jUfByrbZUlVdQvVFAWepAdybGrAR1eqnDflP5W0LmvIFMEj40jg0gfo9S5kcJS4S2kH7UKfqWYDrY1c3I7Uxie9JE3acZN7I6qFz-_9tcQ4TWfzDoRUgeQG3NLMnpCr4Q-cUHDQCtJzhaU8i_3yG9k4p2ymbKTf7by3J0tTJay4o94QsJb9wMQ6hpBHg6QShI-RLRWMnrRIquWix6P89hfaOcqO72HkjfxEAFfUZgPbs0r9A3z9yCG2PnTOSw6KjHwdcbb-ylfAVRG_bEWDi9F14WInCjqpDh49Tqjj3HkRySGH_QU0lKwQQ90Js9_xgl7OFPQ43oinzlZ_K6scTfw_nHsyHunG6fdDKW5BqnukkIMJkBbm7IPX9sYKJrfxu8RyjNfQzkQeuHiAnkN7PPPY3t6ZMJw-ONh5McVRw-cSbAVf2DvYGZSzuNUoQ0BIjbtxKKdiAs3Cs5gH2_3aOlrfON32gB2ccUQfdwXqAypQ35Ob9E4XvPgzR-btcmnJL-weIrvCe69eZeUQl3YrovsZReBkhm-BIzQDIwUOnh_HDxwvCScW04gXTqfr6eDiar3U4USXkpid6QB6oKNX8Adri0v3xKk95LnTolBb0RYyZ7E'\n" +
+  '  }\n' +
+  ']" (type string) at path "refresh_tokens.0" because of "CastError"::
+[2025-02-24T15:59:00.102Z] [error]: TypeError: Cannot read properties of undefined (reading 'filter')
+[2025-02-24T16:00:00.103Z] [error]: TypeError: Cannot read properties of undefined (reading 'filter')
+[2025-02-24T16:15:23.201Z] [error]: HIDE::403::Forbidden::Token is removed!::
+[2025-02-24T16:15:24.707Z] [error]: HIDE::403::Forbidden::Token is removed!::
+[2025-02-24T16:15:25.560Z] [error]: HIDE::403::Forbidden::Token is removed!::
+[2025-02-24T16:15:46.919Z] [error]: HIDE::403::Forbidden::Token is removed!::

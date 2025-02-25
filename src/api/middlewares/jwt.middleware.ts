@@ -1,4 +1,3 @@
-import { RequestHandler } from 'express';
 import {
 	ForbiddenErrorResponse,
 	NotFoundErrorResponse,
@@ -7,7 +6,7 @@ import catchError from './catchError.middleware';
 import JwtService from '../services/jwt.service';
 import KeyTokenService from '../services/keyToken.service';
 
-export const checkAuth: RequestHandler = catchError(async (req, res, next) => {
+export const authenticate = catchError(async (req, res, next) => {
 	/* -------------- Get token from header ------------- */
 	const authHeader = req.headers.authorization;
 	const accessToken = authHeader && authHeader.split(' ').at(1);
@@ -22,24 +21,17 @@ export const checkAuth: RequestHandler = catchError(async (req, res, next) => {
 	const keyToken = await KeyTokenService.getTokenByUserId(payloadParsed.userId);
 	if (!keyToken) throw new ForbiddenErrorResponse('Invalid token!');
 
-	const {
-		public_key: publicKey,
-		access_tokens: accessTokens,
-		access_tokens_banned: accessTokensBanned,
-	} = keyToken;
-
-	/* ------------ Check token in blacklist ------------ */
-	const isTokenBanned = accessToken in accessTokensBanned;
-	if (isTokenBanned) throw new ForbiddenErrorResponse('Token is banned!');
-
 	/* ------------ Check token in token list ------------ */
-	const isTokenValid = accessTokens.some(
-		({ token }: { token: string }) => accessToken === token
-	);
+	const { public_key: publicKey, access_tokens: accessTokens } = keyToken;
+	console.log({
+		accessTokens,
+		accessToken,
+	});
+	const isTokenValid = accessToken in accessTokens;
 	if (!isTokenValid) throw new ForbiddenErrorResponse('Token is removed!');
 
 	/* ------------ Check token in whitelist ------------ */
-	const payload = JwtService.verifyJwt({ token: accessToken, publicKey });
+	const payload = await JwtService.verifyJwt({ token: accessToken, publicKey });
 	if (!payload) throw new ForbiddenErrorResponse('Can not verify token!');
 
 	/* --------------- Attach payload to req ------------ */
