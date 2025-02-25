@@ -28,19 +28,28 @@ export default class KeyTokenService {
 		accessToken,
 		refreshToken,
 	}: SaveKeyTokenArgs) => {
-		const keyToken = await keyTokenModel.create({
-			user: userId,
-			private_key: privateKey,
-			public_key: publicKey,
-			access_tokens: [accessToken],
-			refresh_tokens: [refreshToken],
-		});
+		const keyToken = await keyTokenModel.findOneAndReplace(
+			{
+				user: userId,
+			},
+			{
+				user: userId,
+				private_key: privateKey,
+				public_key: publicKey,
+				access_tokens: [accessToken],
+				refresh_tokens: [refreshToken],
+			},
+			{
+				upsert: true,
+				returnDocument: 'after',
+			}
+		);
 
 		return keyToken ? keyToken._id : null;
 	};
 
 	/* ===================================================== */
-	/*           SAVE NEW TOKEN GENERATED ON LOGIN           */
+	/*           		SAVE NEW TOKEN GENERATED 		  */
 	/* ===================================================== */
 	public static saveNewJwtToken = async ({
 		userId,

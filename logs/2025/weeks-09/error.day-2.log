@@ -49,3 +49,7 @@
 [2025-02-25T12:42:22.744Z] [error]: HIDE::403::Forbidden::jwt expired::
 [2025-02-25T15:02:00.136Z] [error]: ValidationError: access_tokens.0: Cast to [string] failed for value "[ Promise { <pending> } ]" (type string) at path "access_tokens.0" because of "CastError", refresh_tokens.0: Cast to [string] failed for value "[ Promise { <pending> } ]" (type string) at path "refresh_tokens.0" because of "CastError"
 [2025-02-25T15:03:00.104Z] [error]: ValidationError: access_tokens.0: Cast to [string] failed for value "[ Promise { <pending> } ]" (type string) at path "access_tokens.0" because of "CastError", refresh_tokens.0: Cast to [string] failed for value "[ Promise { <pending> } ]" (type string) at path "refresh_tokens.0" because of "CastError"
+[2025-02-25T15:41:36.285Z] [error]: HIDE::403::Forbidden::Error while get keyToken!::
+[2025-02-25T16:42:51.649Z] [error]: Server closed
+[2025-02-25T16:42:51.668Z] [error]: Server closed
+[2025-02-25T16:42:51.668Z] [error]: Server closed

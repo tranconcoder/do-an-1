@@ -14,7 +14,7 @@ export default class AuthController {
 	};
 
 	/* ===================================================== */
-	/*                         LOGIN;                        */
+	/*                         LOGIN                         */
 	/* ===================================================== */
 	public static login: RequestHandler = async (req, res, next) => {
 		new OkResponse({

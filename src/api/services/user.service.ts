@@ -6,7 +6,7 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 
 export default class UserService {
-	public static findOneUser = async (query: RootFilterQuery<UserModel>) => {
+	public static findOne = async (query: RootFilterQuery<UserModel>) => {
 		return await userModel.findOne(query).lean();
 	};
 

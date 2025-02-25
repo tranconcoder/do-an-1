@@ -9,14 +9,13 @@ import type { JwtPair } from '../types/jwt';
 // Libs
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import _ from 'lodash';
 
 // Handle error
 import {
 	NotFoundErrorResponse,
 	ForbiddenErrorResponse,
 } from '../response/error.response';
-
-// Schema
 
 // Configs
 import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
@@ -25,6 +24,7 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
+import { LoginResponse } from '../types/auth';
 
 export default class AuthService {
 	/* ===================================================== */
@@ -90,9 +90,9 @@ export default class AuthService {
 	public static login = async ({
 		phoneNumber,
 		password,
-	}: LoginSchema): Promise<JwtPair> => {
+	}: LoginSchema): Promise<LoginResponse> => {
 		/* -------------- Check if user is exists ------------- */
-		const user = await UserService.findOneUser({ phoneNumber });
+		const user = await UserService.findOne({ phoneNumber });
 		if (!user) throw new NotFoundErrorResponse('User not found!');
 
 		/* ------------------ Check password ------------------ */
@@ -102,30 +102,30 @@ export default class AuthService {
 			throw new ForbiddenErrorResponse('Password is wrong!');
 
 		/* --------- Generate token and send response --------- */
-		const keyToken = await KeyTokenService.getTokenByUserId(user._id);
-		if (!keyToken)
-			throw new ForbiddenErrorResponse('Error while get keyToken!');
-
-		/* -------------- Generate jwt token pair ------------- */
-		const jwtTokenPair = await JwtService.generateJwtPair({
-			privateKey: keyToken.private_key,
+		const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
+		const jwtPair = await JwtService.generateJwtPair({
+			privateKey,
 			payload: {
 				userId: user._id.toString(),
 				role: user.role.toString(),
 			},
 		});
-		if (!jwtTokenPair)
+		if (!jwtPair)
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 
-		/* ------ Save jwt token pair to key token model ------ */
-		const saveNewTokenSuccess = await KeyTokenService.saveNewJwtToken({
+		/* ---------------- Save new key token ---------------- */
+		const keyTokenId = await KeyTokenService.saveKeyToken({
 			userId: user._id.toString(),
-			...jwtTokenPair,
+			privateKey,
+			publicKey,
+			...jwtPair,
 		});
-		if (!saveNewTokenSuccess)
-			throw new ForbiddenErrorResponse('Save jwt token failed!');
+		if (!keyTokenId) throw new ForbiddenErrorResponse('Save key token failed!');
 
-		return jwtTokenPair;
+		return {
+			user: user,
+			token: jwtPair,
+		};
 	};
 
 	/* ===================================================== */

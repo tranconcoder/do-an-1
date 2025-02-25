@@ -24,31 +24,23 @@ export default class ScheduledService {
 
 			for (const keyToken of allKeyTokens) {
 				/* ------------------ Initial value ------------------ */
-				const { public_key, refresh_tokens, access_tokens } = keyToken;
-
-				const cleanupTokenList = async (
-					tokens: string[],
-					publicKey: string
-				) => {
-					return await asyncFilter(tokens, async (token) => {
-						const isValidToken = !!(await JwtService.verifyJwt({
-							token,
-							publicKey,
-						}));
-						if (!isValidToken) count++;
-
-						return isValidToken;
-					});
-				};
+				const { public_key, refresh_tokens } = keyToken;
 
 				/* ------------------ Handle cleanup ----------------- */
-				const [accessTokensCleaned, refreshTokensCleaned] = await Promise.all([
-					cleanupTokenList(access_tokens, public_key),
-					cleanupTokenList(refresh_tokens, public_key),
-				]);
+				const refreshTokensCleaned = await asyncFilter(
+					refresh_tokens,
+					async (token) => {
+						const isTokenValid = !!(await JwtService.verifyJwt({
+							token,
+							publicKey: public_key,
+						}));
+						if (isTokenValid) count++;
+
+						return isTokenValid;
+					}
+				);
 
 				/* ------------------ Save to database ----------------- */
-				keyToken.set('access_tokens', accessTokensCleaned);
 				keyToken.set('refresh_tokens', refreshTokensCleaned);
 
 				await keyToken.save();

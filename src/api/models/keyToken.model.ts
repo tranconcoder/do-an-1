@@ -17,10 +17,6 @@ const keyTokenSchemaDefinition = {
 		type: String,
 		required: true,
 	},
-	access_tokens: {
-		type: [{ type: String, required: true }],
-		default: [],
-	},
 	refresh_tokens: {
 		type: [{ type: String, required: true }],
 		default: [],
