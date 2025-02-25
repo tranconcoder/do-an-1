@@ -53,3 +53,14 @@
 [2025-02-25T16:42:51.649Z] [error]: Server closed
 [2025-02-25T16:42:51.668Z] [error]: Server closed
 [2025-02-25T16:42:51.668Z] [error]: Server closed
+[2025-02-25T16:43:00.015Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:44:00.040Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:45:00.034Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:46:00.063Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:47:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:48:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:49:00.045Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:49:43.835Z] [error]: HIDE::500::TypeError::Cannot use 'in' operator to search for 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2JjOWIwZGEyMmRjMTc5MjllNjhiMDciLCJyb2xlIjoiNjdiYzliMGRhMjJkYzE3OTI5ZTY4YjA2IiwiaWF0IjoxNzQwNTAyMTY2LCJleHAiOjE3NDA1MDMwNjZ9.SDVcFnU0zpor5nVnrL1DZj0Bd6YwvcIl4apmoeBIBY9KF4aTZz6yVPBv9gksgakwULnHSib6AEkQ6E4_G5YhYyXw5VgqVd73_T3HuoHmDENKIs3TOtUBRrFfppfa8EhRYhifOT-22svzaNdDOtpDvAW9Y1unlR21CsgZeaQvTpLIdi7DEsWUMKKNfcc0IK8eLMT6ILjA0XRAWzCZFmw_nFuY067437xBeJcr6E0ZK5Czv4_SnzIFh2lLkoq-sRL_eyVkmbsrRM2q3FZsEyE83gQgVVu7oNHZR3c0p8XTYHJa7JGmBGb0C6smeizeVT7Gfhn6rJCxEa8DIgC5FfImZjbjqxSTrqgSilxzSEY-5Q--X3TB-yOIptXnIr4K1GeJAsOzOaWdoAWG1RgXGAC-lz2etR6MNpFNifJNPnu4aCnFjWfZYuaVuQKDFryaVgwuxpp4TCWiQk3XAyIXfW_3Cgyyr2-6cvqR7wkwJHePhmNgf6EkZRi6Akz-nR6eBEed6uQ6ujzXaWT--8hXLsdhEr8vSuX99aCRHry4yCCNtju7wE-g6R90GfOROY75bs-GrKwDjbmPTlLvbxd9sR5t9OGgwvNXZqQrli7euTJkm96Z68KSROynqTY-tBvxDRwOMBVSsh5a5-i-mqJVnqGwgvcexoOtNxYS3X2Wkxgkz3k' in undefined::
+[2025-02-25T16:50:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:51:00.062Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-25T16:52:00.061Z] [error]: MongoNotConnectedError: Client must be connected before running operations

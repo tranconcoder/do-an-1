@@ -29,7 +29,6 @@ export default class AuthController {
 	public static logout: RequestHandler = async (req, res, next) => {
 		await AuthService.logout({
 			userId: req.userId || '',
-			refreshToken: req.body.refreshToken,
 		});
 
 		new OkResponse({

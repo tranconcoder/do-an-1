@@ -1,9 +1,5 @@
 import type { ObjectAnyKeys } from '../types/object';
-import type {
-	LoginSchema,
-	LogoutSchema,
-	SignUpSchema,
-} from '../validations/joi/auth.joi';
+import type { LoginSchema, SignUpSchema } from '../validations/joi/auth.joi';
 import type { JwtPair } from '../types/jwt';
 
 // Libs
@@ -131,31 +127,8 @@ export default class AuthService {
 	/* ===================================================== */
 	/*                         LOGOUT                        */
 	/* ===================================================== */
-	public static logout = async ({
-		userId,
-		refreshToken,
-	}: LogoutSchema & { userId: string }) => {
-		/* ------------------ Check key token ----------------- */
-		const keyToken = await KeyTokenService.getTokenByUserId(userId);
-		if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
-
-		/* --------------- Verify jwt token pair -------------- */
-		const decoded = await JwtService.verifyJwt({
-			token: refreshToken,
-			publicKey: keyToken.public_key,
-		});
-		if (decoded?.userId !== userId)
-			throw new ForbiddenErrorResponse('Refresh token payload is invalid!');
-
-		/* ------------ Check refresh in valid list ----------- */
-		const isTokenInValidList = refreshToken in keyToken.refresh_tokens;
-		if (!isTokenInValidList)
-			throw new ForbiddenErrorResponse('Refresh token is invalid!');
-
+	public static logout = async (userId: string) => {
 		/* ----- Handle remove refresh token in valid list ---- */
-		await KeyTokenService.removeRefreshToken({
-			userId,
-			refreshToken,
-		});
+		return await KeyTokenService.removeKeyTokenByUserId(userId);
 	};
 }

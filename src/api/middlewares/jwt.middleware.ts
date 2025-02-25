@@ -17,21 +17,15 @@ export const authenticate = catchError(async (req, res, next) => {
 	if (!payloadParsed || !payloadParsed.userId)
 		throw new ForbiddenErrorResponse('Invalid token payload!');
 
-	/* -------------- Check token is valid -------------- */
+	/* ------------ Check key token is valid ------------- */
 	const keyToken = await KeyTokenService.getTokenByUserId(payloadParsed.userId);
 	if (!keyToken) throw new ForbiddenErrorResponse('Invalid token!');
 
-	/* ------------ Check token in token list ------------ */
-	const { public_key: publicKey, access_tokens: accessTokens } = keyToken;
-	console.log({
-		accessTokens,
-		accessToken,
+	/* -------------------- Verify token ------------------- */
+	const payload = await JwtService.verifyJwt({
+		token: accessToken,
+		publicKey: keyToken.public_key,
 	});
-	const isTokenValid = accessToken in accessTokens;
-	if (!isTokenValid) throw new ForbiddenErrorResponse('Token is removed!');
-
-	/* ------------ Check token in whitelist ------------ */
-	const payload = await JwtService.verifyJwt({ token: accessToken, publicKey });
 	if (!payload) throw new ForbiddenErrorResponse('Can not verify token!');
 
 	/* --------------- Attach payload to req ------------ */

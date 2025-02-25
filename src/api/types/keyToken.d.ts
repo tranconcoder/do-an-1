@@ -18,8 +18,3 @@ export interface SaveNewJwtTokenArgs {
 	accessToken: string;
 	refreshToken: string;
 }
-
-export interface RemoveRefreshTokenArgs {
-	userId: string;
-	refreshToken: string;
-}

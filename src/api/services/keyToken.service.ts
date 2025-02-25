@@ -1,4 +1,3 @@
-import { RemoveRefreshTokenArgs } from './../types/keyToken.d';
 import { SaveKeyTokenArgs, SaveNewJwtTokenArgs } from '../types/keyToken';
 
 // Libs
@@ -89,13 +88,9 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*                  REMOVE REFRESH TOKEN                 */
 	/* ===================================================== */
-	public static removeRefreshToken = async ({
-		userId,
-		refreshToken,
-	}: RemoveRefreshTokenArgs) => {
-		return await keyTokenModel.updateOne(
-			{ user: userId },
-			{ $pull: { refresh_tokens: refreshToken } }
-		);
+	public static removeKeyTokenByUserId = async (userId: string) => {
+		return await keyTokenModel.deleteOne({
+			user: userId,
+		});
 	};
 }

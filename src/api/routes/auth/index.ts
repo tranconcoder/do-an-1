@@ -4,11 +4,7 @@ import { Router } from 'express';
 import AuthController from '../../controllers/auth.controller';
 
 // Joi
-import {
-	loginSchema,
-	signUpSchema,
-	logoutSchema,
-} from '../../validations/joi/auth.joi';
+import { loginSchema, signUpSchema } from '../../validations/joi/auth.joi';
 
 // Middlewares
 import catchError from '../../middlewares/catchError.middleware';
@@ -35,10 +31,6 @@ authRoute.use(authRouteValidate);
 /* ====================================================== */
 authRouteValidate.use(authenticate);
 
-authRouteValidate.post(
-	'/logout',
-	joiValidate(logoutSchema),
-	catchError(AuthController.logout)
-);
+authRouteValidate.post('/logout', catchError(AuthController.logout));
 
 export default authRoute;

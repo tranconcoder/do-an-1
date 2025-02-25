@@ -25,11 +25,3 @@ export const signUpSchema = loginSchema.keys({
 	fullName: Joi.string().required().min(4).max(30),
 });
 export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
-
-/* ====================================================== */
-/*                      LOGOUT SCHEMA                     */
-/* ====================================================== */
-export const logoutSchema = Joi.object({
-	refreshToken: Joi.string().required(),
-});
-export type LogoutSchema = Joi.extractType<typeof logoutSchema>;
