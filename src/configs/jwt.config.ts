@@ -1,10 +1,16 @@
-import { JwtPayload, SignOptions } from 'jsonwebtoken';
+import { JwtConfig } from "../api/types/jwt";
 
-export const ACCESS_TOKEN_SIGN_OPTIONS: SignOptions = {
-	expiresIn: 15 * 60, // 15 minutes
-	algorithm: 'RS256',
-};
-export const REFRESH_TOKEN_SIGN_OPTIONS: SignOptions = {
-	expiresIn: 24 * 60 * 60, // 1 day
-	algorithm: 'RS512',
-};
+export default {
+    accessToken: {
+        options: {
+            expiresIn: 15 * 60, // 15 minutes
+            algorithm: "RS256",
+        },
+    },
+    refreshToken: {
+        options: {
+            expiresIn: 1 * 24 * 60 * 60, // 1 day
+            algorithm: "RS512",
+        },
+    }
+} as JwtConfig;

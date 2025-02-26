@@ -1,6 +1,5 @@
 import * as Joi from '@hapi/joi';
 import 'joi-extract-type';
-import { Schema } from 'mongoose';
 
 /* ====================================================== */
 /*                      LOGIN SCHEMA                      */
@@ -25,3 +24,11 @@ export const signUpSchema = loginSchema.keys({
 	fullName: Joi.string().required().min(4).max(30),
 });
 export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
+
+/* ====================================================== */
+/*                      NEW TOKEN SCHEMA                  */
+/* ====================================================== */
+export const newTokenSchema = Joi.object({
+	refreshToken: Joi.string().required(),
+});
+export type NewTokenSchema = Joi.extractType<typeof newTokenSchema>;

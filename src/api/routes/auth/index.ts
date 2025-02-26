@@ -1,36 +1,56 @@
-import { Router } from 'express';
+import { Router } from "express";
 
 // Controllers
-import AuthController from '../../controllers/auth.controller';
+import AuthController from "../../controllers/auth.controller";
 
 // Joi
-import { loginSchema, signUpSchema } from '../../validations/joi/auth.joi';
+import {
+    loginSchema,
+    newTokenSchema,
+    signUpSchema,
+} from "../../validations/joi/auth.joi";
 
 // Middlewares
-import catchError from '../../middlewares/catchError.middleware';
-import joiValidate from '../../middlewares/joiValidate.middleware';
-import { authenticate } from '../../middlewares/jwt.middleware';
+import catchError from "../../middlewares/catchError.middleware";
+import joiValidate from "../../middlewares/joiValidate.middleware";
+import { authenticate } from "../../middlewares/jwt.middleware";
 
 const authRoute = Router();
 const authRouteValidate = Router();
 
 authRoute.post(
-	'/sign-up',
-	joiValidate(signUpSchema),
-	catchError(AuthController.signUp)
+    "/sign-up",
+    joiValidate(signUpSchema),
+    catchError(AuthController.signUp)
 );
+
 authRoute.post(
-	'/login',
-	joiValidate(loginSchema),
-	catchError(AuthController.login)
+    "/login",
+    joiValidate(loginSchema),
+    catchError(AuthController.login)
 );
-authRoute.use(authRouteValidate);
+
+authRoute.post(
+    "/new-access-token",
+    joiValidate(newTokenSchema),
+    catchError(AuthController.newAccessToken)
+);
+
+authRoute.post(
+    "/new-refresh-token",
+    joiValidate(newTokenSchema),
+    catchError(AuthController.newRefreshToken)
+)
+
+
 
 /* ====================================================== */
 /*                     VALIDATE ROUTE                     */
 /* ====================================================== */
+authRoute.use(authRouteValidate);
+
 authRouteValidate.use(authenticate);
 
-authRouteValidate.post('/logout', catchError(AuthController.logout));
+authRouteValidate.post("/logout", catchError(AuthController.logout));
 
 export default authRoute;

@@ -20,7 +20,7 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
-import { LoginResponse } from '../types/auth';
+import { LoginResponse, NewTokenArgs } from '../types/auth';
 
 export default class AuthService {
 	/* ===================================================== */
@@ -129,6 +129,58 @@ export default class AuthService {
 	/* ===================================================== */
 	public static logout = async (userId: string) => {
 		/* ----- Handle remove refresh token in valid list ---- */
-		return await KeyTokenService.removeKeyTokenByUserId(userId);
+		return await KeyTokenService.deleteKeyTokenByUserId(userId);
+	};
+
+	/* ===================================================== */
+	/*                       NEW TOKEN                       */
+	/* ===================================================== */
+	public static newToken = async ({ refreshToken, type }: NewTokenArgs) => {
+		/* -------------- Get user info in token -------------- */
+		const payload = JwtService.parseJwtPayload(refreshToken);
+		if (!payload)
+			throw new ForbiddenErrorResponse('Token is not generate by server!');
+
+		/* ------------- Find key token by user id ------------ */
+		const keyToken = await KeyTokenService.findTokenByUserId(payload.userId);
+		if (!keyToken) throw new NotFoundErrorResponse('Token not found!');
+
+		/* --------------- Verify refresh token --------------- */
+		const decoded = await JwtService.verifyJwt({
+			publicKey: keyToken.public_key,
+			token: refreshToken,
+		});
+		if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
+
+		/* --------- Check refresh token in valid list -------- */
+		const isTokenInValidList = keyToken.refresh_tokens.includes(refreshToken);
+		if (!isTokenInValidList) {
+			// ALERT: Token was stolen!!!
+			// Clean up keyToken
+			KeyTokenService.deleteKeyTokenByUserId(payload.userId);
+
+			throw new ForbiddenErrorResponse('Token was deleted!');
+		}
+
+		/* ---------------- Generate new token ---------------- */
+		const token = await JwtService.generateJwt({
+			privateKey: keyToken.private_key,
+			payload: _.pick(decoded, ['userId', 'role']),
+			type: type,
+		});
+		if (!token) throw new ForbiddenErrorResponse('Generate token failed!');
+
+		/* ------- Save new refresh token to valid list ------- */
+		if (type === 'refreshToken') {
+			KeyTokenService.replaceRefreshTokenWithNew({
+				userId: decoded.userId,
+				refreshToken: token,
+				oldRefreshToken: refreshToken,
+			});
+		}
+
+		return {
+			[type]: token,
+		};
 	};
 }

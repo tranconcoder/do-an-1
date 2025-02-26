@@ -34,7 +34,7 @@ export default class ScheduledService {
 							token,
 							publicKey: public_key,
 						}));
-						if (isTokenValid) count++;
+						if (!isTokenValid) count++;
 
 						return isTokenValid;
 					}

@@ -1,5 +1,5 @@
+import { JwtPayloadSchema } from './../validations/joi/jwt.joi';
 import { JwtPayload, PrivateKey, SignOptions } from 'jsonwebtoken';
-import { JwtSignPayload } from '../types/jwt';
 
 // JWT
 import jwt from 'jsonwebtoken';
@@ -21,9 +21,9 @@ export const jwtSignAsync = async (
 	});
 };
 
-export const jwtParse = (token: string): JwtSignPayload | null => {
+export const jwtParse = (token: string): JwtPayloadSchema | null => {
 	try {
-		return jwtDecode<JwtSignPayload>(token);
+		return jwtDecode<JwtPayloadSchema>(token);
 	} catch (error) {
 		return null;
 	}

@@ -1,4 +1,7 @@
-import { SaveKeyTokenArgs, SaveNewJwtTokenArgs } from '../types/keyToken';
+import {
+	ReplaceRefreshTokenWithNewArgs,
+	SaveKeyTokenArgs,
+} from '../types/keyToken';
 
 // Libs
 import crypto from 'crypto';
@@ -11,7 +14,7 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*                  GET TOKEN BY USER ID                 */
 	/* ===================================================== */
-	public static getTokenByUserId = async (
+	public static findTokenByUserId = async (
 		userId: string
 	): Promise<KeyTokenModel | null> => {
 		const id = new mongoose.Types.ObjectId(userId);
@@ -25,7 +28,6 @@ export default class KeyTokenService {
 		userId,
 		privateKey,
 		publicKey,
-		accessToken,
 		refreshToken,
 	}: SaveKeyTokenArgs) => {
 		const keyToken = await keyTokenModel.findOneAndReplace(
@@ -36,7 +38,6 @@ export default class KeyTokenService {
 				user: userId,
 				private_key: privateKey,
 				public_key: publicKey,
-				access_tokens: [accessToken],
 				refresh_tokens: [refreshToken],
 			},
 			{
@@ -51,17 +52,16 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*           		SAVE NEW TOKEN GENERATED 		  */
 	/* ===================================================== */
-	public static saveNewJwtToken = async ({
+	public static replaceRefreshTokenWithNew = async ({
 		userId,
-		accessToken,
 		refreshToken,
-	}: SaveNewJwtTokenArgs) => {
+		oldRefreshToken,
+	}: ReplaceRefreshTokenWithNewArgs) => {
 		const updateResult = await keyTokenModel.updateOne(
-			{ user: userId },
+			{ user: userId, 'refresh_tokens.$': oldRefreshToken },
 			{
-				$push: {
-					access_tokens: accessToken,
-					refresh_tokens: refreshToken,
+				$set: {
+					'refresh_tokens.$': refreshToken,
 				},
 			}
 		);
@@ -89,7 +89,7 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*                  REMOVE REFRESH TOKEN                 */
 	/* ===================================================== */
-	public static removeKeyTokenByUserId = async (userId: string) => {
+	public static deleteKeyTokenByUserId = async (userId: string) => {
 		return await keyTokenModel.deleteOne({
 			user: userId,
 		});

@@ -13,8 +13,8 @@ export type SaveKeyTokenArgs = {
 		| 'accessToken'
 		| 'refreshToken']: string;
 };
-export interface SaveNewJwtTokenArgs {
+export interface ReplaceRefreshTokenWithNewArgs {
 	userId: string;
-	accessToken: string;
 	refreshToken: string;
+    oldRefreshToken: string;
 }
