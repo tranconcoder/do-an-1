@@ -6,6 +6,8 @@ import { JwtPair } from './jwt';
 /* ===================================================== */
 
 export interface LoginResponse {
-	user: UserModel;
-	token: JwtPair;
+    user: Pick<UserModel, 'phoneNumber' | 'email' | 'fullName' | 'role'> & {
+        _id: ObjectId;
+    };
+    token: JwtPair;
 }
