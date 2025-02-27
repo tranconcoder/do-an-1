@@ -17,9 +17,9 @@ const keyTokenSchemaDefinition = {
 		type: String,
 		required: true,
 	},
-	refresh_tokens: {
-		type: [{ type: String, required: true }],
-		default: [],
+	refresh_token: {
+		type: String,
+		required: true,
 	},
 };
 

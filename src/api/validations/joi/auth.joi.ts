@@ -28,7 +28,9 @@ export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
 /* ====================================================== */
 /*                      NEW TOKEN SCHEMA                  */
 /* ====================================================== */
-export const newTokenSchema = Joi.object({
+export const handleRefreshTokenSchema = Joi.object({
 	refreshToken: Joi.string().required(),
 });
-export type NewTokenSchema = Joi.extractType<typeof newTokenSchema>;
+export type HandleRefreshTokenSchema = Joi.extractType<
+	typeof handleRefreshTokenSchema
+>;

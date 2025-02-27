@@ -6,15 +6,10 @@ export interface KeyTokenPair {
 }
 
 export type SaveKeyTokenArgs = {
-	[key in
-		| 'userId'
-		| 'privateKey'
-		| 'publicKey'
-		| 'accessToken'
-		| 'refreshToken']: string;
+	[key in 'userId' | 'privateKey' | 'publicKey' | 'refreshToken']: string;
 };
 export interface ReplaceRefreshTokenWithNewArgs {
 	userId: string;
 	refreshToken: string;
-    oldRefreshToken: string;
+	oldRefreshToken: string;
 }

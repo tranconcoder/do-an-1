@@ -14,9 +14,7 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*                  GET TOKEN BY USER ID                 */
 	/* ===================================================== */
-	public static findTokenByUserId = async (
-		userId: string
-	): Promise<KeyTokenModel | null> => {
+	public static findTokenByUserId = async (userId: string) => {
 		const id = new mongoose.Types.ObjectId(userId);
 		return await keyTokenModel.findOne({ user: id });
 	};
@@ -24,7 +22,7 @@ export default class KeyTokenService {
 	/* ===================================================== */
 	/*            SAVE NEW KEY TOKEN WHEN SIGN UP            */
 	/* ===================================================== */
-	public static saveKeyToken = async ({
+	public static findOneAndReplace = async ({
 		userId,
 		privateKey,
 		publicKey,
@@ -38,7 +36,7 @@ export default class KeyTokenService {
 				user: userId,
 				private_key: privateKey,
 				public_key: publicKey,
-				refresh_tokens: [refreshToken],
+				refresh_token: refreshToken,
 			},
 			{
 				upsert: true,

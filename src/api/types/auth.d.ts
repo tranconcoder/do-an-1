@@ -4,10 +4,6 @@ import { JwtPair } from './jwt';
 /* ===================================================== */
 /*              SERVICE ARGUMENT TYPE                    */
 /* ===================================================== */
-export interface NewTokenArgs {
-    refreshToken: string;
-    type: keyof JwtPair;
-}
 
 /* ===================================================== */
 /*                       RESPONSE                        */

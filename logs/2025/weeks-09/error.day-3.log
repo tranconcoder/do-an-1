@@ -160,3 +160,8 @@
 [2025-02-26T09:33:04.233Z] [error]: Server closed
 [2025-02-26T09:33:04.263Z] [error]: Server closed
 [2025-02-26T09:33:04.263Z] [error]: Server closed
+[2025-02-26T10:12:40.391Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-02-26T10:12:46.065Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-02-26T10:13:48.366Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-02-26T10:13:49.271Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-02-26T10:35:30.005Z] [error]: MongoServerSelectionError: getaddrinfo EAI_AGAIN cluster0-shard-00-01.q7xyq.mongodb.net

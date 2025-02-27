@@ -23,6 +23,11 @@ export default class ScheduledService {
 			let count = 0;
 
 			for (const keyToken of allKeyTokens) {
+				if (keyToken.refresh_tokens.length === 0) {
+					keyTokenModel.deleteOne({ _id: keyToken._id });
+					continue;
+				}
+
 				/* ------------------ Initial value ------------------ */
 				const { public_key, refresh_tokens } = keyToken;
 

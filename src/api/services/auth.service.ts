@@ -1,5 +1,9 @@
 import type { ObjectAnyKeys } from '../types/object';
-import type { LoginSchema, SignUpSchema } from '../validations/joi/auth.joi';
+import type {
+	HandleRefreshTokenSchema,
+	LoginSchema,
+	SignUpSchema,
+} from '../validations/joi/auth.joi';
 import type { JwtPair } from '../types/jwt';
 
 // Libs
@@ -20,7 +24,7 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
-import { LoginResponse, NewTokenArgs } from '../types/auth';
+import { LoginResponse } from '../types/auth';
 
 export default class AuthService {
 	/* ===================================================== */
@@ -60,20 +64,20 @@ export default class AuthService {
 		});
 		if (!jwtTokenPair) {
 			// Clean up user saved
-			UserService.removeUser(userSaved.id);
+			await UserService.removeUser(userSaved.id);
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 		}
 
 		/* ------------ Save key token to database ------------ */
-		const keySaved = await KeyTokenService.saveKeyToken({
+		const keySaved = await KeyTokenService.findOneAndReplace({
 			userId: userSaved.id,
 			privateKey,
 			publicKey,
-			...jwtTokenPair,
+			refreshToken: jwtTokenPair.refreshToken,
 		});
 		if (!keySaved) {
 			// Clean up user saved
-			UserService.removeUser(userSaved.id);
+			await UserService.removeUser(userSaved.id);
 			throw new ForbiddenErrorResponse('Save key token failed!');
 		}
 
@@ -110,11 +114,11 @@ export default class AuthService {
 			throw new ForbiddenErrorResponse('Generate jwt token failed!');
 
 		/* ---------------- Save new key token ---------------- */
-		const keyTokenId = await KeyTokenService.saveKeyToken({
+		const keyTokenId = await KeyTokenService.findOneAndReplace({
 			userId: user._id.toString(),
 			privateKey,
 			publicKey,
-			...jwtPair,
+			refreshToken: jwtPair.refreshToken,
 		});
 		if (!keyTokenId) throw new ForbiddenErrorResponse('Save key token failed!');
 
@@ -133,9 +137,11 @@ export default class AuthService {
 	};
 
 	/* ===================================================== */
-	/*                       NEW TOKEN                       */
+	/*                  HANDLE REFRESH TOKEN                 */
 	/* ===================================================== */
-	public static newToken = async ({ refreshToken, type }: NewTokenArgs) => {
+	public static handleRefreshToken = async ({
+		refreshToken,
+	}: HandleRefreshTokenSchema) => {
 		/* -------------- Get user info in token -------------- */
 		const payload = JwtService.parseJwtPayload(refreshToken);
 		if (!payload)
@@ -143,7 +149,7 @@ export default class AuthService {
 
 		/* ------------- Find key token by user id ------------ */
 		const keyToken = await KeyTokenService.findTokenByUserId(payload.userId);
-		if (!keyToken) throw new NotFoundErrorResponse('Token not found!');
+		if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
 
 		/* --------------- Verify refresh token --------------- */
 		const decoded = await JwtService.verifyJwt({
@@ -152,35 +158,33 @@ export default class AuthService {
 		});
 		if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
 
-		/* --------- Check refresh token in valid list -------- */
-		const isTokenInValidList = keyToken.refresh_tokens.includes(refreshToken);
-		if (!isTokenInValidList) {
+		/* ---------- Check refresh is current token ---------- */
+		const isRefreshTokenUsed = keyToken.refresh_token !== refreshToken;
+		// Token is valid but it was deleted on valid list (because token was used before to get new token)
+		if (isRefreshTokenUsed) {
 			// ALERT: Token was stolen!!!
 			// Clean up keyToken
-			KeyTokenService.deleteKeyTokenByUserId(payload.userId);
+			await KeyTokenService.deleteKeyTokenByUserId(payload.userId);
 
 			throw new ForbiddenErrorResponse('Token was deleted!');
 		}
 
-		/* ---------------- Generate new token ---------------- */
-		const token = await JwtService.generateJwt({
-			privateKey: keyToken.private_key,
+		/* ------------ Generate new jwt token pair ----------- */
+		const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
+		const newJwtTokenPair = await JwtService.generateJwtPair({
+			privateKey,
 			payload: _.pick(decoded, ['userId', 'role']),
-			type: type,
 		});
-		if (!token) throw new ForbiddenErrorResponse('Generate token failed!');
+		if (!newJwtTokenPair)
+			throw new ForbiddenErrorResponse('Generate token failed!');
 
-		/* ------- Save new refresh token to valid list ------- */
-		if (type === 'refreshToken') {
-			KeyTokenService.replaceRefreshTokenWithNew({
-				userId: decoded.userId,
-				refreshToken: token,
-				oldRefreshToken: refreshToken,
-			});
-		}
+		/* ------------------ Save key token ------------------ */
+		await keyToken.updateOne({
+			private_key: privateKey,
+			public_key: publicKey,
+			refresh_token: newJwtTokenPair.refreshToken,
+		});
 
-		return {
-			[type]: token,
-		};
+		return newJwtTokenPair;
 	};
 }

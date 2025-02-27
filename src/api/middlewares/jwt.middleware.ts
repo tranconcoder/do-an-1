@@ -18,7 +18,9 @@ export const authenticate = catchError(async (req, res, next) => {
 		throw new ForbiddenErrorResponse('Invalid token payload!');
 
 	/* ------------ Check key token is valid ------------- */
-	const keyToken = await KeyTokenService.findTokenByUserId(payloadParsed.userId);
+	const keyToken = await KeyTokenService.findTokenByUserId(
+		payloadParsed.userId
+	);
 	if (!keyToken) throw new ForbiddenErrorResponse('Invalid token!');
 
 	/* -------------------- Verify token ------------------- */
