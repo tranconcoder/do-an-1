@@ -1,27 +1,27 @@
 // Load env
-import './src/api/helpers/loadEnv.helper';
+import "./src/api/helpers/loadEnv.helper";
 
 // Configs
-import { HOST, PORT, BASE_URL, DB_URL } from './src/configs/server.config';
+import { HOST, PORT, BASE_URL } from "./src/configs/server.config";
 
 // App
-import app from './src/app';
-import loggerService from './src/api/services/logger.service';
-import MongoDB from './src/app/db.app';
+import app from "./src/app";
+import loggerService from "./src/api/services/logger.service";
+import MongoDB from "./src/app/db.app";
 
 const server = app.listen(PORT, HOST, () => {
-	console.log(`Server is running on ${BASE_URL}`);
+  console.log(`Server is running on ${BASE_URL}`);
 });
 
-process.on('SIGINT', () => {
-	// Close database connection
-	MongoDB.getInstance().disconnect();
+process.on("SIGINT", () => {
+  // Close database connection
+  MongoDB.getInstance().disconnect();
 
-	// Close server
-	server.close(() => {
-		console.log('Server closed');
-	});
+  // Close server
+  server.close(() => {
+    console.log("Server closed");
+  });
 
-	// Push notification to developer...
-	loggerService.getInstance().error('Server closed');
+  // Push notification to developer...
+  loggerService.getInstance().error("Server closed");
 });

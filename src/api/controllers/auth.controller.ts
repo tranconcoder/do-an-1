@@ -1,8 +1,7 @@
 import type { RequestHandler } from 'express';
 import AuthService from '../services/auth.service';
 import { CreatedResponse, OkResponse } from '../response/success.response';
-import { HandleRefreshTokenSchema } from '../validations/joi/auth.joi';
-import { HandleRefreshTokenArgs } from '../types/auth';
+import { NewTokenSchema } from '../validations/joi/auth.joi';
 
 export default class AuthController {
 	/* ===================================================== */
@@ -40,14 +39,14 @@ export default class AuthController {
 	/* ===================================================== */
 	/*                  HANDLE REFRESH TOKEN                 */
 	/* ===================================================== */
-	public static handleRefreshToken: RequestHandler<
+	public static newToken: RequestHandler<
 		any,
 		any,
-		HandleRefreshTokenArgs
+		NewTokenSchema	
 	> = async (req, res, next) => {
 		new OkResponse({
 			message: 'Get new token pair success!',
-			metadata: await AuthService.handleRefreshToken(req.body),
+			metadata: await AuthService.newToken(req.body),
 		}).send(res);
 	};
 }

@@ -1,0 +1,55 @@
+[2025-02-27T07:21:50.031Z] [error]: Server closed
+[2025-02-27T07:21:50.061Z] [error]: Server closed
+[2025-02-27T07:21:50.062Z] [error]: Server closed
+[2025-02-27T07:22:00.020Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:22:00.084Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:22:57.910Z] [error]: Server closed
+[2025-02-27T07:22:57.967Z] [error]: Server closed
+[2025-02-27T07:22:57.968Z] [error]: Server closed
+[2025-02-27T07:23:00.009Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:23:00.014Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:23:21.589Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-02-27T07:23:22.298Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-02-27T07:24:00.014Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:24:00.053Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:25:00.027Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:25:00.037Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:26:00.009Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:26:00.038Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:27:00.005Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:27:00.098Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:27:31.186Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-02-27T07:28:00.007Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:28:00.050Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:29:00.006Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:29:00.038Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:30:00.009Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:30:00.037Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:31:00.011Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:31:00.047Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:32:00.006Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:32:00.052Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:33:00.014Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:33:00.042Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:34:00.011Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:34:00.038Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:35:00.009Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:35:00.042Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:36:00.040Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:36:00.106Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:37:00.010Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:37:00.096Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:38:00.018Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:38:00.095Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:39:00.023Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:39:00.098Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:40:00.008Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:41:00.010Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:41:00.102Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:42:00.009Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:42:00.098Z] [error]: TypeError: Cannot read properties of undefined (reading 'length')
+[2025-02-27T07:42:42.884Z] [error]: Server closed
+[2025-02-27T07:42:42.927Z] [error]: Server closed
+[2025-02-27T07:42:42.929Z] [error]: Server closed
+[2025-02-27T07:43:00.018Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-27T07:43:00.028Z] [error]: MongoNotConnectedError: Client must be connected before running operations

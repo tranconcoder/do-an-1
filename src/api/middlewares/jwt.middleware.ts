@@ -14,7 +14,7 @@ export const authenticate = catchError(async (req, res, next) => {
 
 	/* --------------- Parse token payload -------------- */
 	const payloadParsed = JwtService.parseJwtPayload(accessToken);
-	if (!payloadParsed?.userId)
+	if (!payloadParsed)
 		throw new ForbiddenErrorResponse('Invalid token payload!');
 
 	/* ------------ Check key token is valid ------------- */

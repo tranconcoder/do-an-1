@@ -6,7 +6,7 @@ import AuthController from '../../controllers/auth.controller';
 // Joi
 import {
 	loginSchema,
-	handleRefreshTokenSchema,
+	newTokenSchema,
 	signUpSchema,
 } from '../../validations/joi/auth.joi';
 
@@ -31,16 +31,11 @@ authRoute.post(
 );
 
 authRoute.post(
-	'/new-access-token',
-	joiValidate(handleRefreshTokenSchema),
-	catchError(AuthController.newAccessToken)
+	'/new-token',
+	joiValidate(newTokenSchema),
+	catchError(AuthController.newToken)
 );
 
-authRoute.post(
-	'/new-refresh-token',
-	joiValidate(handleRefreshTokenSchema),
-	catchError(AuthController.newRefreshToken)
-);
 
 /* ====================================================== */
 /*                     VALIDATE ROUTE                     */

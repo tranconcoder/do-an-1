@@ -1,10 +1,10 @@
 import type { ObjectAnyKeys } from '../types/object';
+import type { LoginResponse } from '../types/auth';
 import type {
-	HandleRefreshTokenSchema,
 	LoginSchema,
+	NewTokenSchema,
 	SignUpSchema,
 } from '../validations/joi/auth.joi';
-import type { JwtPair } from '../types/jwt';
 
 // Libs
 import mongoose from 'mongoose';
@@ -24,7 +24,6 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
-import { LoginResponse } from '../types/auth';
 
 export default class AuthService {
 	/* ===================================================== */
@@ -139,9 +138,9 @@ export default class AuthService {
 	/* ===================================================== */
 	/*                  HANDLE REFRESH TOKEN                 */
 	/* ===================================================== */
-	public static handleRefreshToken = async ({
+	public static newToken = async ({
 		refreshToken,
-	}: HandleRefreshTokenSchema) => {
+	}: NewTokenSchema) => {
 		/* -------------- Get user info in token -------------- */
 		const payload = JwtService.parseJwtPayload(refreshToken);
 		if (!payload)
