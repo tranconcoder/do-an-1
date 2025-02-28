@@ -1,6 +1,6 @@
 import { InferRawDocType, Schema, model } from 'mongoose';
 import { ROLE_MODEL_NAME } from './role.model';
-import { required, unique } from '../helpers/mongooseKeyWord.helper';
+import { required, unique, timestamps } from '../../configs/mongoose.config';
 
 export const USER_MODEL_NAME = 'User';
 export const USER_COLLECTION_NAME = 'users';
@@ -15,10 +15,7 @@ const userSchemaDefinition = {
 } as const;
 const userSchema = new Schema(userSchemaDefinition, {
     collection: USER_COLLECTION_NAME,
-    timestamps: {
-        updatedAt: 'updated_at',
-        createdAt: 'created_at'
-    }
+    timestamps
 });
 
 const userModel = model(USER_MODEL_NAME, userSchema);

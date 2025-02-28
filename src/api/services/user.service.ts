@@ -12,7 +12,6 @@ export default class UserService {
     public static saveInstance = async (
         user: ReturnType<typeof this.newInstance>
     ) => {
-        throw new Error('Not implemented');
         return await user.save();
     };
 
