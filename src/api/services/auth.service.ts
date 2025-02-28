@@ -24,6 +24,7 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
+import userModel from '../models/user.model';
 
 export default class AuthService {
     /* ===================================================== */
@@ -43,42 +44,49 @@ export default class AuthService {
 
         /* ------------- Save new user to database ------------ */
         const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
-        const userSaved = await UserService.saveUser({
+        const userInstance = UserService.newInstance({
             phoneNumber,
             email,
             password: hashPassword,
             fullName,
             role: new mongoose.Types.ObjectId()
         });
-        if (!userSaved) throw new ForbiddenErrorResponse('Create user failed!');
+        if (!userInstance)
+            throw new ForbiddenErrorResponse('Create user failed!');
 
         /* ------------ Generate key and jwt token ------------ */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
         const jwtTokenPair = await JwtService.generateJwtPair({
             privateKey,
             payload: {
-                userId: userSaved.id,
-                role: userSaved.role.toString()
+                userId: userInstance.id,
+                role: userInstance.role.toString()
             }
         });
-        if (!jwtTokenPair) {
-            // Clean up user saved
-            await UserService.removeUser(userSaved.id);
+        if (!jwtTokenPair)
             throw new ForbiddenErrorResponse('Generate jwt token failed!');
-        }
 
         /* ------------ Save key token to database ------------ */
-        const keySaved = await KeyTokenService.findOneAndReplace({
-            userId: userSaved.id,
-            privateKey,
-            publicKey,
-            refreshToken: jwtTokenPair.refreshToken
+        await Promise.allSettled([
+            UserService.saveInstance(userInstance),
+            KeyTokenService.findOneAndReplace({
+                userId: userInstance.id,
+                privateKey,
+                publicKey,
+                refreshToken: jwtTokenPair.refreshToken
+            })
+        ]).then(async (resultList) => {
+            const hasError = resultList.find((x) => x.status === 'rejected');
+
+            if (hasError) {
+                await KeyTokenService.deleteKeyTokenByUserId(userInstance.id);
+                await UserService.removeUser(userInstance.id);
+
+                throw new ForbiddenErrorResponse(
+                    'Error on save user or key token!'
+                );
+            }
         });
-        if (!keySaved) {
-            // Clean up user saved
-            await UserService.removeUser(userSaved.id);
-            throw new ForbiddenErrorResponse('Save key token failed!');
-        }
 
         return jwtTokenPair;
     };

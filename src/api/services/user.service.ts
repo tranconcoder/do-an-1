@@ -6,25 +6,37 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 
 export default class UserService {
-	public static findOne = async (query: RootFilterQuery<UserModel>) => {
-		return await userModel.findOne(query).lean();
-	};
+    public static newInstance = (user: UserModel) => {
+        return new userModel(user);
+    };
+    public static saveInstance = async (
+        user: ReturnType<typeof this.newInstance>
+    ) => {
+        throw new Error('Not implemented');
+        return await user.save();
+    };
 
-	public static checkUserExist = async (query: RootFilterQuery<UserModel>) => {
-		return await userModel.exists(query).lean();
-	};
+    public static findOne = async (query: RootFilterQuery<UserModel>) => {
+        return await userModel.findOne(query).lean();
+    };
 
-	public static saveUser = async (data: UserModel) => {
-		const user = await userModel.create(data);
+    public static checkUserExist = async (
+        query: RootFilterQuery<UserModel>
+    ) => {
+        return await userModel.exists(query).lean();
+    };
 
-		return user ? _.pick(user, ['role', 'id']) : null;
-	};
+    public static saveUser = async (data: UserModel) => {
+        const user = await userModel.create(data);
 
-	public static removeUser = async (id: string) => {
-		const result = await userModel.deleteOne({
-			_id: new mongoose.Types.ObjectId(id),
-		});
+        return user ? _.pick(user, ['role', 'id']) : null;
+    };
 
-		return result.deletedCount > 0;
-	};
+    public static removeUser = async (id: string) => {
+        const result = await userModel.deleteOne({
+            _id: new mongoose.Types.ObjectId(id)
+        });
+
+        return result.deletedCount > 0;
+    };
 }

@@ -5,9 +5,9 @@ import AuthController from '../../controllers/auth.controller';
 
 // Joi
 import {
-	loginSchema,
-	newTokenSchema,
-	signUpSchema,
+    loginSchema,
+    newTokenSchema,
+    signUpSchema
 } from '../../validations/joi/auth.joi';
 
 // Middlewares
@@ -19,23 +19,22 @@ const authRoute = Router();
 const authRouteValidate = Router();
 
 authRoute.post(
-	'/sign-up',
-	joiValidate(signUpSchema),
-	catchError(AuthController.signUp)
+    '/sign-up',
+    joiValidate(signUpSchema),
+    catchError(AuthController.signUp)
 );
 
 authRoute.post(
-	'/login',
-	joiValidate(loginSchema),
-	catchError(AuthController.login)
+    '/login',
+    joiValidate(loginSchema),
+    catchError(AuthController.login)
 );
 
 authRoute.post(
-	'/new-token',
-	joiValidate(newTokenSchema),
-	catchError(AuthController.newToken)
+    '/new-token',
+    joiValidate(newTokenSchema),
+    catchError(AuthController.newToken)
 );
-
 
 /* ====================================================== */
 /*                     VALIDATE ROUTE                     */

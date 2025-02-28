@@ -6,7 +6,8 @@
 
 1. Morgan: Logger trên terminal
 2. Nodemon: lắng nghe và reload máy chủ (không cần nếu dùng tsx, node bản mới)
-3. Tsx (typescript excute): hỗ trợ auto compile typescript code và tích hợp giống nodemon
+3. Tsx (typescript excute): hỗ trợ auto compile typescript code và tích hợp
+   giống nodemon
 4. Http status codes: cung cấp các thông tin có sẵn về http status code
 
 ### Server core
@@ -33,5 +34,13 @@
 
 ![project_structure](/images/code.png)
 
+## 3. Mô hình dự án
 
-## 3. 
+### 3.1. Xác thực người dùng
+
+Xử dụng xác thực dựa tên JsonWebToken, bao gồm xử lý các trưởng hợp sau:
+
+1. Người dùng đăng ký:
+    - Kiểm tra thông tin đã tồn tại?
+    - Mã hóa mật khẩu
+    -
