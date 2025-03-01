@@ -11,6 +11,7 @@ import LoggerService from './logger.service';
 
 // Libs
 import { CronJob } from 'cron';
+import { asyncFilter } from '../utils/array.utils';
 
 export default class ScheduledService {
     /* ===================================================== */
@@ -19,6 +20,7 @@ export default class ScheduledService {
     private static handleCleanUpKeyToken = async () => {
         try {
             const allKeyTokens = await keyTokenModel.find();
+            let refreshTokenUsedDeletedCount = 0;
 
             await Promise.allSettled(
                 allKeyTokens.map(async (keyToken) => {
@@ -27,19 +29,41 @@ export default class ScheduledService {
                         publicKey: keyToken.public_key
                     });
 
-                    if (decoded) {
-                        return true;
-                    } else {
+                    if (!decoded) {
                         await keyToken.deleteOne();
                         throw false;
                     }
+
+                    const newRefreshTokensUsed = await asyncFilter(
+                        keyToken.refresh_tokens_used,
+                        async (refreshTokenUsed) => {
+                            const payload =
+                                JwtService.parseJwtPayload(refreshTokenUsed);
+
+                            if (!payload) return false;
+                            if (payload.exp * 1000 <= Date.now()) return false;
+
+                            return true;
+                        }
+                    );
+
+                    refreshTokenUsedDeletedCount +=
+                        keyToken.refresh_tokens_used.length -
+                        newRefreshTokensUsed.length;
+                    keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
+
+                    return true;
                 })
             ).then((resultList) => {
-                const deletedCount = resultList.filter(
+                const deletedRowCount = resultList.filter(
                     (x) => x.status === 'rejected'
                 ).length;
+
                 LoggerService.getInstance().info(
-                    `Cleanup key token: ${deletedCount} tokens cleaned`
+                    `Cleanup key token: ${deletedRowCount} key token cleaned`
+                );
+                LoggerService.getInstance().info(
+                    `Cleanup key token: ${refreshTokenUsedDeletedCount} refresh token used cleaned`
                 );
             });
         } catch (error) {

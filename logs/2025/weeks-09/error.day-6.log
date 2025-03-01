@@ -9,3 +9,37 @@
 [2025-03-01T03:13:50.637Z] [error]: Server closed
 [2025-03-01T03:13:50.663Z] [error]: Server closed
 [2025-03-01T03:13:50.663Z] [error]: Server closed
+[2025-03-01T03:14:03.514Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:15:03.600Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:16:07.151Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:17:06.661Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:18:03.248Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:19:07.018Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:20:07.017Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:21:03.583Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:22:07.175Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:23:07.182Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T03:24:07.181Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T06:52:22.859Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T07:15:37.675Z] [error]: HIDE::404::NotFound::User not found!::
+[2025-03-01T07:16:59.757Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:17:18.090Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:17:23.487Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:17:47.511Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:17:51.274Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:33:24.506Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:33:28.650Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:34:00.013Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:34:15.709Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T07:34:29.019Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:39:10.605Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T07:39:35.062Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T07:41:58.826Z] [error]: Token was stolen! User id: 67c2b9903c223dbc192e526e
+[2025-03-01T07:41:58.829Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T07:43:56.744Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-01T07:46:25.274Z] [error]: Token was stolen! User id: 67c2b9903c223dbc192e526e
+[2025-03-01T07:46:25.275Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T07:46:34.200Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T07:46:43.267Z] [error]: Server closed
+[2025-03-01T07:46:43.291Z] [error]: Server closed
+[2025-03-01T07:46:43.306Z] [error]: Server closed

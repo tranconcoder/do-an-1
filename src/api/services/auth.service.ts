@@ -24,6 +24,7 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
+import LoggerService from './logger.service';
 
 export default class AuthService {
     /* ===================================================== */
@@ -175,6 +176,10 @@ export default class AuthService {
             // Clean up keyToken
             await KeyTokenService.deleteKeyTokenByUserId(payload.userId);
 
+            LoggerService.getInstance().error(
+                `Token was stolen! User id: ${payload.userId}`
+            );
+
             throw new ForbiddenErrorResponse('Token was deleted!');
         }
 
@@ -183,6 +188,7 @@ export default class AuthService {
             publicKey: keyToken.public_key,
             token: refreshToken
         });
+        console.log(decoded);
         if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
         if (refreshToken !== keyToken.refresh_token)
             throw new ForbiddenErrorResponse('Token is invalid!');

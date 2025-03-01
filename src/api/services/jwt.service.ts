@@ -11,7 +11,12 @@ import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '../utils/jwt.util';
 import LoggerService from './logger.service';
 import { ForbiddenErrorResponse } from '../response/error.response';
-import { jwtPayloadSchema, JwtPayloadSchema } from '../validations/joi/jwt.joi';
+import {
+    jwtPayloadSchema,
+    JwtPayloadSchema,
+    jwtPayloadWithHeaderSchema,
+    JwtPayloadWithHeaderSchema
+} from '../validations/joi/jwt.joi';
 import jwtConfig from '../../configs/jwt.config';
 
 export default class JwtService {
@@ -84,16 +89,16 @@ export default class JwtService {
     /* ================================================== */
     public static parseJwtPayload = (
         token: string
-    ): JwtPayloadSchema | null => {
+    ): JwtPayloadWithHeaderSchema | null => {
         try {
-            const payload = jwtDecode<JwtPayloadSchema>(token);
+            const payload = jwtDecode<JwtPayloadWithHeaderSchema>(token);
             const { error: joiError, value } =
-                jwtPayloadSchema.validate(payload);
+                jwtPayloadWithHeaderSchema.validate(payload);
 
             if (joiError) {
                 // Alert to admin have a hacker
                 LoggerService.getInstance().error(
-                    'Token is not generate by server: ' + token
+                    `Token is not generate by server: ${token}`
                 );
 
                 throw joiError;
