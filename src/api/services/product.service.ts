@@ -4,12 +4,7 @@ import type {
     ProductListKey,
     ProductListType
 } from '../types/product';
-import type {
-    ClothesSchema,
-    PhoneSchema,
-    PRODUCT_CATEGORY_ENUM,
-    ProductSchema
-} from '../models/product.model';
+import type { ClothesSchema, PhoneSchema } from '../models/product.model';
 import type { HydratedDocument } from 'mongoose';
 
 import mongoose from 'mongoose';
@@ -30,7 +25,7 @@ export abstract class Factory<T = any> {
         public product_thumb: string,
         public product_quantity: number,
         public product_description: string,
-        public product_category: (typeof PRODUCT_CATEGORY_ENUM)[number],
+        public product_category: ProductListKey,
         public product_rating: IntRange<0, 6>,
         public product_attributes: T
     ) {
@@ -50,8 +45,8 @@ export abstract class Factory<T = any> {
 }
 const getService = (type: ProductListKey): ProductListType => {
     return {
-        Phone: Phone,
-        Clothes: Clothes
+        Clothes,
+        Phone
     }[type];
 };
 
@@ -90,7 +85,10 @@ export class Phone extends Factory<PhoneSchema> {
         const product = await super.createProduct();
         if (!product) throw new BadRequestErrorResponse('Save product failed');
 
-        const phone = await phoneModel.create(this.product_attributes);
+        const phone = await phoneModel.create({
+            ...this.product_attributes,
+            _id: product._id
+        });
         if (!phone) {
             await product.deleteOne();
             throw new BadRequestErrorResponse('Save phone failed');
@@ -105,7 +103,10 @@ export class Clothes extends Factory<ClothesSchema> {
         const product = await super.createProduct();
         if (!product) throw new BadRequestErrorResponse('Save product failed');
 
-        const clothes = await clothesModel.create(this.product_attributes);
+        const clothes = await clothesModel.create({
+            ...this.product_attributes,
+            _id: product._id
+        });
         if (!clothes) {
             await product.deleteOne();
             throw new BadRequestErrorResponse('Save clothes failed');
