@@ -48,3 +48,9 @@ Xử dụng xác thực dựa tên JsonWebToken, bao gồm xử lý các trưở
 # Những kiến thức mới:
 
 -   Conditional type: Kiểu linh động dựa trên biến
+
+# Todo:
+
+-   Xây dựng API tạo sản phẩm
+-   Xây dựng API xóa sản phẩm
+-   Xây dựng CronJob để clean sản phẩm nếu trong quá trình tạo hoặc xóa bị lỗi

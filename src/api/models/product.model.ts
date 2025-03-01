@@ -1,6 +1,8 @@
-import { InferRawDocType, Schema, model } from 'mongoose';
+import { InferRawDocType, Schema, model, mongo } from 'mongoose';
 import { required, timestamps } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from './user.model';
+import { addFieldToSchemaDefinition } from '../utils/mongoose.util';
+import { addProductShopToSchema } from '../utils/product.util';
 
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
@@ -35,10 +37,10 @@ export default model(PRODUCT_COLLECTION_NAME, productSchema);
 export const PHONE_MODEL_NAME = 'Phone';
 export const PHONE_COLLECTION_NAME = 'phones';
 
-const phoneSchemaDefinition = {
+const phoneSchemaDefinition = addProductShopToSchema({
     memory: { type: String, required },
     color: { type: String, required }
-};
+});
 const phoneSchema = new Schema(phoneSchemaDefinition, {
     collection: PHONE_COLLECTION_NAME,
     timestamps
@@ -53,10 +55,10 @@ export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 const CLOTHES_MODEL_NAME = 'Clothes';
 const CLOTHES_COLLECTION_NAME = 'clothes';
 
-const clothesSchemaDefinition = {
+const clothesSchemaDefinition = addProductShopToSchema({
     size: { type: String, required },
     color: { type: String, required }
-};
+});
 const clothesSchema = new Schema(clothesSchemaDefinition, {
     collection: CLOTHES_COLLECTION_NAME,
     timestamps

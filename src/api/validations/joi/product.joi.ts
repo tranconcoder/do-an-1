@@ -21,7 +21,7 @@ export const clothesSchema = Joi.object({
 /* ====================================================== */
 /*                         PRODUCT                        */
 /* ====================================================== */
-export const productSchema = Joi.object({
+export const createProductSchema = Joi.object({
     product_name: Joi.string().required(),
     product_cost: Joi.number().required(),
     product_thumb: Joi.string().required(),
@@ -32,4 +32,8 @@ export const productSchema = Joi.object({
     product_attributes: Joi.alternatives()
         .try(clothesSchema, phoneSchema)
         .required()
+});
+
+export const deleteProductSchema = Joi.object({
+    product_id: Joi.string().required()
 });

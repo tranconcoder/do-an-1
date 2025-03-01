@@ -3,7 +3,7 @@ import { authenticate } from '../../middlewares/jwt.middleware';
 import ProductController from '../../controllers/product.controller';
 import catchError from '../../middlewares/catchError.middleware';
 import joiValidate from '../../middlewares/joiValidate.middleware';
-import { productSchema } from '../../validations/joi/product.joi';
+import { createProductSchema as createProductSchema } from '../../validations/joi/product.joi';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -17,8 +17,14 @@ productRouteValidate.use(authenticate);
 
 productRouteValidate.post(
     '/create',
-    joiValidate(productSchema),
+    joiValidate(createProductSchema),
     catchError(ProductController.createProduct)
+);
+
+productRouteValidate.delete(
+    '/delete',
+    joiValidate(createProductSchema),
+    catchError(ProductController.deleteProduct)
 );
 
 export default productRoute;

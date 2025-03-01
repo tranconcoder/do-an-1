@@ -121,3 +121,4 @@
 [2025-03-01T12:06:25.001Z] [error]: Server closed
 [2025-03-01T12:06:25.022Z] [error]: Server closed
 [2025-03-01T12:06:25.022Z] [error]: Server closed
+[2025-03-01T12:07:02.472Z] [error]: MongoNotConnectedError: Client must be connected before running operations

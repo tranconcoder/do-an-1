@@ -13,6 +13,7 @@ import productModel, {
     phoneModel
 } from '../models/product.model';
 import { BadRequestErrorResponse } from '../response/error.response';
+import { ExtractMethodNames } from '../types/common';
 
 /* ====================================================== */
 /*                     CREATE FACTORY                     */
@@ -39,8 +40,14 @@ export abstract class Factory<T = any> {
         this.product_rating = product_rating;
         this.product_attributes = product_attributes;
     }
-    public async createProduct(): Promise<HydratedDocument<T>> {
-        return (await productModel.create(this)) as any as HydratedDocument<T>;
+    public async createProduct(): Promise<HydratedDocument<this>> {
+        return (await productModel.create(
+            this
+        )) as any as HydratedDocument<this>;
+    }
+
+    public async removeProduct(id: string): Promise<void> {
+        await productModel.deleteOne({ _id: id });
     }
 }
 const getService = (type: ProductListKey): ProductListType => {
@@ -56,7 +63,10 @@ const getService = (type: ProductListKey): ProductListType => {
 export default class ProductFactory {
     public static async createProduct<K extends ProductListKey>(
         type: K,
-        payload: Omit<Factory<ProductAttributeType<K>>, 'createProduct'>
+        payload: Omit<
+            Factory<ProductAttributeType<K>>,
+            ExtractMethodNames<Omit<Factory, 'product_attributes'>>
+        >
     ) {
         const ServiceClass: any = getService(type);
 
@@ -87,14 +97,19 @@ export class Phone extends Factory<PhoneSchema> {
 
         const phone = await phoneModel.create({
             ...this.product_attributes,
-            _id: product._id
+            _id: product._id,
+            product_shop: product.product_shop
         });
-        if (!phone) {
-            await product.deleteOne();
-            throw new BadRequestErrorResponse('Save phone failed');
-        }
+        if (!phone) throw new BadRequestErrorResponse('Save phone failed');
 
-        return phone;
+        return product;
+    }
+
+    public async removeProduct(id: string) {
+        await Promise.all([
+            super.removeProduct(id),
+            phoneModel.deleteOne({ _id: id })
+        ]);
     }
 }
 
@@ -105,15 +120,15 @@ export class Clothes extends Factory<ClothesSchema> {
 
         const clothes = await clothesModel.create({
             ...this.product_attributes,
-            _id: product._id
+            _id: product._id,
+            product_shop: product.product_shop
         });
-        if (!clothes) {
-            await product.deleteOne();
-            throw new BadRequestErrorResponse('Save clothes failed');
-        }
+        if (!clothes) throw new BadRequestErrorResponse('Save clothes failed');
 
-        return clothes;
+        return product;
     }
+
+    public async removeProduct(id: string) {}
 }
 
 /* ====================================================== */
