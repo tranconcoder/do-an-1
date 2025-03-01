@@ -154,6 +154,7 @@ export default class AuthService {
     /*                  HANDLE REFRESH TOKEN                 */
     /* ===================================================== */
     public static newToken = async ({ refreshToken }: NewTokenSchema) => {
+        console.log({ refreshToken });
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
         if (!payload)

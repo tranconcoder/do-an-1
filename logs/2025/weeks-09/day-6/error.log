@@ -1,0 +1,79 @@
+[2025-03-01T09:33:08.499Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:34:24.204Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:34:51.843Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-03-01T09:34:52.374Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-03-01T09:34:53.088Z] [error]: HIDE::403::Forbidden::Can not verify token!::
+[2025-03-01T09:36:20.367Z] [error]: HIDE::403::Forbidden::Token is expired!::
+[2025-03-01T09:36:21.267Z] [error]: HIDE::403::Forbidden::Token is expired!::
+[2025-03-01T09:36:38.767Z] [error]: HIDE::403::Forbidden::Token is expired!::
+[2025-03-01T09:37:00.450Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:39:59.841Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T09:43:43.849Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:43:54.145Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:44:40.899Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:44:41.974Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:44:42.674Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:45:24.584Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:50:34.638Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-01T09:51:34.119Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:51:34.978Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:51:42.587Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:54:18.295Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:55:19.720Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:56:26.971Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:57:05.566Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:57:33.603Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:57:40.713Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:59:04.914Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:59:19.975Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T10:00:45.145Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T10:01:32.463Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T10:07:21.800Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T10:07:35.888Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T10:07:52.822Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:07:52.824Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:09:11.387Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:09:11.388Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:09:29.435Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:09:29.435Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:11:25.713Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:11:25.716Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:11:38.198Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:11:38.200Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:12:09.193Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:12:09.194Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:12:22.445Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:12:22.445Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:12:46.811Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:12:46.811Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:13:07.407Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:13:07.408Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:13:23.257Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:13:23.261Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:14:11.572Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:14:11.573Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:15:01.020Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:15:01.023Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:15:27.955Z] [error]: InvalidTokenError: Invalid token specified: must be a string
+[2025-03-01T10:15:27.959Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-01T10:18:07.602Z] [error]: Token was stolen! User id: 67c2d11dd6b20ce938597a67
+[2025-03-01T10:18:07.603Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T10:18:08.481Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T10:18:09.464Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T10:19:33.548Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T10:20:11.094Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T10:20:20.549Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-01T10:21:15.772Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-01T10:22:54.037Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T10:23:03.296Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T10:23:45.831Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-01T10:27:54.402Z] [error]: Token was stolen! User id: 67c2e07d74902d8d13ac6d44
+[2025-03-01T10:27:54.403Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-01T11:21:59.847Z] [error]: Server closed
+[2025-03-01T11:21:59.873Z] [error]: Server closed
+[2025-03-01T11:21:59.904Z] [error]: Server closed
+[2025-03-01T11:22:02.946Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T11:23:05.374Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T11:24:04.838Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T11:25:05.896Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T11:26:02.997Z] [error]: MongoNotConnectedError: Client must be connected before running operations
