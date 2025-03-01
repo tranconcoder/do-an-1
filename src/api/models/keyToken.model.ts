@@ -9,7 +9,8 @@ const keyTokenSchemaDefinition = {
     user: { type: Schema.Types.ObjectId, require, ref: USER_MODEL_NAME },
     private_key: { type: String, required },
     public_key: { type: String, required },
-    refresh_token: { type: String, required }
+    refresh_token: { type: String, required },
+    refresh_tokens_used: { type: [String], default: [] }
 };
 
 const keyTokenSchema = new Schema(keyTokenSchemaDefinition, {

@@ -52,7 +52,10 @@ export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 const CLOTHES_COLLECTION_NAME = 'Clothes';
 const CLOTHES_MODEL_NAME = 'clothes';
 
-const clothesSchemaDefinition = {};
+const clothesSchemaDefinition = {
+    size: { type: String, required },
+    color: { type: String, required }
+};
 const clothesSchema = new Schema(clothesSchemaDefinition, {
     collection: CLOTHES_COLLECTION_NAME,
     timestamps

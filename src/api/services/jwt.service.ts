@@ -72,6 +72,7 @@ export default class JwtService {
     }: JwtVerityArgs): Promise<JwtPayloadSchema | null> => {
         return new Promise((resolve) => {
             jwt.verify(token, publicKey, (error, decoded) => {
+                console.log(error);
                 if (error) resolve(null);
                 else resolve(decoded as JwtPayloadSchema);
             });

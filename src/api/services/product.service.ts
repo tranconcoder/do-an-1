@@ -1,18 +1,22 @@
 import type { IntRange } from '../types/number';
 import type {
     ProductAttributeType,
-    ProductKeys,
-    ProductTypes
+    ProductListKey,
+    ProductListType
 } from '../types/product';
 import type {
     ClothesSchema,
     PhoneSchema,
     ProductSchema
 } from '../models/product.model';
+import type { HydratedDocument } from 'mongoose';
 
 import mongoose from 'mongoose';
-import productModel from '../models/product.model';
+import productModel, { phoneModel } from '../models/product.model';
 
+/* ====================================================== */
+/*                     CREATE FACTORY                     */
+/* ====================================================== */
 abstract class Factory<T = any> {
     public constructor(
         public product_shop: mongoose.Types.ObjectId,
@@ -24,22 +28,32 @@ abstract class Factory<T = any> {
         public product_category: string,
         public product_rating: IntRange<0, 6>,
         public product_attributes: T
-    ) {}
+    ) {
+        this.product_shop = product_shop;
+        this.product_name = product_name;
+        this.product_cost = product_cost;
+        this.product_thumb = product_thumb;
+        this.product_quantity = product_quantity;
+        this.product_description = product_description;
+        this.product_category = product_category;
+        this.product_rating = product_rating;
+        this.product_attributes = product_attributes;
+    }
     public abstract createProduct(): Promise<T>;
 }
-
-const getService = (type: ProductKeys) => {
-    const productList: ProductTypes = {
+const getService = (type: ProductListKey): ProductListType => {
+    return {
         product: Product,
         phone: Phone,
         clothes: Clothes
-    };
-
-    return productList[type];
+    }[type];
 };
 
+/* ====================================================== */
+/*                     CREATE SERVICES                    */
+/* ====================================================== */
 export default class ProductFactory {
-    public static async createProduct<K extends ProductKeys>(
+    public static async createProduct<K extends ProductListKey>(
         type: K,
         payload: Omit<Factory<ProductAttributeType<K>>, 'createProduct'>
     ) {
@@ -59,7 +73,9 @@ export default class ProductFactory {
             payload.product_attributes
         );
 
-        return (await instance.createProduct()) as typeof payload.product_attributes;
+        return (await instance.createProduct()) as HydratedDocument<
+            typeof payload.product_attributes
+        >;
     }
 }
 
@@ -84,7 +100,7 @@ export class Clothes extends Factory<ClothesSchema> {
 /* ====================================================== */
 /*                         EXAMPLE                        */
 /* ====================================================== */
-ProductFactory.createProduct('phone', {
+ProductFactory.createProduct('clothes', {
     product_shop: new mongoose.Types.ObjectId(),
     product_name: 'iPhone 12',
     product_cost: 1000,
@@ -95,7 +111,7 @@ ProductFactory.createProduct('phone', {
     product_category: 'Phone',
     product_rating: 5,
     product_attributes: {
-        color: 'Black',
-        memory: '128GB'
+        color: 'black',
+        size: '6.1 inch'
     }
 }).then((x) => {});

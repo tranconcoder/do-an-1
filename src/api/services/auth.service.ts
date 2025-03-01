@@ -166,15 +166,9 @@ export default class AuthService {
         );
         if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
 
-        /* --------------- Verify refresh token --------------- */
-        const decoded = await JwtService.verifyJwt({
-            publicKey: keyToken.public_key,
-            token: refreshToken
-        });
-        if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
-
         /* ---------- Check refresh is current token ---------- */
-        const isRefreshTokenUsed = keyToken.refresh_token !== refreshToken;
+        const isRefreshTokenUsed =
+            keyToken.refresh_tokens_used.includes(refreshToken);
         // Token is valid but it was deleted on valid list (because token was used before to get new token)
         if (isRefreshTokenUsed) {
             // ALERT: Token was stolen!!!
@@ -183,6 +177,15 @@ export default class AuthService {
 
             throw new ForbiddenErrorResponse('Token was deleted!');
         }
+
+        /* --------------- Verify refresh token --------------- */
+        const decoded = await JwtService.verifyJwt({
+            publicKey: keyToken.public_key,
+            token: refreshToken
+        });
+        if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
+        if (refreshToken !== keyToken.refresh_token)
+            throw new ForbiddenErrorResponse('Token is invalid!');
 
         /* ------------ Generate new jwt token pair ----------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
@@ -197,7 +200,8 @@ export default class AuthService {
         await keyToken.updateOne({
             private_key: privateKey,
             public_key: publicKey,
-            refresh_token: newJwtTokenPair.refreshToken
+            refresh_token: newJwtTokenPair.refreshToken,
+            $push: { refresh_tokens_used: refreshToken }
         });
 
         return newJwtTokenPair;

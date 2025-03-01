@@ -5,14 +5,14 @@ import 'joi-extract-type';
 /*                      LOGIN SCHEMA                      */
 /* ====================================================== */
 export const loginSchema = Joi.object({
-	phoneNumber: Joi.string()
-		.required()
-		.regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/),
-	password: Joi.string()
-		.required()
-		.regex(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-		),
+    phoneNumber: Joi.string()
+        .required()
+        .regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/),
+    password: Joi.string()
+        .required()
+        .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        )
 });
 export type LoginSchema = Joi.extractType<typeof loginSchema>;
 
@@ -20,8 +20,8 @@ export type LoginSchema = Joi.extractType<typeof loginSchema>;
 /*                      SIGNUP SCHEMA                     */
 /* ====================================================== */
 export const signUpSchema = loginSchema.keys({
-	email: Joi.string().email().required(),
-	fullName: Joi.string().required().min(4).max(30),
+    email: Joi.string().email().required(),
+    fullName: Joi.string().required().min(4).max(30)
 });
 export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
 
@@ -29,8 +29,6 @@ export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
 /*                      NEW TOKEN SCHEMA                  */
 /* ====================================================== */
 export const newTokenSchema = Joi.object({
-	refreshToken: Joi.string().required(),
+    refreshToken: Joi.string().required()
 });
-export type NewTokenSchema = Joi.extractType<
-	typeof newTokenSchema
->;
+export type NewTokenSchema = Joi.extractType<typeof newTokenSchema>;
