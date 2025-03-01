@@ -4,20 +4,21 @@ import type {
     ProductListKey,
     ProductListType
 } from '../types/product';
-import type {
-    ClothesSchema,
-    PhoneSchema,
-    ProductSchema
-} from '../models/product.model';
 import type { HydratedDocument } from 'mongoose';
 
 import mongoose from 'mongoose';
-import productModel, { phoneModel } from '../models/product.model';
+import productModel, {
+    clothesModel,
+    ClothesSchema,
+    phoneModel,
+    PhoneSchema,
+    ProductSchema
+} from '../models/product.model';
 
 /* ====================================================== */
 /*                     CREATE FACTORY                     */
 /* ====================================================== */
-abstract class Factory<T = any> {
+export abstract class Factory<T = any> {
     public constructor(
         public product_shop: mongoose.Types.ObjectId,
         public product_name: string,
@@ -93,7 +94,7 @@ export class Phone extends Factory<PhoneSchema> {
 
 export class Clothes extends Factory<ClothesSchema> {
     public async createProduct() {
-        return await productModel.create(this.product_attributes);
+        return await clothesModel.create(this.product_attributes);
     }
 }
 

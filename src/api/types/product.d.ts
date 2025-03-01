@@ -1,7 +1,7 @@
 import {
-    ClothesSchema,
-    PhoneSchema,
-    ProductSchema
+    ClothesJoiSchema,
+    PhoneJoiSchema,
+    ProductJoiSchema
 } from '../models/product.model';
 import { Clothes, Phone, Product } from '../services/product.service';
 
@@ -14,7 +14,7 @@ export type ProductListType = ProductList[keyof ProductList];
 export type ProductListKey = keyof ProductList;
 
 export type ProductAttributeType<T = any> = T extends 'phone'
-    ? PhoneSchema
+    ? PhoneJoiSchema
     : T extends 'clothes'
-    ? ClothesSchema
+    ? ClothesJoiSchema
     : any;

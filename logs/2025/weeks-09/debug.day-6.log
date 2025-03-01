@@ -1,0 +1,1 @@
+[2025-03-01T09:22:27.421Z] [debug]: child "product_attributes" fails because [child "size" fails because ["size" is required], child "memory" fails because ["memory" is required]]

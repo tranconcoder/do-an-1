@@ -59,3 +59,23 @@
 [2025-03-01T07:52:02.742Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-03-01T07:52:02.776Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-03-01T07:52:02.780Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-01T09:01:43.489Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-01T09:02:08.530Z] [error]: HIDE::500::ValidationError::Product validation failed: product_category: `clothes` is not a valid enum value for path `product_category`.::
+[2025-03-01T09:03:20.418Z] [error]: HIDE::500::ValidationError::Product validation failed: product_category: `clothes` is not a valid enum value for path `product_category`.::
+[2025-03-01T09:04:46.033Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:04:49.333Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:10:00.450Z] [error]: child "product_rating" fails because ["product_rating" must be one of [0, 1, 2, 3, 4, 5]]
+[2025-03-01T09:10:00.453Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:10:10.704Z] [error]: child "product_attributes" fails because ["product_attributes" must be one of [[object Object], [object Object]]]
+[2025-03-01T09:10:10.707Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:10:30.510Z] [error]: child "product_attributes" fails because ["product_attributes" must be one of [[object Object], [object Object]]]
+[2025-03-01T09:10:30.511Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:10:58.516Z] [error]: child "product_attributes" fails because ["product_attributes" must be one of [[object Object], [object Object]]]
+[2025-03-01T09:10:58.518Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:16:25.762Z] [error]: child "product_attributes" fails because [child "size" fails because ["size" is required], child "memory" fails because ["memory" is required]]
+[2025-03-01T09:16:25.764Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:20:30.579Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-01T09:22:27.424Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-01T09:22:53.199Z] [error]: Server closed
+[2025-03-01T09:22:53.215Z] [error]: Server closed
+[2025-03-01T09:22:53.218Z] [error]: Server closed
