@@ -7,6 +7,7 @@ import type {
 import type {
     ClothesSchema,
     PhoneSchema,
+    PRODUCT_CATEGORY_ENUM,
     ProductSchema
 } from '../models/product.model';
 import type { HydratedDocument } from 'mongoose';
@@ -21,7 +22,7 @@ import { BadRequestErrorResponse } from '../response/error.response';
 /* ====================================================== */
 /*                     CREATE FACTORY                     */
 /* ====================================================== */
-abstract class Factory<T = any> {
+export abstract class Factory<T = any> {
     public constructor(
         public product_shop: mongoose.Types.ObjectId,
         public product_name: string,
@@ -29,7 +30,7 @@ abstract class Factory<T = any> {
         public product_thumb: string,
         public product_quantity: number,
         public product_description: string,
-        public product_category: string,
+        public product_category: (typeof PRODUCT_CATEGORY_ENUM)[number],
         public product_rating: IntRange<0, 6>,
         public product_attributes: T
     ) {
@@ -49,8 +50,8 @@ abstract class Factory<T = any> {
 }
 const getService = (type: ProductListKey): ProductListType => {
     return {
-        phone: Phone,
-        clothes: Clothes
+        Phone: Phone,
+        Clothes: Clothes
     }[type];
 };
 

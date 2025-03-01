@@ -154,7 +154,6 @@ export default class AuthService {
     /*                  HANDLE REFRESH TOKEN                 */
     /* ===================================================== */
     public static newToken = async ({ refreshToken }: NewTokenSchema) => {
-        console.log({ refreshToken });
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
         if (!payload)
@@ -189,7 +188,6 @@ export default class AuthService {
             publicKey: keyToken.public_key,
             token: refreshToken
         });
-        console.log(decoded);
         if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
         if (refreshToken !== keyToken.refresh_token)
             throw new ForbiddenErrorResponse('Token is invalid!');

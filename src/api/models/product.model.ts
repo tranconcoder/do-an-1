@@ -5,7 +5,7 @@ import { USER_MODEL_NAME } from './user.model';
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
-const PRODUCT_CATEGORY_ENUM = ['Phone', 'Clothes'] as const;
+export const PRODUCT_CATEGORY_ENUM = ['Phone', 'Clothes'] as const;
 const productSchemaDefinition = {
     product_shop: {
         type: Schema.Types.ObjectId,
