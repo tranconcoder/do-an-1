@@ -24,7 +24,6 @@ import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
 import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
-import userModel from '../models/user.model';
 
 export default class AuthService {
     /* ===================================================== */

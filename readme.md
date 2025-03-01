@@ -44,3 +44,7 @@ Xử dụng xác thực dựa tên JsonWebToken, bao gồm xử lý các trưở
     - Kiểm tra thông tin đã tồn tại?
     - Mã hóa mật khẩu
     -
+
+# Những kiến thức mới:
+
+-   Conditional type: Kiểu linh động dựa trên biến

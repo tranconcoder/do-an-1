@@ -1,6 +1,17 @@
+import type { IntRange } from '../types/number';
+import type {
+    ProductAttributeType,
+    ProductKeys,
+    ProductTypes
+} from '../types/product';
+import type {
+    ClothesSchema,
+    PhoneSchema,
+    ProductSchema
+} from '../models/product.model';
+
 import mongoose from 'mongoose';
-import productModel, { phoneModel } from '../models/product.model';
-import { ProductList, ProductListKey, ProductListType } from '../types/product';
+import productModel from '../models/product.model';
 
 abstract class Factory<T = any> {
     public constructor(
@@ -11,34 +22,32 @@ abstract class Factory<T = any> {
         public product_quantity: number,
         public product_description: string,
         public product_category: string,
-        public product_rating: number,
-        public product_attributes: any
+        public product_rating: IntRange<0, 6>,
+        public product_attributes: T
     ) {}
-    public abstract createProduct(): Promise<any extends infer U ? U : unknown>;
+    public abstract createProduct(): Promise<T>;
 }
 
-const getService = (type: ProductListKey): ProductListType => {
-    const productList: ProductList = {
+const getService = (type: ProductKeys) => {
+    const productList: ProductTypes = {
         product: Product,
         phone: Phone,
         clothes: Clothes
     };
+
     return productList[type];
 };
 
 export default class ProductFactory {
-    public static async createProduct(
-        type: ProductListKey,
-        payload: Omit<
-            Factory<any extends infer U ? U : unknown>,
-            'createProduct'
-        >
-    ): Promise<Factory> {
-        const ServiceClass = getService(type);
+    public static async createProduct<K extends ProductKeys>(
+        type: K,
+        payload: Omit<Factory<ProductAttributeType<K>>, 'createProduct'>
+    ) {
+        const ServiceClass = getService(type as any);
 
         if (!ServiceClass) throw new Error('Invalid type');
 
-        return new ServiceClass(
+        const instance = new ServiceClass(
             payload.product_shop,
             payload.product_name,
             payload.product_cost,
@@ -49,22 +58,24 @@ export default class ProductFactory {
             payload.product_rating,
             payload.product_attributes
         );
+
+        return (await instance.createProduct()) as typeof payload.product_attributes;
     }
 }
 
-class Product extends Factory {
+export class Product extends Factory<ProductSchema> {
     public async createProduct() {
         return await productModel.create(this);
     }
 }
 
-class Phone extends Factory {
+export class Phone extends Factory<PhoneSchema> {
     public async createProduct() {
         return await phoneModel.create(this.product_attributes);
     }
 }
 
-class Clothes extends Factory {
+export class Clothes extends Factory<ClothesSchema> {
     public async createProduct() {
         return await productModel.create(this.product_attributes);
     }
@@ -77,19 +88,14 @@ ProductFactory.createProduct('phone', {
     product_shop: new mongoose.Types.ObjectId(),
     product_name: 'iPhone 12',
     product_cost: 1000,
-    product_thumb: 'https://example.com/iphone-12.jpg',
+    product_thumb: 'iphone-12.jpg',
     product_quantity: 10,
-    product_description: 'The latest iPhone',
+    product_description:
+        'The iPhone 12 is a smartphone designed, developed, and marketed by Apple Inc. It is the fourteenth generation of the iPhone, alongside the iPhone 12 Mini, iPhone 12 Pro, and iPhone 12 Pro Max models.',
     product_category: 'Phone',
     product_rating: 5,
     product_attributes: {
-        memory: '256GB',
-        color: 'Black'
+        color: 'Black',
+        memory: '128GB'
     }
-})
-    .then((product) => {
-        console.log(product.product_attributes);
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+}).then((x) => {});

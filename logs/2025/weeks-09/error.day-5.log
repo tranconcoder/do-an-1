@@ -1017,3 +1017,10 @@
 [2025-02-28T03:43:02.817Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-02-28T03:43:02.841Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-02-28T07:40:47.546Z] [error]: Server closed
+[2025-02-28T07:41:03.203Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-28T07:42:02.692Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-28T07:42:16.377Z] [error]: Server closed
+[2025-02-28T07:42:16.414Z] [error]: Server closed
+[2025-02-28T07:42:16.415Z] [error]: Server closed
+[2025-02-28T07:43:01.306Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-02-28T07:43:01.337Z] [error]: MongoNotConnectedError: Client must be connected before running operations
