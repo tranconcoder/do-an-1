@@ -1,8 +1,8 @@
 import type { RequestHandler } from 'express';
 
-import ProductFactory, { Product } from '../services/product.service';
-import { CreatedResponse } from '../response/success.response';
 import mongoose from 'mongoose';
+import SuccessResponse, { CreatedResponse } from '../response/success.response';
+import ProductFactory, { Product } from '../services/product';
 
 export default class ProductController {
     public static readonly createProduct: RequestHandler<any, any, Product> =
@@ -17,5 +17,13 @@ export default class ProductController {
                     }
                 )
             }).send(res);
+        };
+
+    public static readonly deleteProduct: RequestHandler<any, any, any> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                message: 'Product deleted successfully',
+                metadata: await ProductFactory
+            });
         };
 }

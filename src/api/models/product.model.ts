@@ -1,9 +1,13 @@
 import { InferRawDocType, Schema, model, mongo } from 'mongoose';
 import { required, timestamps } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from './user.model';
-import { addFieldToSchemaDefinition } from '../utils/mongoose.util';
 import { addProductShopToSchema } from '../utils/product.util';
 
+//
+//
+/* ====================================================== */
+/*                         PRODUCT                        */
+/* ====================================================== */
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
@@ -31,6 +35,8 @@ const productSchema = new Schema(productSchemaDefinition, {
 export type ProductSchema = InferRawDocType<typeof productSchemaDefinition>;
 export default model(PRODUCT_COLLECTION_NAME, productSchema);
 
+//
+//
 /* ====================================================== */
 /*                          PHONE                         */
 /* ====================================================== */
@@ -49,6 +55,8 @@ const phoneSchema = new Schema(phoneSchemaDefinition, {
 export type PhoneSchema = InferRawDocType<typeof phoneSchemaDefinition>;
 export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 
+//
+//
 /* ====================================================== */
 /*                         CLOTHES                        */
 /* ====================================================== */

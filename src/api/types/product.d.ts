@@ -10,4 +10,4 @@ export type ProductListType = ProductList[ValidProductCategories];
 export type ProductListKey = ValidProductCategories;
 
 export type ProductAttributeType<T extends ValidProductCategories> =
-    T extends 'phone' ? PhoneSchema : ClothesSchema;
+    T extends 'Phone' ? PhoneSchema : ClothesSchema;
