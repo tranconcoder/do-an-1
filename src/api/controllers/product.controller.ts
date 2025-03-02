@@ -1,12 +1,12 @@
 import type { RequestHandler } from 'express';
 
-import ProductFactory, { Factory } from '../services/product.service';
+import ProductFactory, { Product } from '../services/product.service';
 import { CreatedResponse } from '../response/success.response';
 import mongoose from 'mongoose';
 
 export default class ProductController {
-    public static readonly createProduct: RequestHandler<any, any, Factory> =
-        async (req, res, next) => {
+    public static readonly createProduct: RequestHandler<any, any, Product> =
+        async (req, res, _) => {
             new CreatedResponse({
                 message: 'Product created successfully',
                 metadata: await ProductFactory.createProduct(

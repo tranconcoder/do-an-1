@@ -7,7 +7,7 @@ export type ValidProductCategories = (typeof PRODUCT_CATEGORY_ENUM)[number];
 export interface ProductList extends Record<ValidProductCategories, any> {}
 
 export type ProductListType = ProductList[ValidProductCategories];
-export type ProductListKey = keyof ProductList;
+export type ProductListKey = ValidProductCategories;
 
 export type ProductAttributeType<T extends ValidProductCategories> =
     T extends 'phone' ? PhoneSchema : ClothesSchema;

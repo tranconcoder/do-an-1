@@ -1,6 +1,7 @@
 import type { IntRange } from '../types/number';
 import type {
     ProductAttributeType,
+    ProductList,
     ProductListKey,
     ProductListType
 } from '../types/product';
@@ -16,9 +17,9 @@ import { BadRequestErrorResponse } from '../response/error.response';
 import { ExtractMethodNames } from '../types/common';
 
 /* ====================================================== */
-/*                     CREATE FACTORY                     */
+/*                     CREATE PRODUCT                     */
 /* ====================================================== */
-export abstract class Factory<T = any> {
+export abstract class Product<T = any> {
     public constructor(
         public product_shop: mongoose.Types.ObjectId,
         public product_name: string,
@@ -40,6 +41,7 @@ export abstract class Factory<T = any> {
         this.product_rating = product_rating;
         this.product_attributes = product_attributes;
     }
+
     public async createProduct(): Promise<HydratedDocument<this>> {
         return (await productModel.create(
             this
@@ -50,26 +52,28 @@ export abstract class Factory<T = any> {
         await productModel.deleteOne({ _id: id });
     }
 }
-const getService = (type: ProductListKey): ProductListType => {
-    return {
-        Clothes,
-        Phone
-    }[type];
-};
 
 /* ====================================================== */
 /*                     CREATE SERVICES                    */
 /* ====================================================== */
 export default class ProductFactory {
+    private static productRegistered: ProductList = {} as any;
+
+    public static registerProduct(
+        key: ProductListKey,
+        classRef: ProductListType
+    ) {
+        this.productRegistered[key] = classRef;
+    }
+
     public static async createProduct<K extends ProductListKey>(
         type: K,
         payload: Omit<
-            Factory<ProductAttributeType<K>>,
-            ExtractMethodNames<Omit<Factory, 'product_attributes'>>
+            Product<ProductAttributeType<K>>,
+            ExtractMethodNames<Omit<Product, 'product_attributes'>>
         >
     ) {
-        const ServiceClass: any = getService(type);
-
+        const ServiceClass: any = this.productRegistered[type];
         if (!ServiceClass) throw new Error('Invalid type');
 
         const instance = new ServiceClass(
@@ -90,7 +94,7 @@ export default class ProductFactory {
     }
 }
 
-export class Phone extends Factory<PhoneSchema> {
+export class Phone extends Product<PhoneSchema> {
     public async createProduct() {
         const product = await super.createProduct();
         if (!product) throw new BadRequestErrorResponse('Save product failed');
@@ -113,7 +117,7 @@ export class Phone extends Factory<PhoneSchema> {
     }
 }
 
-export class Clothes extends Factory<ClothesSchema> {
+export class Clothes extends Product<ClothesSchema> {
     public async createProduct() {
         const product = await super.createProduct();
         if (!product) throw new BadRequestErrorResponse('Save product failed');
@@ -132,22 +136,7 @@ export class Clothes extends Factory<ClothesSchema> {
 }
 
 /* ====================================================== */
-/*                         EXAMPLE                        */
+/*                    REGISTER PRODUCT                    */
 /* ====================================================== */
-// ProductFactory.createProduct('phone', {
-//     product_shop: new mongoose.Types.ObjectId(),
-//     product_name: 'iPhone 12',
-//     product_cost: 1000,
-//     product_thumb: 'iphone-12.jpg',
-//     product_quantity: 10,
-//     product_description:
-//         'The iPhone 12 is a smartphone designed, developed, and marketed by Apple Inc. It is the fourteenth generation of the iPhone, alongside the iPhone 12 Mini, iPhone 12 Pro, and iPhone 12 Pro Max models.',
-//     product_category: 'Phone',
-//     product_rating: 5,
-//     product_attributes: {
-//         color: 'black',
-//         memory: '128GB'
-//     }
-// }).then((x) => {
-//     x.memory;
-// });
+ProductFactory.registerProduct('Phone', Phone);
+ProductFactory.registerProduct('Clothes', Clothes);
