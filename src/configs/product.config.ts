@@ -1,34 +1,43 @@
-import {
-    clothesModel,
-    ClothesSchema,
-    phoneModel,
-    PhoneSchema
-} from '../api/models/product.model';
-import type { ProductListKey } from '../api/types/models/product';
+import type { Document } from 'mongoose';
 
+/* ----------------------- Service ---------------------- */
 import Clothes from '../api/services/product/clothes.service';
 import { Phone } from '../api/services/product/phone.service';
+
+/* ------------------------ Utils ----------------------- */
 import {
     importProductModel,
     importProductService
 } from '../api/utils/product.util';
+import { modelTypes, ProductListKey } from '../api/types/models/porduct';
+import { UnionToPartialIntersection } from '../api/types/common';
 
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;
 
-export const getProduct = async <T extends ProductListKey>(category: T) => {
-    const services = {
-        Clothes: importProductService('clothes') as Promise<typeof Clothes>,
-        Phone: importProductService('phone') as Promise<typeof Phone>
-    } as const;
+const services = {
+    Clothes: importProductService(
+        modelTypes.Product.CategoryEnum.Clothes
+    ) as Promise<typeof Clothes>,
+    Phone: importProductService(
+        modelTypes.Product.CategoryEnum.Phone
+    ) as Promise<typeof Phone>
+} as const;
 
-    return services[category] as any as Promise<GetKeyType<typeof services, T>>;
+const models = {
+    Clothes: importProductModel(
+        modelTypes.Product.CategoryEnum.Clothes
+    ) as Promise<modelTypes.Product.ClothesSchema & Document>,
+    Phone: importProductModel(modelTypes.Product.CategoryEnum.Phone) as Promise<
+        modelTypes.Product.PhoneSchema & Document
+    >
+};
+
+export const getProduct = async <T extends ProductListKey>(category: T) => {
+    return (await services[category]) as GetKeyType<typeof services, T>;
 };
 
 export const getProductModel = async <K extends ProductListKey>(key: K) => {
-    const models = {
-        Clothes: importProductModel('Clothes') as Promise<ClothesSchema>,
-        Phone: importProductModel('Phone') as Promise<PhoneSchema>
-    };
-
-    return models[key] as any as GetKeyType<typeof models, K>;
+    return (await models[key]) as UnionToPartialIntersection<
+        GetKeyType<typeof models, K>
+    >;
 };

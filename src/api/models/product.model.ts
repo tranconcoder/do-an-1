@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { required, timestamps } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from './user.model';
 import { addSlug } from './middlewares/product.middleware';
+import { modelTypes } from '../types/models/porduct';
 
 const PRODUCT_SHOP_FIELD = {
     product_shop: {

@@ -21,9 +21,9 @@ export default class ProductController {
 
     public static readonly deleteProduct: RequestHandler<any, any, any> =
         async (req, res, _) => {
-            new SuccessResponse({
-                message: 'Product deleted successfully',
-                metadata: await ProductFactory
-            });
+            // new SuccessResponse({
+            //     message: 'Product deleted successfully',
+            //     metadata: await ProductFactory
+            // });
         };
 }

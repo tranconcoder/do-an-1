@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 import { Product } from '.';
-import { phoneModel, PhoneSchema } from '../../models/product.model';
+import { phoneModel } from '../../models/product.model';
 import { BadRequestErrorResponse } from '../../response/error.response';
+import { modelTypes } from '../../types/models/porduct';
 
-export class Phone extends Product<PhoneSchema> {
+export class Phone extends Product<modelTypes.Product.PhoneSchema> {
     public async createProduct() {
+        // set id manually for product before create
         super.setId(new mongoose.Types.ObjectId());
 
         return await Promise.all([
@@ -21,10 +23,10 @@ export class Phone extends Product<PhoneSchema> {
             });
     }
 
-    public async removeProduct(id: string) {
+    public async removeProduct() {
         await Promise.all([
-            super.removeProduct(id),
-            phoneModel.deleteOne({ _id: id })
+            super.removeProduct(),
+            phoneModel.deleteOne({ _id: super.getId() })
         ]);
     }
 }

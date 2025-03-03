@@ -1,6 +1,7 @@
 import { PreSaveMiddlewareFunction } from 'mongoose';
-import { ProductSchema } from '../product.model';
+import { modelTypes } from '../../types/models/porduct';
 
-export const addSlug: PreSaveMiddlewareFunction<ProductSchema> = function () {
-    this.product_slug = this.product_name.toLowerCase().replace(/ /g, '-');
-};
+export const addSlug: PreSaveMiddlewareFunction<modelTypes.Product.ProductSchema> =
+    function () {
+        this.product_slug = this.product_name.toLowerCase().replace(/ /g, '-');
+    };
