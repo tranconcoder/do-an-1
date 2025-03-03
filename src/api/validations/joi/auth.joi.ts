@@ -1,10 +1,10 @@
-import * as Joi from '@hapi/joi';
-import 'joi-extract-type';
+import Joi from 'joi';
+import { joiTypes } from '../../types/joi';
 
 /* ====================================================== */
 /*                      LOGIN SCHEMA                      */
 /* ====================================================== */
-export const loginSchema = Joi.object({
+const login = {
     phoneNumber: Joi.string()
         .required()
         .regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/),
@@ -13,22 +13,23 @@ export const loginSchema = Joi.object({
         .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
         )
+};
+export const loginSchema = Joi.object<joiTypes.auth.LoginSchema>({
+    ...login
 });
-export type LoginSchema = Joi.extractType<typeof loginSchema>;
 
 /* ====================================================== */
 /*                      SIGNUP SCHEMA                     */
 /* ====================================================== */
-export const signUpSchema = loginSchema.keys({
+export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema>({
+    ...login,
     email: Joi.string().email().required(),
     fullName: Joi.string().required().min(4).max(30)
 });
-export type SignUpSchema = Joi.extractType<typeof signUpSchema>;
 
 /* ====================================================== */
 /*                      NEW TOKEN SCHEMA                  */
 /* ====================================================== */
-export const newTokenSchema = Joi.object({
+export const newTokenSchema = Joi.object<joiTypes.auth.NewTokenSchema>({
     refreshToken: Joi.string().required()
 });
-export type NewTokenSchema = Joi.extractType<typeof newTokenSchema>;

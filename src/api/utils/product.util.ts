@@ -3,7 +3,7 @@ import { AutoType } from '../types/common';
 import { required } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from '../models/user.model';
 import path from 'path';
-import { ProductListKey } from '../types/models/porduct';
+import { modelTypes } from '../types/models/product';
 
 export const addProductShopToSchema = <T = any>(schema: T) => {
     const productShop = {
@@ -20,7 +20,9 @@ export const addProductShopToSchema = <T = any>(schema: T) => {
     } as AutoType<T> & typeof productShop;
 };
 
-export const importProductService = async (productName: ProductListKey) => {
+export const importProductService = async (
+    productName: modelTypes.product.ProductListKey
+) => {
     const PRODUCT_SERVICE_PATH = path.join(__dirname, '../services/product');
 
     return await import(
@@ -28,7 +30,9 @@ export const importProductService = async (productName: ProductListKey) => {
     ).then((x) => x.default);
 };
 
-export const importProductModel = async <T extends ProductListKey>(
+export const importProductModel = async <
+    T extends modelTypes.product.ProductListKey
+>(
     productName: T
 ) => {
     const PRODUCT_MODEL_PATH = path.join(

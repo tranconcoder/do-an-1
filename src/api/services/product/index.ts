@@ -3,16 +3,16 @@ import type { Document } from 'mongoose';
 /* ----------------------- Configs ---------------------- */
 import { getProduct } from '../../../configs/product.config';
 import mongoose from 'mongoose';
-import { IntRange } from '../../types/number';
-import { modelTypes, ProductListKey } from '../../types/models/porduct';
+import { modelTypes } from '../../types/models/product';
 import { productModel } from '../../models/product.model';
-import { importProductService } from '../../utils/product.util';
+import { NotFoundErrorResponse } from '../../response/error.response';
+import { CategoryEnum } from '../../enums/product.enum';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
 /* ====================================================== */
 export abstract class Product<T = any>
-    implements modelTypes.Product.ProductSchema
+    implements modelTypes.product.ProductSchema
 {
     public _id: mongoose.Types.ObjectId;
     public product_shop: mongoose.Types.ObjectId;
@@ -21,7 +21,7 @@ export abstract class Product<T = any>
     public product_thumb: string;
     public product_quantity: number;
     public product_description: string;
-    public product_category: modelTypes.Product.CategoryEnum;
+    public product_category: CategoryEnum;
     public product_rating_avg: number;
     public product_attributes: T;
     public is_draft: boolean;
@@ -42,7 +42,7 @@ export abstract class Product<T = any>
         is_publish,
         product_slug,
         _id = new mongoose.Types.ObjectId()
-    }: Partial<modelTypes.Product.ProductSchema & Document>) {
+    }: Partial<modelTypes.product.ProductSchema & Document>) {
         this._id = _id as mongoose.Types.ObjectId;
         this.product_shop = product_shop || new mongoose.Types.ObjectId();
         this.product_name = product_name || '';
@@ -50,8 +50,7 @@ export abstract class Product<T = any>
         this.product_thumb = product_thumb || '';
         this.product_quantity = product_quantity || 0;
         this.product_description = product_description || '';
-        this.product_category =
-            product_category || modelTypes.Product.CategoryEnum.Phone;
+        this.product_category = product_category || CategoryEnum.Phone;
         this.product_rating_avg = product_rating_avg || 0;
         this.product_attributes = (product_attributes || {}) as T;
         this.is_draft = is_draft || true;
@@ -82,18 +81,34 @@ export abstract class Product<T = any>
 /*                         FACTORY                        */
 /* ====================================================== */
 export default class ProductFactory {
-    public static createProduct = async <K extends ProductListKey>(
+    public static createProduct = async <
+        K extends modelTypes.product.ProductListKey
+    >(
         type: K,
-        payload: modelTypes.Product.ProductSchema
+        payload: modelTypes.product.ProductSchema
     ) => {
-        const classNew = importProductService();
         const serviceClass = await getProduct<K>(type);
-        if (!serviceClass) throw new Error('Invalid type');
+        if (!serviceClass)
+            throw new NotFoundErrorResponse('Not found product service');
 
         const instance = new serviceClass(payload as any);
 
         return await instance.createProduct();
     };
 
-    public static removeProduct = async (id: string) => {};
+    public static removeProduct = async <
+        K extends modelTypes.product.ProductListKey
+    >(
+        type: K,
+        id: string
+    ) => {
+        const serviceClass = await getProduct<K>(type);
+        if (!serviceClass)
+            throw new NotFoundErrorResponse('Not found product service');
+
+        const objId = new mongoose.Types.ObjectId(id);
+        const instance = new serviceClass({ _id: objId });
+
+        return await instance.removeProduct();
+    };
 }

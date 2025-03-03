@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import { Product } from '.';
 import { phoneModel } from '../../models/product.model';
 import { BadRequestErrorResponse } from '../../response/error.response';
-import { modelTypes } from '../../types/models/porduct';
+import { modelTypes } from '../../types/models/product';
 
-export class Phone extends Product<modelTypes.Product.PhoneSchema> {
+export default class Phone extends Product<modelTypes.product.PhoneSchema> {
     public async createProduct() {
         // set id manually for product before create
         super.setId(new mongoose.Types.ObjectId());
@@ -28,5 +28,7 @@ export class Phone extends Product<modelTypes.Product.PhoneSchema> {
             super.removeProduct(),
             phoneModel.deleteOne({ _id: super.getId() })
         ]);
+
+        throw new Error();
     }
 }

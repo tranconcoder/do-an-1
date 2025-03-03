@@ -1,0 +1,20 @@
+[2025-03-03T09:23:26.163Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-03T09:23:39.816Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T09:24:54.250Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T09:26:52.313Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T09:27:08.210Z] [error]: HIDE::404::NotFound::Not found product service::
+[2025-03-03T09:27:47.089Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T09:27:51.409Z] [error]: HIDE::500::SyntaxError::Unexpected token '}', "
+    }
+}
+" is not valid JSON::
+[2025-03-03T09:27:55.720Z] [error]: HIDE::404::NotFound::Not found product service::
+[2025-03-03T09:27:58.638Z] [error]: HIDE::404::NotFound::Not found product service::
+[2025-03-03T09:28:07.511Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T15:49:06.305Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-03T15:49:19.073Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T15:49:44.009Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-03T15:51:23.359Z] [error]: HIDE::400::ErrorResponse::Invalid request body!::
+[2025-03-03T15:52:28.138Z] [error]: Server closed
+[2025-03-03T15:52:28.162Z] [error]: Server closed
+[2025-03-03T15:52:28.167Z] [error]: Server closed

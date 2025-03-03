@@ -1,14 +1,12 @@
 import Joi from 'joi';
-import { modelTypes } from '../../types/models/porduct';
-import { ConvertObjectIdToString } from '../../types/mongoose';
+import { modelTypes } from '../../types/models/product';
+import { joiTypes } from '../../types/joi';
+import { CategoryEnum } from '../../enums/product.enum';
 
 /* ====================================================== */
 /*                      PHONE PRODUCT                     */
 /* ====================================================== */
-export const phoneSchema = Joi.object<
-    ConvertObjectIdToString<modelTypes.Product.PhoneSchema>,
-    true
->({
+export const phoneSchema = Joi.object<joiTypes.product.PhoneSchema, true>({
     product_shop: Joi.string().required(),
     phone_processor: Joi.string().required(),
     phone_brand: Joi.string().required(),
@@ -25,7 +23,10 @@ export const phoneSchema = Joi.object<
         front: Joi.string(),
         back: Joi.string()
     }),
-    phone_screen: Joi.object({
+    phone_screen: Joi.object<
+        modelTypes.product.PhoneSchema['phone_screen'],
+        true
+    >({
         size: Joi.number().required(),
         resolution: Joi.object({
             width: Joi.number().required(),
@@ -36,7 +37,7 @@ export const phoneSchema = Joi.object<
         refresh_rate: Joi.number()
     }).required(),
     phone_connectivity: Joi.object<
-        modelTypes.Product.PhoneSchema['phone_connectivity'],
+        modelTypes.product.PhoneSchema['phone_connectivity'],
         true
     >({
         sim_count: Joi.number().required(),
@@ -55,7 +56,8 @@ export const phoneSchema = Joi.object<
 /* ====================================================== */
 /*                    CLOTHES PRODUCT                     */
 /* ====================================================== */
-export const clothesSchema = Joi.object({
+export const clothesSchema = Joi.object<joiTypes.product.ClothesSchema, true>({
+    product_shop: Joi.string().required(),
     size: Joi.string().required(),
     color: Joi.string().required()
 });
@@ -64,7 +66,7 @@ export const clothesSchema = Joi.object({
 /*                         PRODUCT                        */
 /* ====================================================== */
 export const createProductSchema = Joi.object<
-    ConvertObjectIdToString<modelTypes.Product.ProductSchema>,
+    joiTypes.product.CreateProductSchema,
     true
 >({
     product_shop: Joi.string().required(),
@@ -74,7 +76,7 @@ export const createProductSchema = Joi.object<
     product_quantity: Joi.number().required(),
     product_description: Joi.string().required(),
     product_category: Joi.string()
-        .valid(...Object.values(modelTypes.Product.CategoryEnum))
+        .valid(...Object.values(CategoryEnum))
         .required(),
     product_rating_avg: Joi.number().required().valid(0, 1, 2, 3, 4, 5),
     product_slug: Joi.string().required(),
@@ -85,6 +87,10 @@ export const createProductSchema = Joi.object<
     is_publish: Joi.boolean().required()
 });
 
-export const deleteProductSchema = Joi.object({
-    product_id: Joi.string().required()
+export const deleteProductSchema = Joi.object<
+    joiTypes.product.DeleteProductSchema,
+    true
+>({
+    _id: Joi.string().required(),
+    product_category: Joi.string().valid(CategoryEnum)
 });

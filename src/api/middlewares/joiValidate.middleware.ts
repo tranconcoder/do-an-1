@@ -1,13 +1,13 @@
 import type { Request, Response, NextFunction } from 'express';
 
-import { Schema } from '@hapi/joi';
 import ErrorResponse from '../response/error.response';
 import LoggerService from '../services/logger.service';
+import { Schema } from 'joi';
 
 export default function joiValidate(joiSchema: Schema) {
     return async (req: Request, _: Response, next: NextFunction) => {
         try {
-            await joiSchema.validate(req.body);
+            await joiSchema.validateAsync(req.body);
 
             next();
         } catch (err: any) {

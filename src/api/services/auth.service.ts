@@ -1,10 +1,6 @@
 import type { ObjectAnyKeys } from '../types/object';
 import type { LoginResponse } from '../types/auth';
-import type {
-    LoginSchema,
-    NewTokenSchema,
-    SignUpSchema
-} from '../validations/joi/auth.joi';
+import { modelTypes } from '../types/models/product';
 
 // Libs
 import mongoose from 'mongoose';
@@ -25,6 +21,7 @@ import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
 import LoggerService from './logger.service';
+import { joiTypes } from '../types/joi';
 
 export default class AuthService {
     /* ===================================================== */
@@ -35,7 +32,7 @@ export default class AuthService {
         email,
         password,
         fullName
-    }: SignUpSchema): Promise<ObjectAnyKeys> => {
+    }: joiTypes.auth.SignUpSchema): Promise<ObjectAnyKeys> => {
         /* --------------- Check if user is exists -------------- */
         const userIsExist = await UserService.checkUserExist({
             $or: [{ phoneNumber }, { email }]

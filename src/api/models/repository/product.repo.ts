@@ -1,9 +1,8 @@
-import type { UnionToPartialIntersection } from '../../types/common';
 import mongoose from 'mongoose';
 import { getProductModel } from '../../../configs/product.config';
-import ErrorResponse from '../../response/error.response';
-import { modelTypes } from '../../types/models/porduct';
-import { importProductModel } from '../../utils/product.util';
+import ErrorResponse, {
+    NotFoundErrorResponse
+} from '../../response/error.response';
 import { productModel } from '../product.model';
 
 export const deleteProductById = async (id: string) => {
@@ -11,9 +10,11 @@ export const deleteProductById = async (id: string) => {
     if (!product) throw new ErrorResponse(400, 'Delete product failed!');
 
     const productChildModel = await getProductModel(product.product_category);
-    productChildModel?.phone_battery;
+    if (!productChildModel) {
+        throw new NotFoundErrorResponse('Not found product!');
+    }
 
-    const a = productChildModel as UnionToPartialIntersection<
-        typeof productChildModel
-    >;
+    return await productChildModel.deleteOne({
+        _id: new mongoose.Types.ObjectId(id)
+    });
 };

@@ -1,22 +1,22 @@
-import * as Joi from '@hapi/joi';
-import 'joi-extract-type';
+import Joi from 'joi';
+import type { joiTypes } from '../../types/joi';
 
 /* ====================================================== */
 /*                      TOKEN PAYLOAD SCHEMA              */
 /* ====================================================== */
-export const jwtPayloadSchema = Joi.object({
+const jwtPayload = {
     userId: Joi.string().required(),
     role: Joi.string().required()
+};
+export const jwtPayloadSchema = Joi.object<joiTypes.jwt.JwtPayloadSign, true>(
+    jwtPayload
+).unknown(true);
+
+export const jwtPayloadWithHeaderSchema = Joi.object<
+    joiTypes.jwt.JwtPayloadSignWithHeader,
+    true
+>({
+    ...jwtPayload,
+    iat: Joi.number().required(),
+    exp: Joi.number().required()
 }).unknown(true);
-
-export const jwtPayloadWithHeaderSchema = jwtPayloadSchema
-    .keys({
-        iat: Joi.number().required(),
-        exp: Joi.number().required()
-    })
-    .unknown(true);
-
-export type JwtPayloadSchema = Joi.extractType<typeof jwtPayloadSchema>;
-export type JwtPayloadWithHeaderSchema = Joi.extractType<
-    typeof jwtPayloadWithHeaderSchema
->;

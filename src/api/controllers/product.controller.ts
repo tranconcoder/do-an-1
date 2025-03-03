@@ -1,11 +1,11 @@
-import type { RequestHandler } from 'express';
-
 import mongoose from 'mongoose';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
-import ProductFactory, { Product } from '../services/product';
+import ProductFactory from '../services/product';
+import { joiTypes } from '../types/joi';
+import { RequestWithBody } from '../types/request';
 
 export default class ProductController {
-    public static readonly createProduct: RequestHandler<any, any, Product> =
+    public static createProduct: RequestWithBody<joiTypes.product.CreateProductSchema> =
         async (req, res, _) => {
             new CreatedResponse({
                 message: 'Product created successfully',
@@ -19,11 +19,17 @@ export default class ProductController {
             }).send(res);
         };
 
-    public static readonly deleteProduct: RequestHandler<any, any, any> =
+    public static deleteProduct: RequestWithBody<joiTypes.product.DeleteProductSchema> =
         async (req, res, _) => {
-            // new SuccessResponse({
-            //     message: 'Product deleted successfully',
-            //     metadata: await ProductFactory
-            // });
+            await ProductFactory.removeProduct(
+                req.body.product_category,
+                req.body._id
+            );
+
+            new SuccessResponse({
+                message: 'Product deleted successfully',
+                name: 'Delete product',
+                statusCode: 200
+            }).send(res);
         };
 }

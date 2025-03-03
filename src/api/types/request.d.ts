@@ -1,5 +1,3 @@
-declare namespace Express {
-	export interface Request {
-		userId?: string;
-	}
-}
+import type { RequestHandler } from 'express';
+
+export interface RequestWithBody<T> extends RequestHandler<any, any, T> {}

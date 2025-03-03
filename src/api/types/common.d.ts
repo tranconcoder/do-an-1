@@ -19,5 +19,5 @@ export type ExtractInstanceType<T> = T extends new (...args: any[]) => infer R
 export type UnionToPartialIntersection<U> = (
     U extends any ? (k: U) => void : never
 ) extends (k: infer I) => void
-    ? Partial<I>
+    ? I | undefined
     : never;

@@ -2,7 +2,8 @@ import { Schema, model } from 'mongoose';
 import { required, timestamps } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from './user.model';
 import { addSlug } from './middlewares/product.middleware';
-import { modelTypes } from '../types/models/porduct';
+import { modelTypes } from '../types/models/product';
+import { CategoryEnum } from '../enums/product.enum';
 
 const PRODUCT_SHOP_FIELD = {
     product_shop: {
@@ -18,7 +19,7 @@ const PRODUCT_SHOP_FIELD = {
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
-const productSchema = new Schema<modelTypes.Product.ProductSchema>(
+const productSchema = new Schema<modelTypes.product.ProductSchema>(
     {
         ...PRODUCT_SHOP_FIELD,
         product_name: { type: String, required },
@@ -28,7 +29,7 @@ const productSchema = new Schema<modelTypes.Product.ProductSchema>(
         product_description: { type: String, required },
         product_category: {
             type: String,
-            enum: modelTypes.Product.CategoryEnum,
+            enum: CategoryEnum,
             required
         },
         product_rating_avg: {
@@ -59,7 +60,7 @@ export const productModel = model(PRODUCT_COLLECTION_NAME, productSchema);
 export const PHONE_MODEL_NAME = 'Phone';
 export const PHONE_COLLECTION_NAME = 'phones';
 
-const phoneSchema = new Schema<modelTypes.Product.PhoneSchema>(
+const phoneSchema = new Schema<modelTypes.product.PhoneSchema>(
     {
         ...PRODUCT_SHOP_FIELD,
         phone_processor: { type: String, required },
@@ -115,7 +116,7 @@ export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 const CLOTHES_MODEL_NAME = 'Clothes';
 const CLOTHES_COLLECTION_NAME = 'clothes';
 
-const clothesSchema = new Schema<modelTypes.Product.ClothesSchema>(
+const clothesSchema = new Schema<modelTypes.product.ClothesSchema>(
     {
         ...PRODUCT_SHOP_FIELD,
         size: { type: String, required },

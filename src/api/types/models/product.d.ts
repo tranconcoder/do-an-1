@@ -1,12 +1,10 @@
 import type { Document } from 'mongoose';
-import mongoose from 'mongoose';
+import type mongoose from 'mongoose';
+import type { CategoryEnum } from '../../enums/product.enum';
 
-export namespace modelTypes {
-    module Product {
-        enum CategoryEnum {
-            Phone = 'Phone',
-            Clothes = 'Clothes'
-        }
+declare namespace modelTypes {
+    module product {
+        type ProductListKey = keyof typeof CategoryEnum;
 
         interface CommonFields {
             product_shop: mongoose.Types.ObjectId;
@@ -21,7 +19,7 @@ export namespace modelTypes {
             product_category: CategoryEnum;
             product_rating_avg: number;
             product_slug: string;
-            product_attributes: ProductSchemaType;
+            product_attributes: PhoneSchema | ClothesSchema;
             is_draft: boolean;
             is_publish: boolean;
         }
@@ -72,18 +70,3 @@ export namespace modelTypes {
         }
     }
 }
-
-export interface ProductList extends modelTypes.Product.ProductSchema {}
-
-export type ProductListKey = keyof typeof modelTypes.Product.CategoryEnum;
-export type ProductListType = ProductList[ProductListKey];
-
-export type ProductAttributeType<T extends ValidProductCategories> =
-    T extends 'Phone' ? PhoneSchema : ClothesSchema;
-
-export type ProductPayload<T> = Omit<
-    Product<ProductAttributeType<T>>,
-    ExtractMethodNames<
-        Omit<Product<ProductAttributeType<T>>, 'product_attributes'>
-    >
->;
