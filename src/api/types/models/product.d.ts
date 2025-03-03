@@ -5,6 +5,7 @@ import type { CategoryEnum } from '../../enums/product.enum';
 declare namespace modelTypes {
     module product {
         type ProductListKey = keyof typeof CategoryEnum;
+        type ProductList = PhoneSchema | ClothesSchema;
 
         interface CommonFields {
             product_shop: mongoose.Types.ObjectId;
@@ -19,7 +20,7 @@ declare namespace modelTypes {
             product_category: CategoryEnum;
             product_rating_avg: number;
             product_slug: string;
-            product_attributes: PhoneSchema | ClothesSchema;
+            product_attributes: ProductList;
             is_draft: boolean;
             is_publish: boolean;
         }
@@ -36,7 +37,7 @@ declare namespace modelTypes {
                 charge_technology?: string;
             };
             phone_warranty: string;
-            phone_camera?: {
+            phone_camera: {
                 front?: string;
                 back?: string;
             };

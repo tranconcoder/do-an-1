@@ -18,7 +18,8 @@ export default class Phone extends Product<modelTypes.product.PhoneSchema> {
             })
         ])
             .then(([product]) => product)
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 throw new BadRequestErrorResponse('Save product failed');
             });
     }

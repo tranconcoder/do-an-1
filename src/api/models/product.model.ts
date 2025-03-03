@@ -33,13 +33,13 @@ const productSchema = new Schema<modelTypes.product.ProductSchema>(
             required
         },
         product_rating_avg: {
+            default: 0,
             type: Number,
-            required,
             min: 0,
             max: 5,
             set: (v: number) => Math.round(v * 100) / 100
         },
-        product_slug: { type: String, required },
+        product_slug: { type: String, default: '' },
         product_attributes: { type: Schema.Types.Mixed, required },
         is_draft: { type: Boolean, default: true, select: false },
         is_publish: { type: Boolean, default: false, select: false }

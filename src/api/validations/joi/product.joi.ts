@@ -13,15 +13,21 @@ export const phoneSchema = Joi.object<joiTypes.product.PhoneSchema, true>({
     phone_memory: Joi.string().required(),
     phone_storage: Joi.number().required(),
     phone_color: Joi.string().required(),
-    phone_battery: Joi.object({
+    phone_battery: Joi.object<
+        modelTypes.product.PhoneSchema['phone_battery'],
+        true
+    >({
         capacity: Joi.number().required(),
         battery_techology: Joi.string().required(),
         charge_technology: Joi.string()
     }).required(),
     phone_warranty: Joi.string().required(),
-    phone_camera: Joi.object({
-        front: Joi.string(),
-        back: Joi.string()
+    phone_camera: Joi.object<
+        modelTypes.product.PhoneSchema['phone_camera'],
+        true
+    >({
+        front: Joi.string().optional(),
+        back: Joi.string().optional()
     }),
     phone_screen: Joi.object<
         modelTypes.product.PhoneSchema['phone_screen'],
@@ -69,7 +75,6 @@ export const createProductSchema = Joi.object<
     joiTypes.product.CreateProductSchema,
     true
 >({
-    product_shop: Joi.string().required(),
     product_name: Joi.string().required(),
     product_cost: Joi.number().required(),
     product_thumb: Joi.string().required(),
@@ -78,8 +83,6 @@ export const createProductSchema = Joi.object<
     product_category: Joi.string()
         .valid(...Object.values(CategoryEnum))
         .required(),
-    product_rating_avg: Joi.number().required().valid(0, 1, 2, 3, 4, 5),
-    product_slug: Joi.string().required(),
     product_attributes: Joi.alternatives()
         .try(clothesSchema, phoneSchema)
         .required(),

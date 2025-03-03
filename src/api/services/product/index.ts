@@ -23,7 +23,7 @@ export abstract class Product<T = any>
     public product_description: string;
     public product_category: CategoryEnum;
     public product_rating_avg: number;
-    public product_attributes: T;
+    public product_attributes: modelTypes.product.ProductList;
     public is_draft: boolean;
     public is_publish: boolean;
     public product_slug: string;
@@ -52,7 +52,8 @@ export abstract class Product<T = any>
         this.product_description = product_description || '';
         this.product_category = product_category || CategoryEnum.Phone;
         this.product_rating_avg = product_rating_avg || 0;
-        this.product_attributes = (product_attributes || {}) as T;
+        this.product_attributes = (product_attributes ||
+            {}) as modelTypes.product.ProductList;
         this.is_draft = is_draft || true;
         this.is_publish = is_publish || false;
         this.product_slug = product_slug || '';

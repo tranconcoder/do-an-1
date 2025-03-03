@@ -45,7 +45,12 @@ export namespace joiTypes {
         /*                         CREATE                         */
         /* ====================================================== */
         interface CreateProductSchema
-            extends ConvertObjectIdToString<modelTypes.product.ProductSchema> {}
+            extends ConvertObjectIdToString<
+                Omit<
+                    modelTypes.product.ProductSchema,
+                    'product_shop' | 'product_rating_avg' | 'product_slug'
+                >
+            > {}
 
         interface DeleteProductSchema
             extends Pick<modelTypes.product.ProductSchema, 'product_category'> {
