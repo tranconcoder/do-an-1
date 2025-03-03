@@ -1,76 +1,129 @@
-import { InferRawDocType, Schema, model, mongo } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { required, timestamps } from '../../configs/mongoose.config';
 import { USER_MODEL_NAME } from './user.model';
-import { addProductShopToSchema } from '../utils/product.util';
+import { addSlug } from './middlewares/product.middleware';
 
-//
-//
+const PRODUCT_SHOP_FIELD = {
+    product_shop: {
+        type: Schema.Types.ObjectId,
+        required,
+        ref: USER_MODEL_NAME
+    }
+};
+
 /* ====================================================== */
 /*                         PRODUCT                        */
 /* ====================================================== */
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
-export const PRODUCT_CATEGORY_ENUM = ['Phone', 'Clothes'] as const;
-const productSchemaDefinition = {
-    product_shop: {
-        type: Schema.Types.ObjectId,
-        required,
-        ref: USER_MODEL_NAME
+const productSchema = new Schema<modelTypes.Product.ProductSchema>(
+    {
+        ...PRODUCT_SHOP_FIELD,
+        product_name: { type: String, required },
+        product_cost: { type: Number, required },
+        product_thumb: { type: String, required },
+        product_quantity: { type: Number, required },
+        product_description: { type: String, required },
+        product_category: {
+            type: String,
+            enum: modelTypes.Product.CategoryEnum,
+            required
+        },
+        product_rating_avg: {
+            type: Number,
+            required,
+            min: 0,
+            max: 5,
+            set: (v: number) => Math.round(v * 100) / 100
+        },
+        product_slug: { type: String, required },
+        product_attributes: { type: Schema.Types.Mixed, required },
+        is_draft: { type: Boolean, default: true, select: false },
+        is_publish: { type: Boolean, default: false, select: false }
     },
-    product_name: { type: String, required },
-    product_cost: { type: Number, required },
-    product_thumb: { type: String, required },
-    product_quantity: { type: Number, required },
-    product_description: { type: String, required },
-    product_category: { type: String, enum: PRODUCT_CATEGORY_ENUM, required },
-    product_rating: { type: Number, required },
-    product_attributes: { type: Schema.Types.Mixed, required }
-};
-const productSchema = new Schema(productSchemaDefinition, {
-    collection: PRODUCT_COLLECTION_NAME,
-    timestamps
-});
+    {
+        collection: PRODUCT_COLLECTION_NAME,
+        timestamps
+    }
+);
+productSchema.pre('save', addSlug);
 
-export type ProductSchema = InferRawDocType<typeof productSchemaDefinition>;
-export default model(PRODUCT_COLLECTION_NAME, productSchema);
+export const productModel = model(PRODUCT_COLLECTION_NAME, productSchema);
+/* --------------------- END PRODUCT -------------------- */
 
-//
-//
 /* ====================================================== */
 /*                          PHONE                         */
 /* ====================================================== */
 export const PHONE_MODEL_NAME = 'Phone';
 export const PHONE_COLLECTION_NAME = 'phones';
 
-const phoneSchemaDefinition = addProductShopToSchema({
-    memory: { type: String, required },
-    color: { type: String, required }
-});
-const phoneSchema = new Schema(phoneSchemaDefinition, {
-    collection: PHONE_COLLECTION_NAME,
-    timestamps
-});
+const phoneSchema = new Schema<modelTypes.Product.PhoneSchema>(
+    {
+        ...PRODUCT_SHOP_FIELD,
+        phone_processor: { type: String, required },
+        phone_memory: { type: String, required },
+        phone_storage: { type: Number, required },
+        phone_color: { type: String, required },
+        phone_battery: {
+            capacity: { type: Number, required },
+            battery_techology: { type: String, required },
+            charge_technology: String
+        },
+        phone_warranty: { type: String, required },
+        phone_camera: {
+            front: String,
+            back: String
+        },
+        phone_screen: {
+            size: { type: Number, required },
+            resolution: {
+                width: { type: Number, required },
+                height: { type: Number, required }
+            },
+            max_brightness: { type: Number },
+            technology: { type: String, required },
+            refresh_rate: Number
+        },
+        phone_connectivity: {
+            sim_count: { type: Number, required },
+            network: { type: String, required },
+            usb: { type: String, required },
+            wifi: String,
+            bluetooth: String,
+            gps: String
+        },
+        phone_special_features: { type: [String], default: [] },
+        phone_material: { type: String, required },
+        phone_weight: { type: Number, required },
+        phone_brand: { type: String, required },
+        is_smartphone: { type: Boolean, default: true }
+    },
+    {
+        collection: PHONE_COLLECTION_NAME,
+        timestamps
+    }
+);
 
-export type PhoneSchema = InferRawDocType<typeof phoneSchemaDefinition>;
 export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
+/* ---------------------- END PHONE --------------------- */
 
-//
-//
 /* ====================================================== */
 /*                         CLOTHES                        */
 /* ====================================================== */
 const CLOTHES_MODEL_NAME = 'Clothes';
 const CLOTHES_COLLECTION_NAME = 'clothes';
 
-const clothesSchemaDefinition = addProductShopToSchema({
-    size: { type: String, required },
-    color: { type: String, required }
-});
-const clothesSchema = new Schema(clothesSchemaDefinition, {
-    collection: CLOTHES_COLLECTION_NAME,
-    timestamps
-});
+const clothesSchema = new Schema<modelTypes.Product.ClothesSchema>(
+    {
+        ...PRODUCT_SHOP_FIELD,
+        size: { type: String, required },
+        color: { type: String, required }
+    },
+    {
+        collection: CLOTHES_COLLECTION_NAME,
+        timestamps
+    }
+);
 
-export type ClothesSchema = InferRawDocType<typeof clothesSchemaDefinition>;
 export const clothesModel = model(CLOTHES_MODEL_NAME, clothesSchema);

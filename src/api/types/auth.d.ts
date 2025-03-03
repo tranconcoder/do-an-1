@@ -1,12 +1,12 @@
-import { UserModel } from '../models/user.model';
-import { JwtPair } from './jwt';
+import type { UserSchema } from './models/user';
+import type { JwtPair } from './jwt';
 
 /* ===================================================== */
 /*                       RESPONSE                        */
 /* ===================================================== */
 
 export interface LoginResponse {
-    user: Pick<UserModel, 'phoneNumber' | 'email' | 'fullName' | 'role'> & {
+    user: Pick<UserSchema, 'phoneNumber' | 'email' | 'fullName' | 'role'> & {
         _id: ObjectId;
     };
     token: JwtPair;

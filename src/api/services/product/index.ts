@@ -6,15 +6,22 @@ import type {
     ProductAttributeType,
     ProductList,
     ProductListKey,
-    ProductListType
-} from '../../types/product';
+    ProductListType,
+    ProductPayload,
+    ValidProductCategories
+} from '../../types/models/product';
 import type { HydratedDocument } from 'mongoose';
 
 /* ----------------------- Configs ---------------------- */
-import { getProductList } from '../../../configs/product.config';
+import {
+    getProduct,
+    GetProductReturnType
+} from '../../../configs/product.config';
 import mongoose from 'mongoose';
 import { IntRange } from '../../types/number';
 import productModel from '../../models/product.model';
+import Clothes from './clothes.service';
+import { Phone } from './phone.service';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
@@ -29,7 +36,7 @@ export abstract class Product<T = any> {
     public product_category: ProductListKey;
     public product_rating: IntRange<0, 6>;
     public product_attributes: T;
-    public _id?: mongoose.Types.ObjectId;
+    public _id: mongoose.Types.ObjectId;
 
     public constructor({
         product_shop,
@@ -68,26 +75,33 @@ export abstract class Product<T = any> {
     public async removeProduct(id: string): Promise<void> {
         await productModel.deleteOne({ _id: id });
     }
+
+    protected getProductShop() {
+        return this.product_shop;
+    }
+    protected getId() {
+        return this._id;
+    }
+    protected setId(id: mongoose.Types.ObjectId) {
+        this._id = id;
+    }
 }
 
 /* ====================================================== */
 /*                         FACTORY                        */
 /* ====================================================== */
 export default class ProductFactory {
-    public static async createProduct<K extends ProductListKey>(
+    public static createProduct = async <K extends ProductListKey>(
         type: K,
-        payload: Omit<
-            Product<ProductAttributeType<K>>,
-            ExtractMethodNames<Omit<Product, 'product_attributes'>>
-        >
-    ) {
-        const ServiceClass: ProductListType = (await getProductList())[type];
-        if (!ServiceClass) throw new Error('Invalid type');
+        payload: ProductPayload<K>
+    ) => {
+        const serviceClass = await getProduct<K>(type);
+        if (!serviceClass) throw new Error('Invalid type');
 
-        const instance = new ServiceClass(payload);
+        const instance = new serviceClass(payload as any);
 
-        return (await instance.createProduct()) as HydratedDocument<
-            typeof payload.product_attributes
-        >;
-    }
+        return await instance.createProduct();
+    };
+
+    public static removeProduct = async (id: string) => {};
 }

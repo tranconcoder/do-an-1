@@ -1,12 +1,12 @@
 import type { RootFilterQuery } from 'mongoose';
-import type { UserModel } from '../models/user.model';
+import type { UserSchema } from '../types/models/user';
 
-import userModel from '../models/user.model';
+import { userModel } from '../models/user.model';
 import _ from 'lodash';
 import mongoose from 'mongoose';
 
 export default class UserService {
-    public static newInstance = (user: UserModel) => {
+    public static newInstance = (user: UserSchema) => {
         return new userModel(user);
     };
     public static saveInstance = async (
@@ -15,17 +15,17 @@ export default class UserService {
         return await user.save();
     };
 
-    public static findOne = async (query: RootFilterQuery<UserModel>) => {
+    public static findOne = async (query: RootFilterQuery<UserSchema>) => {
         return await userModel.findOne(query).lean();
     };
 
     public static checkUserExist = async (
-        query: RootFilterQuery<UserModel>
+        query: RootFilterQuery<UserSchema>
     ) => {
         return await userModel.exists(query).lean();
     };
 
-    public static saveUser = async (data: UserModel) => {
+    public static saveUser = async (data: UserSchema) => {
         const user = await userModel.create(data);
 
         return user ? _.pick(user, ['role', 'id']) : null;

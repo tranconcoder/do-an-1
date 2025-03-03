@@ -62,3 +62,4 @@
 [2025-03-02T02:08:00.011Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-03-02T02:09:00.018Z] [error]: MongoNotConnectedError: Client must be connected before running operations
 [2025-03-02T02:10:00.008Z] [error]: MongoNotConnectedError: Client must be connected before running operations
+[2025-03-02T14:53:42.285Z] [error]: Error: read ECONNRESET
