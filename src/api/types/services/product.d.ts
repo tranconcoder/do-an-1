@@ -7,7 +7,7 @@ declare global {
             /*                   FUNCTION ARGUMENTS                   */
             /* ====================================================== */
             namespace arguments {
-                interface CreateProductPayload
+                interface CreateProduct
                     extends Omit<
                         modelTypes.product.ProductSchema,
                         'product_rating_avg' | 'product_slug'

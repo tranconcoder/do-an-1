@@ -1,32 +1,36 @@
 import type { Document } from 'mongoose';
 import type mongoose from 'mongoose';
 import type { CategoryEnum } from '../../enums/product.enum';
+import { Product } from '../../services/product';
+import { extend } from 'lodash';
 
 declare global {
     namespace modelTypes {
-        module product {
+        namespace product {
             type ProductListKey = keyof typeof CategoryEnum;
-            type ProductList = PhoneSchema | ClothesSchema;
+            type ProductList<T = false> = Partial<
+                PhoneSchema<T> & ClothesSchema<T>
+            >;
 
-            interface CommonFields {
+            interface CommonFields<T> extends utils.IsDocument<T> {
                 product_shop: mongoose.Types.ObjectId;
             }
 
-            interface ProductSchema extends CommonFields {
+            interface ProductSchema<T> extends CommonFields<T> {
                 product_name: string;
                 product_cost: number;
                 product_thumb: string;
                 product_quantity: number;
                 product_description: string;
                 product_category: CategoryEnum;
-                product_attributes: ProductList;
+                product_attributes: ProductList<T>;
                 is_draft: boolean;
                 is_publish: boolean;
                 product_rating_avg: number;
                 product_slug: string;
             }
 
-            interface PhoneSchema extends CommonFields {
+            interface PhoneSchema<T> extends CommonFields<T> {
                 phone_processor: string;
                 phone_brand: string;
                 phone_memory: string;
@@ -66,10 +70,18 @@ declare global {
                 is_smartphone: boolean;
             }
 
-            interface ClothesSchema extends CommonFields {
+            interface ClothesSchema<T> extends CommonFields<T> {
                 size: string;
                 color: string;
             }
+        }
+
+        namespace utils {
+            type IsDocument<T> = {
+                [K in keyof mongoose.Document]: T extends true
+                    ? mongoose.Document[K]
+                    : never;
+            };
         }
     }
 }

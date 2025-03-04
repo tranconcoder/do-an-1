@@ -11,7 +11,7 @@ import { CategoryEnum } from '../../enums/product.enum';
 /*                      CREATOR CLASS                     */
 /* ====================================================== */
 export abstract class Product
-    implements serviceTypes.product.CreateProductPayload
+    implements serviceTypes.product.arguments.CreateProduct
 {
     public _id: mongoose.Types.ObjectId;
     public product_shop: mongoose.Types.ObjectId;
@@ -37,7 +37,7 @@ export abstract class Product
         is_draft,
         is_publish,
         _id = new mongoose.Types.ObjectId()
-    }: Partial<modelTypes.product.ProductSchema & Document>) {
+    }: Partial<modelTypes.product.ProductSchema<true>>) {
         this._id = _id as mongoose.Types.ObjectId;
         this.product_shop = product_shop || new mongoose.Types.ObjectId();
         this.product_name = product_name || '';
@@ -79,7 +79,7 @@ export default class ProductFactory {
         K extends modelTypes.product.ProductListKey
     >(
         type: K,
-        payload: serviceTypes.product.CreateProductPayload
+        payload: serviceTypes.product.arguments.CreateProduct
     ) => {
         const serviceClass = await getProduct<K>(type);
         if (!serviceClass)

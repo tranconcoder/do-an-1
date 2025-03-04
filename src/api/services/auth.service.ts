@@ -1,6 +1,3 @@
-import type { ObjectAnyKeys } from '../types/object';
-import type { LoginResponse } from '../types/auth';
-
 // Libs
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
@@ -30,7 +27,7 @@ export default class AuthService {
         email,
         password,
         fullName
-    }: joiTypes.auth.SignUpSchema): Promise<ObjectAnyKeys> => {
+    }: serviceTypes.auth.arguments.SignUp) => {
         /* --------------- Check if user is exists -------------- */
         const userIsExist = await UserService.checkUserExist({
             $or: [{ phoneNumber }, { email }]
@@ -93,7 +90,7 @@ export default class AuthService {
     public static login = async ({
         phoneNumber,
         password
-    }: joiTypes.auth.LoginSchema): Promise<LoginResponse> => {
+    }: serviceTypes.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
         const user = await UserService.findOne({ phoneNumber });
         if (!user) throw new NotFoundErrorResponse('User not found!');
@@ -151,7 +148,7 @@ export default class AuthService {
     /* ===================================================== */
     public static newToken = async ({
         refreshToken
-    }: joiTypes.auth.NewTokenSchema) => {
+    }: serviceTypes.auth.arguments.NewToken) => {
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
         if (!payload)

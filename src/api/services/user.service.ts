@@ -5,7 +5,9 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 
 export default class UserService {
-    public static newInstance = (user: joiTypes.auth.SignUpSchema) => {
+    public static newInstance = (
+        user: serviceTypes.user.arguments.NewInstanceArgs
+    ) => {
         return new userModel(user) as any as modelTypes.auth.UserSchema<true>;
     };
     public static saveInstance = async (
