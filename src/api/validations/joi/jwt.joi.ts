@@ -1,21 +1,23 @@
 import Joi from 'joi';
+import _ from 'lodash';
 
 /* ====================================================== */
 /*                      TOKEN PAYLOAD SCHEMA              */
 /* ====================================================== */
-const jwtPayload = {
-    userId: Joi.string().required(),
-    role: Joi.string().required()
-};
-export const jwtPayloadSchema = Joi.object<joiTypes.jwt.JwtPayloadSign, true>(
-    jwtPayload
-).unknown(true);
+const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.JwtPayload> =
+    {
+        id: Joi.string().required(),
+        role: Joi.string().required(),
+        exp: Joi.number().required(),
+        iat: Joi.number().required()
+    };
 
-export const jwtPayloadWithHeaderSchema = Joi.object<
-    joiTypes.jwt.JwtPayloadSignWithHeader,
+export const jwtPayloadSignSchema = Joi.object<
+    joiTypes.jwt.definition.JwtPayloadSign,
     true
->({
-    ...jwtPayload,
-    iat: Joi.number().required(),
-    exp: Joi.number().required()
-}).unknown(true);
+>(_.pick(jwtPayload, ['id', 'role']));
+
+export const jwtPayloadSchema = Joi.object<
+    joiTypes.jwt.definition.JwtPayload,
+    true
+>(jwtPayload).unknown(true);

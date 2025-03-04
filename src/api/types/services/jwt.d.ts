@@ -1,6 +1,11 @@
+import type { SignOptions } from 'jsonwebtoken';
+
 declare global {
     namespace serviceTypes {
         namespace jwt {
+            /* ====================================================== */
+            /*                       DEFINITION                       */
+            /* ====================================================== */
             namespace definition {
                 interface KeyTokenPair {
                     publicKey: string;
@@ -13,10 +18,11 @@ declare global {
                 }
 
                 interface JwtPayloadSign
-                    extends Pick<
-                        modelTypes.auth.UserSchema,
-                        'email' | 'role'
-                    > {}
+                    extends moduleTypes.mongoose.ConvertObjectIdToString<
+                        Pick<modelTypes.auth.UserSchema<true>, 'role'>
+                    > {
+                    id: string;
+                }
             }
 
             namespace utils {
@@ -27,7 +33,7 @@ declare global {
                 }
 
                 type JwtConfig = {
-                    [key in keyof JwtPair]: {
+                    [key in keyof serviceTypes.jwt.definition.JwtPair]: {
                         options: SignOptions;
                     };
                 };

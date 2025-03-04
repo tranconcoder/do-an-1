@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import { Product } from '.';
 import { clothesModel } from '../../models/product.model';
 import { BadRequestErrorResponse } from '../../response/error.response';
-import { modelTypes } from '../../types/models/product';
 
 export default class Clothes extends Product {
     public async createProduct() {

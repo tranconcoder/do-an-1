@@ -1,16 +1,19 @@
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload as JwtPayloadBase } from 'jsonwebtoken';
 
 declare global {
     namespace joiTypes {
-        module jwt {
-            interface JwtPayloadSign {
-                userId: string;
-                role: string;
-            }
+        namespace jwt {
+            /* ====================================================== */
+            /*                       DEFINITION                       */
+            /* ====================================================== */
+            namespace definition {
+                interface JwtPayloadSign
+                    extends serviceTypes.jwt.definition.JwtPayloadSign {}
 
-            interface JwtPayloadSignWithHeader
-                extends JwtPayloadSign,
-                    Required<Pick<JwtPayload, 'iat' | 'exp'>> {}
+                interface JwtPayload
+                    extends JwtPayloadSign,
+                        Required<Pick<JwtPayloadBase, 'iat' | 'exp'>> {}
+            }
         }
     }
 }

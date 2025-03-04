@@ -38,7 +38,7 @@ export default class ScheduledService {
 
                 if (!decoded) {
                     await keyToken.deleteOne();
-                    throw false;
+                    throw new Error('Invalid key token');
                 }
 
                 const newRefreshTokensUsed = await asyncFilter(

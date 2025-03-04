@@ -81,7 +81,7 @@ export default class KeyTokenService {
                 type: 'pkcs8',
                 format: 'pem'
             }
-        });
+        }) as serviceTypes.
     };
 
     /* ===================================================== */
