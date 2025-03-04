@@ -3,14 +3,17 @@ import { ConvertObjectIdToString } from '../modules/mongoose';
 declare global {
     namespace joiTypes {
         module auth {
-            interface UserSchema extends modelTypes.auth.UserSchema {}
+            interface UserSchema
+                extends moduleTypes.mongoose
+                    .ConvertObjectIdToString<modelTypes.auth.UserSchema> {}
 
             interface LoginSchema
                 extends Pick<UserSchema, 'phoneNumber' | 'password'> {}
 
             interface SignUpSchema
-                extends moduleTypes.mongoose.ConvertObjectIdToString<
-                    Omit<UserSchema, 'dateOfBirth'>
+                extends Pick<
+                    UserSchema,
+                    'email' | 'fullName' | 'password' | 'phoneNumber' | 'role'
                 > {}
 
             interface NewTokenSchema {

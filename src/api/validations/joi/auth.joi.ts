@@ -1,14 +1,12 @@
 import Joi from 'joi';
+import _ from 'lodash';
 
 /* ====================================================== */
 /*                       USER SCHEMA                      */
 /* ====================================================== */
-const userSchema = Joi.object({});
-
-/* ====================================================== */
-/*                      LOGIN SCHEMA                      */
-/* ====================================================== */
-const login = {
+const user: joiTypes.utils.ConvertObjectToJoiType<joiTypes.auth.UserSchema> = {
+    email: Joi.string().email().required(),
+    fullName: Joi.string().required().min(4).max(30),
     phoneNumber: Joi.string()
         .required()
         .regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/),
@@ -16,20 +14,23 @@ const login = {
         .required()
         .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-        )
+        ),
+    role: Joi.string().required()
 };
-export const loginSchema = Joi.object<joiTypes.auth.LoginSchema>({
-    ...login
-});
+
+/* ====================================================== */
+/*                      LOGIN SCHEMA                      */
+/* ====================================================== */
+export const loginSchema = Joi.object<joiTypes.auth.LoginSchema, true>(
+    _.pick(user, ['phoneNumber', 'password'])
+);
 
 /* ====================================================== */
 /*                      SIGNUP SCHEMA                     */
 /* ====================================================== */
-export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema>({
-    ...login,
-    email: Joi.string().email().required(),
-    fullName: Joi.string().required().min(4).max(30)
-});
+export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema, true>(
+    _.pick(user, ['email', 'fullName', 'password', 'phoneNumber', 'role'])
+);
 
 /* ====================================================== */
 /*                      NEW TOKEN SCHEMA                  */
