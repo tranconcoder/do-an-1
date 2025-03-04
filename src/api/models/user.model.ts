@@ -1,12 +1,11 @@
 import { InferRawDocType, Schema, model } from 'mongoose';
 import { ROLE_MODEL_NAME } from './role.model';
 import { required, unique, timestamps } from '../../configs/mongoose.config';
-import { UserSchema } from '../types/models/user';
 
 export const USER_MODEL_NAME = 'User';
 export const USER_COLLECTION_NAME = 'users';
 
-const userSchema = new Schema<UserSchema>(
+const userSchema = new Schema<modelTypes.auth.UserSchema>(
     {
         phoneNumber: { type: String, length: 10, required, unique },
         email: { type: String, unique },

@@ -11,11 +11,9 @@ export default function joiValidate(joiSchema: Schema) {
 
             next();
         } catch (err: any) {
-            LoggerService.getInstance().debug(
-                err?.message || 'Validate request body failed!'
-            );
+            const message = err?.message || 'Validate request body failed!';
 
-            next(new ErrorResponse(400, undefined, 'Invalid request body!'));
+            next(new ErrorResponse(400, undefined, message));
         }
     };
 }

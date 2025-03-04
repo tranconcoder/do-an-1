@@ -3,16 +3,16 @@ import type { Document } from 'mongoose';
 /* ----------------------- Configs ---------------------- */
 import { getProduct } from '../../../configs/product.config';
 import mongoose from 'mongoose';
-import { modelTypes } from '../../types/models/product';
 import { productModel } from '../../models/product.model';
 import { NotFoundErrorResponse } from '../../response/error.response';
 import { CategoryEnum } from '../../enums/product.enum';
+import { serviceTypes } from '../../types/service';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
 /* ====================================================== */
-export abstract class Product<T = any>
-    implements modelTypes.product.ProductSchema
+export abstract class Product
+    implements serviceTypes.product.CreateProductPayload
 {
     public _id: mongoose.Types.ObjectId;
     public product_shop: mongoose.Types.ObjectId;
@@ -22,11 +22,9 @@ export abstract class Product<T = any>
     public product_quantity: number;
     public product_description: string;
     public product_category: CategoryEnum;
-    public product_rating_avg: number;
     public product_attributes: modelTypes.product.ProductList;
     public is_draft: boolean;
     public is_publish: boolean;
-    public product_slug: string;
 
     public constructor({
         product_shop,
@@ -36,11 +34,9 @@ export abstract class Product<T = any>
         product_quantity,
         product_description,
         product_category,
-        product_rating_avg,
         product_attributes,
         is_draft,
         is_publish,
-        product_slug,
         _id = new mongoose.Types.ObjectId()
     }: Partial<modelTypes.product.ProductSchema & Document>) {
         this._id = _id as mongoose.Types.ObjectId;
@@ -51,12 +47,10 @@ export abstract class Product<T = any>
         this.product_quantity = product_quantity || 0;
         this.product_description = product_description || '';
         this.product_category = product_category || CategoryEnum.Phone;
-        this.product_rating_avg = product_rating_avg || 0;
         this.product_attributes = (product_attributes ||
             {}) as modelTypes.product.ProductList;
         this.is_draft = is_draft || true;
         this.is_publish = is_publish || false;
-        this.product_slug = product_slug || '';
     }
 
     public async createProduct() {
@@ -86,7 +80,7 @@ export default class ProductFactory {
         K extends modelTypes.product.ProductListKey
     >(
         type: K,
-        payload: modelTypes.product.ProductSchema
+        payload: serviceTypes.product.CreateProductPayload
     ) => {
         const serviceClass = await getProduct<K>(type);
         if (!serviceClass)
@@ -101,7 +95,7 @@ export default class ProductFactory {
         K extends modelTypes.product.ProductListKey
     >(
         type: K,
-        id: string
+        id: joiTypes.product.DeleteProductSchema['product_id']
     ) => {
         const serviceClass = await getProduct<K>(type);
         if (!serviceClass)

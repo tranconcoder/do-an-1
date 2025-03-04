@@ -1,64 +1,68 @@
 import type { JwtPayload } from 'jwt-decode';
-import { modelTypes } from './models/product';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { ConvertObjectIdToString } from './mongoose';
 
-export namespace joiTypes {
-    module auth {
-        interface LoginSchema {
-            phoneNumber: string;
-            password: string;
+declare global {
+    namespace joiTypes {
+        module auth {
+            interface UserSchema extends modelTypes.auth.UserSchema {}
+
+            interface LoginSchema
+                extends Pick<UserSchema, 'phoneNumber' | 'password'> {}
+
+            interface SignUpSchema
+                extends ConvertObjectIdToString<
+                    Omit<UserSchema, 'dateOfBirth'>
+                > {}
+
+            interface NewTokenSchema {
+                refreshToken: string;
+            }
         }
 
-        interface SignUpSchema extends LoginSchema {
-            email: string;
-            fullName: string;
+        module jwt {
+            interface JwtPayloadSign {
+                userId: string;
+                role: string;
+            }
+
+            interface JwtPayloadSignWithHeader
+                extends JwtPayloadSign,
+                    Required<Pick<JwtPayload, 'iat' | 'exp'>> {}
         }
 
-        interface NewTokenSchema {
-            refreshToken: string;
-        }
-    }
+        module product {
+            /* ====================================================== */
+            /*                       DEFINITION                       */
+            /* ====================================================== */
+            interface PhoneSchema
+                extends ConvertObjectIdToString<
+                    Omit<modelTypes.product.PhoneSchema, 'product_shop'>
+                > {}
 
-    module jwt {
-        interface JwtPayloadSign {
-            userId: string;
-            role: string;
-        }
+            interface ClothesSchema
+                extends ConvertObjectIdToString<
+                    Omit<modelTypes.product.ClothesSchema, 'product_shop'>
+                > {}
 
-        interface JwtPayloadSignWithHeader
-            extends JwtPayloadSign,
-                Required<Pick<JwtPayload, 'iat' | 'exp'>> {}
-    }
+            /* ====================================================== */
+            /*                         CREATE                         */
+            /* ====================================================== */
+            interface CreateProductSchema
+                extends ConvertObjectIdToString<
+                    Omit<
+                        modelTypes.product.ProductSchema,
+                        'product_shop' | 'product_rating_avg' | 'product_slug'
+                    >
+                > {}
 
-    module product {
-        /* ====================================================== */
-        /*                       DEFINITION                       */
-        /* ====================================================== */
-        interface PhoneSchema
-            extends ConvertObjectIdToString<modelTypes.product.PhoneSchema> {}
-
-        interface ClothesSchema
-            extends ConvertObjectIdToString<modelTypes.product.ClothesSchema> {}
-
-        /* ====================================================== */
-        /*                         CREATE                         */
-        /* ====================================================== */
-        interface CreateProductSchema
-            extends ConvertObjectIdToString<
-                Omit<
+            interface DeleteProductSchema
+                extends Pick<
                     modelTypes.product.ProductSchema,
-                    'product_shop' | 'product_rating_avg' | 'product_slug'
-                >
-            > {}
-
-        interface DeleteProductSchema
-            extends Pick<modelTypes.product.ProductSchema, 'product_category'> {
-            _id: string;
+                    'product_category'
+                > {
+                product_id: string;
+            }
         }
-    }
-
-    module user {
-        interface UserSchema {}
     }
 }

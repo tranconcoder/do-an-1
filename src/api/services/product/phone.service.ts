@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
-import { Product } from '.';
 import { phoneModel } from '../../models/product.model';
+import { Product } from '.';
 import { BadRequestErrorResponse } from '../../response/error.response';
-import { modelTypes } from '../../types/models/product';
 
-export default class Phone extends Product<modelTypes.product.PhoneSchema> {
+export default class Phone extends Product {
     public async createProduct() {
         // set id manually for product before create
         super.setId(new mongoose.Types.ObjectId());
@@ -19,8 +18,8 @@ export default class Phone extends Product<modelTypes.product.PhoneSchema> {
         ])
             .then(([product]) => product)
             .catch((error) => {
-                console.log(error);
-                throw new BadRequestErrorResponse('Save product failed');
+                const message = error?.messgae || 'Save product failed';
+                throw new BadRequestErrorResponse(message);
             });
     }
 
@@ -28,8 +27,9 @@ export default class Phone extends Product<modelTypes.product.PhoneSchema> {
         await Promise.all([
             super.removeProduct(),
             phoneModel.deleteOne({ _id: super.getId() })
-        ]);
-
-        throw new Error();
+        ]).catch((error) => {
+            const message = error?.messgae || 'Remove product failed';
+            throw new BadRequestErrorResponse(message);
+        });
     }
 }

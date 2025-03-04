@@ -1,13 +1,10 @@
 import Joi from 'joi';
-import { modelTypes } from '../../types/models/product';
-import { joiTypes } from '../../types/joi';
 import { CategoryEnum } from '../../enums/product.enum';
 
 /* ====================================================== */
 /*                      PHONE PRODUCT                     */
 /* ====================================================== */
 export const phoneSchema = Joi.object<joiTypes.product.PhoneSchema, true>({
-    product_shop: Joi.string().required(),
     phone_processor: Joi.string().required(),
     phone_brand: Joi.string().required(),
     phone_memory: Joi.string().required(),
@@ -63,7 +60,6 @@ export const phoneSchema = Joi.object<joiTypes.product.PhoneSchema, true>({
 /*                    CLOTHES PRODUCT                     */
 /* ====================================================== */
 export const clothesSchema = Joi.object<joiTypes.product.ClothesSchema, true>({
-    product_shop: Joi.string().required(),
     size: Joi.string().required(),
     color: Joi.string().required()
 });
@@ -94,6 +90,8 @@ export const deleteProductSchema = Joi.object<
     joiTypes.product.DeleteProductSchema,
     true
 >({
-    _id: Joi.string().required(),
-    product_category: Joi.string().valid(CategoryEnum)
+    product_id: Joi.string().required(),
+    product_category: Joi.string()
+        .valid(...Object.values(CategoryEnum))
+        .required()
 });

@@ -1,16 +1,16 @@
 import { Router } from 'express';
 
-// Controllers
+/* --------------------- Controllers -------------------- */
 import AuthController from '../../controllers/auth.controller';
 
-// Joi
+/* ------------------------- Joi ------------------------ */
 import {
     loginSchema,
     newTokenSchema,
     signUpSchema
 } from '../../validations/joi/auth.joi';
 
-// Middlewares
+/* --------------------- Middlewares -------------------- */
 import catchError from '../../middlewares/catchError.middleware';
 import joiValidate from '../../middlewares/joiValidate.middleware';
 import { authenticate } from '../../middlewares/jwt.middleware';

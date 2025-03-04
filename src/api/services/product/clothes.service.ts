@@ -4,7 +4,7 @@ import { clothesModel } from '../../models/product.model';
 import { BadRequestErrorResponse } from '../../response/error.response';
 import { modelTypes } from '../../types/models/product';
 
-export default class Clothes extends Product<modelTypes.product.ClothesSchema> {
+export default class Clothes extends Product {
     public async createProduct() {
         // set id manually for product before create
         super.setId(new mongoose.Types.ObjectId());

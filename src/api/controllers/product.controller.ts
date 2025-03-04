@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
-import { joiTypes } from '../types/joi';
 import { RequestWithBody } from '../types/request';
 
 export default class ProductController {
@@ -23,7 +22,7 @@ export default class ProductController {
         async (req, res, _) => {
             await ProductFactory.removeProduct(
                 req.body.product_category,
-                req.body._id
+                req.body.product_id
             );
 
             new SuccessResponse({

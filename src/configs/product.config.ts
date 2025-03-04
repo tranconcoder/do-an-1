@@ -10,7 +10,6 @@ import {
     importProductService
 } from '../api/utils/product.util';
 import { UnionToPartialIntersection } from '../api/types/common';
-import { modelTypes } from '../api/types/models/product';
 import { CategoryEnum } from '../api/enums/product.enum';
 
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;

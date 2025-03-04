@@ -1,6 +1,5 @@
 import type { ObjectAnyKeys } from '../types/object';
 import type { LoginResponse } from '../types/auth';
-import { modelTypes } from '../types/models/product';
 
 // Libs
 import mongoose from 'mongoose';
@@ -21,7 +20,6 @@ import UserService from './user.service';
 import KeyTokenService from './keyToken.service';
 import JwtService from './jwt.service';
 import LoggerService from './logger.service';
-import { joiTypes } from '../types/joi';
 
 export default class AuthService {
     /* ===================================================== */
@@ -46,8 +44,9 @@ export default class AuthService {
             email,
             password: hashPassword,
             fullName,
-            role: new mongoose.Types.ObjectId()
+            role: new mongoose.Types.ObjectId().toString()
         });
+        userInstance;
         if (!userInstance)
             throw new ForbiddenErrorResponse('Create user failed!');
 
@@ -94,14 +93,14 @@ export default class AuthService {
     public static login = async ({
         phoneNumber,
         password
-    }: LoginSchema): Promise<LoginResponse> => {
+    }: joiTypes.auth.LoginSchema): Promise<LoginResponse> => {
         /* -------------- Check if user is exists ------------- */
         const user = await UserService.findOne({ phoneNumber });
         if (!user) throw new NotFoundErrorResponse('User not found!');
 
         /* ------------------ Check password ------------------ */
         const hashPassword = user.password;
-        const isPasswordMatch = await bcrypt.compare(password, hashPassword);
+        const isPasswordMatch = bcrypt.compare(password, hashPassword);
         if (!isPasswordMatch)
             throw new ForbiddenErrorResponse('Password is wrong!');
 
@@ -150,7 +149,9 @@ export default class AuthService {
     /* ===================================================== */
     /*                  HANDLE REFRESH TOKEN                 */
     /* ===================================================== */
-    public static newToken = async ({ refreshToken }: NewTokenSchema) => {
+    public static newToken = async ({
+        refreshToken
+    }: joiTypes.auth.NewTokenSchema) => {
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
         if (!payload)
