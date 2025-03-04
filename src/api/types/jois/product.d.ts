@@ -1,3 +1,5 @@
+import '';
+
 declare global {
     module joiTypes {
         module product {
@@ -18,11 +20,9 @@ declare global {
             /*                         CREATE                         */
             /* ====================================================== */
             interface CreateProductSchema
-                extends moduleTypes.mongoose.ConvertObjectIdToString<
-                    Omit<
-                        modelTypes.product.ProductSchema,
-                        'product_shop' | 'product_rating_avg' | 'product_slug'
-                    >
+                extends Omit<
+                    modelTypes.product.ProductSchema,
+                    'product_shop' | 'product_rating_avg' | 'product_slug'
                 > {}
 
             interface DeleteProductSchema
