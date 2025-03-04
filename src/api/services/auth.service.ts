@@ -52,7 +52,7 @@ export default class AuthService {
 
         /* ------------ Generate key and jwt token ------------ */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
-        const jwtTokenPair = await JwtService.generateJwtPair({
+        const jwtTokenPair = await JwtService.signJwtPair({
             privateKey,
             payload: {
                 userId: userInstance.id,
@@ -106,7 +106,7 @@ export default class AuthService {
 
         /* --------- Generate token and send response --------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
-        const jwtPair = await JwtService.generateJwtPair({
+        const jwtPair = await JwtService.signJwtPair({
             privateKey,
             payload: {
                 userId: user._id.toString(),
@@ -192,7 +192,7 @@ export default class AuthService {
 
         /* ------------ Generate new jwt token pair ----------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
-        const newJwtTokenPair = await JwtService.generateJwtPair({
+        const newJwtTokenPair = await JwtService.signJwtPair({
             privateKey,
             payload: _.pick(decoded, ['userId', 'role'])
         });

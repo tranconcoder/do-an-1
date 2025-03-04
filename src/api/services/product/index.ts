@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import { productModel } from '../../models/product.model';
 import { NotFoundErrorResponse } from '../../response/error.response';
 import { CategoryEnum } from '../../enums/product.enum';
-import { serviceTypes } from '../../types/service';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */

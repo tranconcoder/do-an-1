@@ -1,4 +1,4 @@
-import { JwtConfig } from '../api/types/jwt';
+import { jwtTypes } from '../api/types/jwt';
 
 export default {
     accessToken: {
@@ -13,4 +13,4 @@ export default {
             algorithm: 'RS512'
         }
     }
-} as JwtConfig;
+} as jwtTypes.definition.JwtConfig;

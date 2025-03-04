@@ -1,33 +1,18 @@
-import type {
-    JwtPair,
-    JwtSignArgs,
-    JwtSignPairArgs,
-    JwtVerifyPairArgs,
-    JwtVerityArgs
-} from '../types/jwt';
-
 import jwt from 'jsonwebtoken';
 import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '../utils/jwt.util';
 import LoggerService from './logger.service';
-import { ForbiddenErrorResponse } from '../response/error.response';
-import {
-    jwtPayloadSchema,
-    JwtPayloadSchema,
-    jwtPayloadWithHeaderSchema,
-    JwtPayloadWithHeaderSchema
-} from '../validations/joi/jwt.joi';
 import jwtConfig from '../../configs/jwt.config';
 
 export default class JwtService {
     /* ================================================== */
     /*          GENERATE REFRESH TOKEN AND ACCESS         */
     /* ================================================== */
-    public static generateJwt = async ({
+    public static signJwt = async ({
         privateKey,
         payload,
         type
-    }: JwtSignArgs) => {
+    }: serviceTypes.jwt.arguments.JwtSignArgs) => {
         try {
             const { options } = jwtConfig[type];
             return await jwtSignAsync(payload, privateKey, options);
@@ -38,10 +23,10 @@ export default class JwtService {
             return null;
         }
     };
-    public static generateJwtPair = async ({
+    public static signJwtPair = async ({
         privateKey,
         payload
-    }: JwtSignPairArgs): Promise<JwtPair | null> => {
+    }: serviceTypes.jwt.arguments.JwtSignPairArgs): Promise<serviceTypes.jwt.definition.JwtPair | null> => {
         try {
             const [accessToken, refreshToken] = await Promise.all([
                 jwtSignAsync(
@@ -74,11 +59,11 @@ export default class JwtService {
     public static verifyJwt = async ({
         token,
         publicKey
-    }: JwtVerityArgs): Promise<JwtPayloadSchema | null> => {
+    }: serviceTypes.jwt.arguments.JwtVerityArgs): Promise<null> => {
         return new Promise((resolve) => {
-            jwt.verify(token, publicKey, (error, decoded) => {
+            jwt.verify(token, publicKey, (error: any, decoded: any) => {
                 if (error) resolve(null);
-                else resolve(decoded as JwtPayloadSchema);
+                else resolve(decoded as modelTypes.keyToken.JwtPayloadSign);
             });
         });
     };

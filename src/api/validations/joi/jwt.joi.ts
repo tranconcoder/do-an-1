@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import type { joiTypes } from '../../types/joi';
 
 /* ====================================================== */
 /*                      TOKEN PAYLOAD SCHEMA              */

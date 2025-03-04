@@ -1,6 +1,8 @@
 import {
     CLEAN_UP_KEY_TOKEN_CRON_TIME,
-    CLEAN_UP_KEY_TOKEN_TIMEZONE
+    CLEAN_UP_PRODUCT_CRON_TIME,
+    getCronOptions,
+    TIMEZONE
 } from './../../configs/scheduled.config';
 // Models
 import keyTokenModel from '../models/keyToken.model';
@@ -17,66 +19,82 @@ export default class ScheduledService {
     /* ===================================================== */
     /*          CLEANUP KEY TOKEN EXPIRED OR BANNED          */
     /* ===================================================== */
+    private static keyTokenCleaned = 0;
+    private static refeshTokenUsedCleaned = 0;
+
     private static handleCleanUpKeyToken = async () => {
-        try {
-            const allKeyTokens = await keyTokenModel.find();
-            let refreshTokenUsedDeletedCount = 0;
+        const allKeyTokens = await keyTokenModel.find();
 
-            await Promise.allSettled(
-                allKeyTokens.map(async (keyToken) => {
-                    const decoded = await JwtService.verifyJwt({
-                        token: keyToken.refresh_token,
-                        publicKey: keyToken.public_key
-                    });
+        /* -------------------- Reset counter ------------------- */
+        this.refeshTokenUsedCleaned = 0;
+        this.keyTokenCleaned = 0;
 
-                    if (!decoded) {
-                        await keyToken.deleteOne();
-                        throw false;
+        await Promise.allSettled(
+            allKeyTokens.map(async (keyToken) => {
+                const decoded = await JwtService.verifyJwt({
+                    token: keyToken.refresh_token,
+                    publicKey: keyToken.public_key
+                });
+
+                if (!decoded) {
+                    await keyToken.deleteOne();
+                    throw false;
+                }
+
+                const newRefreshTokensUsed = await asyncFilter(
+                    keyToken.refresh_tokens_used,
+                    async (refreshTokenUsed) => {
+                        const payload =
+                            JwtService.parseJwtPayload(refreshTokenUsed);
+
+                        if (!payload) return false;
+                        if (payload.exp * 1000 <= Date.now()) return false;
+
+                        return true;
                     }
-
-                    const newRefreshTokensUsed = await asyncFilter(
-                        keyToken.refresh_tokens_used,
-                        async (refreshTokenUsed) => {
-                            const payload =
-                                JwtService.parseJwtPayload(refreshTokenUsed);
-
-                            if (!payload) return false;
-                            if (payload.exp * 1000 <= Date.now()) return false;
-
-                            return true;
-                        }
-                    );
-
-                    refreshTokenUsedDeletedCount +=
-                        keyToken.refresh_tokens_used.length -
-                        newRefreshTokensUsed.length;
-                    keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
-
-                    return true;
-                })
-            ).then((resultList) => {
-                const deletedRowCount = resultList.filter(
-                    (x) => x.status === 'rejected'
-                ).length;
-
-                LoggerService.getInstance().info(
-                    `Cleanup key token: ${deletedRowCount} key token cleaned`
                 );
-                LoggerService.getInstance().info(
-                    `Cleanup key token: ${refreshTokenUsedDeletedCount} refresh token used cleaned`
-                );
-            });
-        } catch (error) {
-            const message = error?.toString() || 'Error: cleanup key token';
-            LoggerService.getInstance().error(message);
-        }
+
+                this.refeshTokenUsedCleaned +=
+                    keyToken.refresh_tokens_used.length -
+                    newRefreshTokensUsed.length;
+                keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
+
+                return true;
+            })
+        ).then((resultList) => {
+            this.keyTokenCleaned = resultList.filter(
+                (x) => x.status === 'rejected'
+            ).length;
+        });
     };
 
-    public static cleanUpKeyTokenCronJob = CronJob.from({
-        cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,
-        timeZone: CLEAN_UP_KEY_TOKEN_TIMEZONE,
-        start: false,
-        waitForCompletion: true,
-        onTick: ScheduledService.handleCleanUpKeyToken
-    });
+    /* ===================================================== */
+    /*                CLEANUP PRODUCT DATA                   */
+    /* ===================================================== */
+    private static handleCleanUpProduct = async () => {};
+
+    public static cleanUpKeyTokenCronJob = CronJob.from(
+        getCronOptions({
+            cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,
+            onTick: ScheduledService.handleCleanUpKeyToken,
+            errorHandler: (error) => {
+                const message = error?.toString() || 'Error: cleanup key token';
+                LoggerService.getInstance().error(message);
+            },
+            onComplete: () => {
+                LoggerService.getInstance().info(
+                    `Cleanup key token: ${this.keyTokenCleaned} key token cleaned`
+                );
+                LoggerService.getInstance().info(
+                    `Cleanup key token: ${this.refeshTokenUsedCleaned} refresh token used cleaned`
+                );
+            }
+        })
+    );
+    public static cleanUpProductCronJob = CronJob.from(
+        getCronOptions({
+            cronTime: CLEAN_UP_PRODUCT_CRON_TIME,
+            onTick: ScheduledService.handleCleanUpProduct
+        })
+    );
 }
