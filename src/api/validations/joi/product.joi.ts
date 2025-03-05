@@ -11,7 +11,7 @@ export const phoneSchema = Joi.object<joiTypes.product.PhoneSchema, true>({
     phone_storage: Joi.number().required(),
     phone_color: Joi.string().required(),
     phone_battery: Joi.object<
-        modelTypes.product.PhoneSchema['phone_battery'],
+        joiTypes.product.PhoneSchema['phone_battery'],
         true
     >({
         capacity: Joi.number().required(),

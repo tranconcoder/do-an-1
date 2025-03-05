@@ -22,8 +22,13 @@ declare global {
             interface CreateProductSchema
                 extends Omit<
                     modelTypes.product.ProductSchema,
-                    'product_shop' | 'product_rating_avg' | 'product_slug'
-                > {}
+                    | 'product_shop'
+                    | 'product_rating_avg'
+                    | 'product_slug'
+                    | 'product_attributes'
+                > {
+                product_attributes: modelTypes.product.ProductUnion;
+            }
 
             interface DeleteProductSchema
                 extends Pick<

@@ -8,7 +8,7 @@ export default class UserService {
     public static newInstance = (
         user: serviceTypes.user.arguments.NewInstanceArgs
     ) => {
-        return new userModel(user) as any as modelTypes.auth.UserSchema<true>;
+        return new userModel(user);
     };
     public static saveInstance = async (
         user: ReturnType<typeof this.newInstance>

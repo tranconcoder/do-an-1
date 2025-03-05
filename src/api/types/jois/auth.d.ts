@@ -13,7 +13,7 @@ declare global {
             interface SignUpSchema
                 extends Pick<
                     UserSchema,
-                    'email' | 'fullName' | 'password' | 'phoneNumber' | 'role'
+                    'email' | 'fullName' | 'password' | 'phoneNumber'
                 > {}
 
             interface NewTokenSchema {

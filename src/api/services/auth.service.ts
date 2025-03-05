@@ -41,9 +41,8 @@ export default class AuthService {
             email,
             password: hashPassword,
             fullName,
-            role: new mongoose.Types.ObjectId().toString()
+            role: new mongoose.Types.ObjectId()
         });
-        userInstance;
         if (!userInstance)
             throw new ForbiddenErrorResponse('Create user failed!');
 
@@ -52,7 +51,7 @@ export default class AuthService {
         const jwtTokenPair = await JwtService.signJwtPair({
             privateKey,
             payload: {
-                userId: userInstance.id,
+                id: userInstance.id,
                 role: userInstance.role.toString()
             }
         });
@@ -106,7 +105,7 @@ export default class AuthService {
         const jwtPair = await JwtService.signJwtPair({
             privateKey,
             payload: {
-                userId: user._id.toString(),
+                id: user._id.toString(),
                 role: user.role.toString()
             }
         });
@@ -157,9 +156,7 @@ export default class AuthService {
             );
 
         /* ------------- Find key token by user id ------------ */
-        const keyToken = await KeyTokenService.findTokenByUserId(
-            payload.userId
-        );
+        const keyToken = await KeyTokenService.findTokenByUserId(payload.id);
         if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
 
         /* ---------- Check refresh is current token ---------- */
@@ -169,10 +166,10 @@ export default class AuthService {
         if (isRefreshTokenUsed) {
             // ALERT: Token was stolen!!!
             // Clean up keyToken
-            await KeyTokenService.deleteKeyTokenByUserId(payload.userId);
+            await KeyTokenService.deleteKeyTokenByUserId(payload.id);
 
             LoggerService.getInstance().error(
-                `Token was stolen! User id: ${payload.userId}`
+                `Token was stolen! User id: ${payload.id}`
             );
 
             throw new ForbiddenErrorResponse('Token was deleted!');
@@ -191,7 +188,7 @@ export default class AuthService {
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
         const newJwtTokenPair = await JwtService.signJwtPair({
             privateKey,
-            payload: _.pick(decoded, ['userId', 'role'])
+            payload: _.pick(decoded, ['id', 'role'])
         });
         if (!newJwtTokenPair)
             throw new ForbiddenErrorResponse('Generate token failed!');

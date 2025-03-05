@@ -7,7 +7,7 @@ declare global {
             /*                        ARGUMENTS                       */
             /* ====================================================== */
             namespace arguments {
-                interface NewInstanceArgs extends joiTypes.auth.SignUpSchema {}
+                interface NewInstanceArgs extends modelTypes.auth.UserSchema {}
             }
         }
     }

@@ -7,12 +7,11 @@ declare global {
             /*                       DEFINITION                       */
             /* ====================================================== */
             namespace definition {
-                interface JwtPayloadSign
-                    extends serviceTypes.jwt.definition.JwtPayloadSign {}
-
                 interface JwtPayload
-                    extends JwtPayloadSign,
-                        Required<Pick<JwtPayloadBase, 'iat' | 'exp'>> {}
+                    extends serviceTypes.jwt.definition.JwtPayload {}
+
+                interface JwtDecode
+                    extends serviceTypes.jwt.definition.JwtDecode {}
             }
         }
     }

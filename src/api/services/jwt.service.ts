@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '../utils/jwt.util';
 import LoggerService from './logger.service';
 import jwtConfig from '../../configs/jwt.config';
+import { jwtDecodeSchema } from '../validations/joi/jwt.joi';
 
 export default class JwtService {
     /* ================================================== */
@@ -12,7 +13,7 @@ export default class JwtService {
         privateKey,
         payload,
         type
-    }: serviceTypes.jwt.arguments.JwtSignArgs) => {
+    }: serviceTypes.jwt.arguments.JwtSign) => {
         try {
             const { options } = jwtConfig[type];
             return await jwtSignAsync(payload, privateKey, options);
@@ -26,7 +27,7 @@ export default class JwtService {
     public static signJwtPair = async ({
         privateKey,
         payload
-    }: serviceTypes.jwt.arguments.JwtSignPairArgs): Promise<serviceTypes.jwt.definition.JwtPair | null> => {
+    }: serviceTypes.jwt.arguments.JwtSignPair) => {
         try {
             const [accessToken, refreshToken] = await Promise.all([
                 jwtSignAsync(
@@ -59,11 +60,11 @@ export default class JwtService {
     public static verifyJwt = async ({
         token,
         publicKey
-    }: serviceTypes.jwt.arguments.JwtVerityArgs): Promise<null> => {
+    }: serviceTypes.jwt.arguments.VerifyJwt): serviceTypes.jwt.returnType.VerifyJwt => {
         return new Promise((resolve) => {
             jwt.verify(token, publicKey, (error: any, decoded: any) => {
                 if (error) resolve(null);
-                else resolve(decoded as modelTypes.keyToken.JwtPayloadSign);
+                else resolve(decoded);
             });
         });
     };
@@ -73,11 +74,12 @@ export default class JwtService {
     /* ================================================== */
     public static parseJwtPayload = (
         token: string
-    ): JwtPayloadWithHeaderSchema | null => {
+    ): serviceTypes.jwt.arguments.ParseJwtPayload => {
         try {
-            const payload = jwtDecode<JwtPayloadWithHeaderSchema>(token);
+            const payload =
+                jwtDecode<serviceTypes.jwt.definition.JwtDecode>(token);
             const { error: joiError, value } =
-                jwtPayloadWithHeaderSchema.validate(payload);
+                jwtDecodeSchema.validate(payload);
 
             if (joiError) {
                 // Alert to admin have a hacker

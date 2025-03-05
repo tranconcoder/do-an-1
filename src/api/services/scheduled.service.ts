@@ -77,8 +77,13 @@ export default class ScheduledService {
         getCronOptions({
             cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,
             onTick: ScheduledService.handleCleanUpKeyToken,
-            errorHandler: (error) => {
-                const message = error?.toString() || 'Error: cleanup key token';
+            errorHandler: (error: unknown) => {
+                let message = 'Error: cleanup key token';
+
+                if (error instanceof Error) {
+                    message = error.message;
+                }
+
                 LoggerService.getInstance().error(message);
             },
             onComplete: () => {

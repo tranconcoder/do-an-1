@@ -11,12 +11,13 @@ declare global {
             type ProductList<T = false> = Partial<
                 PhoneSchema<T> & ClothesSchema<T>
             >;
+            type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
-            interface CommonFields<T> extends utils.IsDocument<T> {
+            type CommonFields<T> = utils.IsDocument<T> & {
                 product_shop: mongoose.Types.ObjectId;
-            }
+            };
 
-            interface ProductSchema<T> extends CommonFields<T> {
+            type ProductSchema<T = false> = CommonFields<T> & {
                 product_name: string;
                 product_cost: number;
                 product_thumb: string;
@@ -28,9 +29,9 @@ declare global {
                 is_publish: boolean;
                 product_rating_avg: number;
                 product_slug: string;
-            }
+            };
 
-            interface PhoneSchema<T> extends CommonFields<T> {
+            type PhoneSchema<T = false> = CommonFields<T> & {
                 phone_processor: string;
                 phone_brand: string;
                 phone_memory: string;
@@ -68,19 +69,19 @@ declare global {
                 phone_material: string;
                 phone_weight: number;
                 is_smartphone: boolean;
-            }
+            };
 
-            interface ClothesSchema<T> extends CommonFields<T> {
+            type ClothesSchema<T = false> = CommonFields<T> & {
                 size: string;
                 color: string;
-            }
+            };
         }
 
         namespace utils {
-            type IsDocument<T> = {
-                [K in keyof mongoose.Document]: T extends true
-                    ? mongoose.Document[K]
-                    : never;
+            type IsDocument<T> = T extends true ? Document : {};
+
+            type RemoveNever<T> = {
+                [K in keyof T as T[K] extends never ? never : K]: T[K];
             };
         }
     }

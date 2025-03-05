@@ -6,6 +6,10 @@ declare global {
         /*                          UTILS                         */
         /* ====================================================== */
         namespace utils {
+            type RemoveNever<T> = {
+                [K in keyof T as T[K] extends never ? never : K]: T[K];
+            };
+
             type AutoType<T = any> = T extends infer U ? U : unkdown;
 
             type ExtractMethodNames<T> = {

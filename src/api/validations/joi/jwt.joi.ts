@@ -4,7 +4,7 @@ import _ from 'lodash';
 /* ====================================================== */
 /*                      TOKEN PAYLOAD SCHEMA              */
 /* ====================================================== */
-const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.JwtPayload> =
+const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.JwtDecode> =
     {
         id: Joi.string().required(),
         role: Joi.string().required(),
@@ -13,11 +13,11 @@ const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.
     };
 
 export const jwtPayloadSignSchema = Joi.object<
-    joiTypes.jwt.definition.JwtPayloadSign,
+    joiTypes.jwt.definition.JwtPayload,
     true
 >(_.pick(jwtPayload, ['id', 'role']));
 
-export const jwtPayloadSchema = Joi.object<
-    joiTypes.jwt.definition.JwtPayload,
+export const jwtDecodeSchema = Joi.object<
+    joiTypes.jwt.definition.JwtDecode,
     true
 >(jwtPayload).unknown(true);

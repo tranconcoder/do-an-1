@@ -18,9 +18,7 @@ export const authenticate = catchError(async (req, res, next) => {
         throw new ForbiddenErrorResponse('Invalid token payload!');
 
     /* ------------ Check key token is valid ------------- */
-    const keyToken = await KeyTokenService.findTokenByUserId(
-        payloadParsed.userId
-    );
+    const keyToken = await KeyTokenService.findTokenByUserId(payloadParsed.id);
     if (!keyToken) throw new ForbiddenErrorResponse('Invalid token!');
 
     /* -------------------- Verify token ------------------- */
@@ -32,7 +30,7 @@ export const authenticate = catchError(async (req, res, next) => {
         throw new ForbiddenErrorResponse('Token is expired or invalid!');
 
     /* --------------- Attach payload to req ------------ */
-    req.userId = payload.userId;
+    req.userId = payload.id;
 
     next();
 });

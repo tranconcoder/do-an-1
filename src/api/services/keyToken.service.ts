@@ -1,8 +1,3 @@
-import {
-    ReplaceRefreshTokenWithNewArgs,
-    SaveKeyTokenArgs
-} from '../types/keyToken';
-
 // Libs
 import crypto from 'crypto';
 import mongoose from 'mongoose';
@@ -27,7 +22,7 @@ export default class KeyTokenService {
         privateKey,
         publicKey,
         refreshToken
-    }: SaveKeyTokenArgs) => {
+    }: serviceTypes.key.arguments.SaveKeyToken) => {
         const keyToken = await keyTokenModel.findOneAndReplace(
             {
                 user: userId
@@ -54,7 +49,7 @@ export default class KeyTokenService {
         userId,
         refreshToken,
         oldRefreshToken
-    }: ReplaceRefreshTokenWithNewArgs) => {
+    }: serviceTypes.key.arguments.ReplaceRefreshTokenWithNew) => {
         const updateResult = await keyTokenModel.updateOne(
             { user: userId, 'refresh_tokens.$': oldRefreshToken },
             {
@@ -81,7 +76,7 @@ export default class KeyTokenService {
                 type: 'pkcs8',
                 format: 'pem'
             }
-        }) as serviceTypes.
+        });
     };
 
     /* ===================================================== */

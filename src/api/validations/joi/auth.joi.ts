@@ -29,7 +29,7 @@ export const loginSchema = Joi.object<joiTypes.auth.LoginSchema, true>(
 /*                      SIGNUP SCHEMA                     */
 /* ====================================================== */
 export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema, true>(
-    _.pick(user, ['email', 'fullName', 'password', 'phoneNumber', 'role'])
+    _.pick(user, ['email', 'fullName', 'password', 'phoneNumber'])
 );
 
 /* ====================================================== */

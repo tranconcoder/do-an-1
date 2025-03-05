@@ -2,7 +2,6 @@ import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import { getFileTransport } from '../../configs/logger.config';
 import { NODE_ENV } from '../../configs/server.config';
-import { ObjectAnyKeys } from '../types/object';
 
 // Singleton pattern
 export default class LoggerService {
@@ -38,19 +37,31 @@ export default class LoggerService {
         return this.instance;
     };
 
-    public debug = (message: string, metadata: ObjectAnyKeys = {}) => {
+    public debug = (
+        message: string,
+        metadata: commonTypes.object.ObjectAnyKeys = {}
+    ) => {
         this.logDebug.debug(message, metadata);
     };
 
-    public info = (message: string, metadata: ObjectAnyKeys = {}) => {
+    public info = (
+        message: string,
+        metadata: commonTypes.object.ObjectAnyKeys = {}
+    ) => {
         this.logInfo.info(message, metadata);
     };
 
-    public error = (message: string, metadata: ObjectAnyKeys = {}) => {
+    public error = (
+        message: string,
+        metadata: commonTypes.object.ObjectAnyKeys = {}
+    ) => {
         this.logError.error(message, metadata);
     };
 
-    public warn = (message: string, metadata: ObjectAnyKeys = {}) => {
+    public warn = (
+        message: string,
+        metadata: commonTypes.object.ObjectAnyKeys = {}
+    ) => {
         this.logWarn.warn(message, metadata);
     };
 
