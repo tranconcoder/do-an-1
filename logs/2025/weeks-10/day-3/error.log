@@ -343,3 +343,9 @@
 [2025-03-05T01:44:44.654Z] [error]: Server closed
 [2025-03-05T01:44:44.671Z] [error]: Server closed
 [2025-03-05T01:44:44.686Z] [error]: Server closed
+[2025-03-05T01:45:00.014Z] [error]: Client must be connected before running operations
+[2025-03-05T01:46:03.781Z] [error]: Client must be connected before running operations
+[2025-03-05T01:53:59.046Z] [error]: HIDE::400::ErrorResponse::"product_quantity" must be a number::
+[2025-03-05T03:17:48.643Z] [error]: Server closed
+[2025-03-05T03:17:48.657Z] [error]: Server closed
+[2025-03-05T03:17:48.668Z] [error]: Server closed
