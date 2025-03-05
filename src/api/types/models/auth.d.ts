@@ -4,7 +4,7 @@ import { joiTypes } from '../joi';
 declare global {
     namespace modelTypes {
         namespace auth {
-            type UserSchema<D = false> = (D extends true ? Document : {}) & {
+            type UserSchema<D = false> = modelTypes.utils.IsDocument<D> & {
                 phoneNumber: string;
                 password: string;
                 email: string;

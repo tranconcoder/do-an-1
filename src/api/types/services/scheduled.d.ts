@@ -7,7 +7,7 @@ declare global {
             /*                   FUNCTION ARGUMENTS                   */
             /* ====================================================== */
             namespace arguments {
-                type GetCronOptionPayload = Parameters<typeof CronJob.from>[0];
+                type GetCronOption = Parameters<typeof CronJob.from>[0];
             }
         }
     }

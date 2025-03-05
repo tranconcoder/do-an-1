@@ -19,7 +19,7 @@ export const addProductShopToSchema = <T = any>(schema: T) => {
 };
 
 export const importProductService = async (
-    productName: modelTypes.product.ProductListKey
+    productName: modelTypes.product.ProductList
 ) => {
     const PRODUCT_SERVICE_PATH = path.join(__dirname, '../services/product');
 
@@ -29,7 +29,7 @@ export const importProductService = async (
 };
 
 export const importProductModel = async <
-    T extends modelTypes.product.ProductListKey
+    T extends modelTypes.product.ProductList
 >(
     productName: T
 ) => {

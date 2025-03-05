@@ -47,7 +47,7 @@ app.use(compression());
 MongoDB.getInstance().connect();
 
 // Start service
-ScheduledService.cleanUpKeyTokenCronJob.start();
+ScheduledService.startScheduledService();
 
 /* ====================================================== */
 /*                         ROUTES;                        */
@@ -57,7 +57,7 @@ app.use([`/${API_VERSION}/api`, '/'], rootRoute);
 
 // Handle 404 route
 app.use((_, __, next) => {
-	next(new NotFoundErrorResponse('Route not exist!'));
+    next(new NotFoundErrorResponse('Route not exist!'));
 });
 
 // Error handler

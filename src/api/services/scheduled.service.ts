@@ -1,9 +1,9 @@
 import {
     CLEAN_UP_KEY_TOKEN_CRON_TIME,
     CLEAN_UP_PRODUCT_CRON_TIME,
-    getCronOptions,
-    TIMEZONE
+    getCronOptions
 } from './../../configs/scheduled.config';
+
 // Models
 import keyTokenModel from '../models/keyToken.model';
 
@@ -14,8 +14,20 @@ import LoggerService from './logger.service';
 // Libs
 import { CronJob } from 'cron';
 import { asyncFilter } from '../utils/array.utils';
+import {
+    PRODUCT_COLLECTION_NAME,
+    PRODUCT_MODEL_NAME,
+    productModel
+} from '../models/product.model';
+import mongoose from 'mongoose';
+import { CategoryEnum } from '../enums/product.enum';
 
 export default class ScheduledService {
+    public static startScheduledService = () => {
+        this.cleanUpKeyTokenCronJob.start();
+        this.cleanUpProductCronJob.start();
+    };
+
     /* ===================================================== */
     /*          CLEANUP KEY TOKEN EXPIRED OR BANNED          */
     /* ===================================================== */
@@ -71,21 +83,67 @@ export default class ScheduledService {
     /* ===================================================== */
     /*                CLEANUP PRODUCT DATA                   */
     /* ===================================================== */
-    private static handleCleanUpProduct = async () => {};
+    private static handleCleanUpProduct = async () => {
+        /* ----------------- Get product id list ---------------- */
+        const productIds = new Set(
+            (
+                await productModel.aggregate().project({
+                    _id: { $toString: '$_id' }
+                })
+            ).map((x: { _id: string }) => x._id)
+        );
 
+        /* -------------- Get product child id list ------------- */
+        const productChildModelName = Object.values(CategoryEnum);
+        const productChildsList = await Promise.all(
+            productChildModelName.map(async (modelName) => {
+                const model = mongoose.model(modelName);
+                if (!model) throw new Error(`Model '${modelName}' not found`);
+
+                const childList = await model.find().select('_id').lean();
+
+                return childList.map((x: any) => x._id.toString());
+            })
+        );
+
+        /* --------------- Clean in product model --------------- */
+        const productChildSet = new Set(productChildsList.flat());
+        const productDiffence = productIds.difference(productChildSet);
+
+        await Promise.all([
+            productModel.deleteMany({
+                _id: { $in: Array.from(productDiffence) }
+            }),
+            ...productChildsList.map(async (childList, index) => {
+                const childSet = new Set(childList);
+                const diffence = childSet.difference(productIds);
+                const model = mongoose.model(productChildModelName[index]);
+
+                return await model.deleteMany({
+                    _id: { $in: Array.from(diffence) }
+                });
+            })
+        ]).then((results) => {
+            const { deletedCount } = results.flat().reduce(
+                (a, b) => ({
+                    deletedCount: a.deletedCount + b.deletedCount
+                }),
+                { deletedCount: 0 }
+            );
+
+            LoggerService.getInstance().info(
+                `Cleanup product: Cleaned ${deletedCount} products`
+            );
+        });
+    };
+
+    /* ====================================================== */
+    /*                        CRON JOBS                       */
+    /* ====================================================== */
     public static cleanUpKeyTokenCronJob = CronJob.from(
         getCronOptions({
             cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,
             onTick: ScheduledService.handleCleanUpKeyToken,
-            errorHandler: (error: unknown) => {
-                let message = 'Error: cleanup key token';
-
-                if (error instanceof Error) {
-                    message = error.message;
-                }
-
-                LoggerService.getInstance().error(message);
-            },
             onComplete: () => {
                 LoggerService.getInstance().info(
                     `Cleanup key token: ${this.keyTokenCleaned} key token cleaned`

@@ -1,4 +1,4 @@
-import type { Document } from 'mongoose';
+import type { Document, HydratedDocument } from 'mongoose';
 import type mongoose from 'mongoose';
 import type { CategoryEnum } from '../../enums/product.enum';
 import { Product } from '../../services/product';
@@ -8,7 +8,9 @@ declare global {
     namespace modelTypes {
         namespace product {
             type ProductListKey = keyof typeof CategoryEnum;
-            type ProductList<T = false> = Partial<
+            type ProductList = CategoryEnum;
+
+            type ProductSchemaList<T = false> = Partial<
                 PhoneSchema<T> & ClothesSchema<T>
             >;
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
@@ -24,7 +26,7 @@ declare global {
                 product_quantity: number;
                 product_description: string;
                 product_category: CategoryEnum;
-                product_attributes: ProductList<T>;
+                product_attributes: ProductSchemaList<T>;
                 is_draft: boolean;
                 is_publish: boolean;
                 product_rating_avg: number;
@@ -76,13 +78,7 @@ declare global {
                 color: string;
             };
         }
-
-        namespace utils {
-            type IsDocument<T> = T extends true ? Document : {};
-
-            type RemoveNever<T> = {
-                [K in keyof T as T[K] extends never ? never : K]: T[K];
-            };
-        }
     }
 }
+
+const a: HydratedDocument<{ age: string }>;

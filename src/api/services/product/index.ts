@@ -21,7 +21,7 @@ export abstract class Product
     public product_quantity: number;
     public product_description: string;
     public product_category: CategoryEnum;
-    public product_attributes: modelTypes.product.ProductList;
+    public product_attributes: modelTypes.product.ProductSchemaList;
     public is_draft: boolean;
     public is_publish: boolean;
 
@@ -47,7 +47,7 @@ export abstract class Product
         this.product_description = product_description || '';
         this.product_category = product_category || CategoryEnum.Phone;
         this.product_attributes = (product_attributes ||
-            {}) as modelTypes.product.ProductList;
+            {}) as modelTypes.product.ProductSchemaList;
         this.is_draft = is_draft || true;
         this.is_publish = is_publish || false;
     }
@@ -76,7 +76,7 @@ export abstract class Product
 /* ====================================================== */
 export default class ProductFactory {
     public static createProduct = async <
-        K extends modelTypes.product.ProductListKey
+        K extends modelTypes.product.ProductList
     >(
         type: K,
         payload: serviceTypes.product.arguments.CreateProduct
@@ -91,7 +91,7 @@ export default class ProductFactory {
     };
 
     public static removeProduct = async <
-        K extends modelTypes.product.ProductListKey
+        K extends modelTypes.product.ProductList
     >(
         type: K,
         id: joiTypes.product.DeleteProductSchema['product_id']

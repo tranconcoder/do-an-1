@@ -50,14 +50,13 @@ const productSchema = new Schema<modelTypes.product.ProductSchema>(
 );
 productSchema.pre('save', addSlug);
 
-export const productModel = model(PRODUCT_COLLECTION_NAME, productSchema);
-/* --------------------- END PRODUCT -------------------- */
+export const productModel = model(PRODUCT_MODEL_NAME, productSchema);
 
 /* ====================================================== */
 /*                          PHONE                         */
 /* ====================================================== */
-export const PHONE_MODEL_NAME = 'Phone';
-export const PHONE_COLLECTION_NAME = 'phones';
+export const PHONE_MODEL_NAME = CategoryEnum.Phone;
+export const PHONE_COLLECTION_NAME = 'phone';
 
 const phoneSchema = new Schema<modelTypes.product.PhoneSchema>(
     {
@@ -112,8 +111,8 @@ export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 /* ====================================================== */
 /*                         CLOTHES                        */
 /* ====================================================== */
-const CLOTHES_MODEL_NAME = 'Clothes';
-const CLOTHES_COLLECTION_NAME = 'clothes';
+export const CLOTHES_MODEL_NAME = CategoryEnum.Clothes;
+export const CLOTHES_COLLECTION_NAME = 'clothes';
 
 const clothesSchema = new Schema<modelTypes.product.ClothesSchema>(
     {
