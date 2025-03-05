@@ -1,5 +1,3 @@
-import { jwtTypes } from '../api/types/jwt';
-
 export default {
     accessToken: {
         options: {
@@ -9,8 +7,8 @@ export default {
     },
     refreshToken: {
         options: {
-            expiresIn: '1 day', // 1 day
+            expiresIn: '30 seconds', // 1 day
             algorithm: 'RS512'
         }
     }
-} as jwtTypes.definition.JwtConfig;
+} as serviceTypes.jwt.definition.JwtConfig;

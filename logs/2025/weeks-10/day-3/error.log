@@ -722,3 +722,25 @@ Use mongoose.model(name, schema)
 [2025-03-05T10:15:10.666Z] [error]: Server closed
 [2025-03-05T10:15:10.697Z] [error]: Server closed
 [2025-03-05T10:15:10.698Z] [error]: Server closed
+[2025-03-05T10:16:04.521Z] [error]: Client must be connected before running operations
+[2025-03-05T10:16:04.526Z] [error]: Client must be connected before running operations
+[2025-03-05T10:17:04.540Z] [error]: Client must be connected before running operations
+[2025-03-05T10:17:51.239Z] [error]: HIDE::404::NotFound::Not found product service::
+[2025-03-05T10:54:39.802Z] [error]: Server closed
+[2025-03-05T10:54:39.847Z] [error]: Server closed
+[2025-03-05T10:54:39.885Z] [error]: Server closed
+[2025-03-05T10:55:01.754Z] [error]: Client must be connected before running operations
+[2025-03-05T11:10:21.224Z] [error]: HIDE::500::Error::read ECONNRESET::
+[2025-03-05T11:10:21.455Z] [error]: HIDE::500::Error::read ECONNRESET::
+[2025-03-05T11:10:25.417Z] [error]: HIDE::500::Error::read ECONNRESET::
+[2025-03-05T11:10:30.926Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-05T11:10:33.492Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-05T11:15:47.748Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-05T11:21:02.958Z] [error]: read ECONNRESET
+[2025-03-05T11:21:02.959Z] [error]: read ECONNRESET
+[2025-03-05T11:23:38.971Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-05T11:23:43.829Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-05T11:27:25.243Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-05T11:30:09.521Z] [error]: Server closed
+[2025-03-05T11:30:09.549Z] [error]: Server closed
+[2025-03-05T11:30:09.551Z] [error]: Server closed

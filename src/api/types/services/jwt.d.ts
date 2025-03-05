@@ -23,6 +23,12 @@ declare global {
                 interface JwtDecode
                     extends JwtPayload,
                         Required<Pick<BaseJwtPaylaod, 'iat' | 'exp'>> {}
+
+                type JwtConfig = {
+                    [key in keyof serviceTypes.jwt.definition.JwtPair]: {
+                        options: SignOptions;
+                    };
+                };
             }
 
             /* ====================================================== */
@@ -50,14 +56,6 @@ declare global {
             /* ====================================================== */
             namespace returnType {
                 type VerifyJwt = Promise<null | definition.JwtDecode>;
-            }
-
-            namespace utils {
-                type JwtConfig = {
-                    [key in keyof serviceTypes.jwt.definition.JwtPair]: {
-                        options: SignOptions;
-                    };
-                };
             }
         }
     }

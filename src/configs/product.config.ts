@@ -12,17 +12,17 @@ import { CategoryEnum } from '../api/enums/product.enum';
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;
 
 const services = {
-    clothes: importProductService(CategoryEnum.Clothes) as Promise<
+    Clothes: importProductService(CategoryEnum.Clothes) as Promise<
         typeof Clothes
     >,
-    phone: importProductService(CategoryEnum.Phone) as Promise<typeof Phone>
+    Phone: importProductService(CategoryEnum.Phone) as Promise<typeof Phone>
 } as const;
 
 const models = {
-    clothes: importProductModel(CategoryEnum.Clothes) as Promise<
+    Clothes: importProductModel(CategoryEnum.Clothes) as Promise<
         modelTypes.product.ClothesSchema<true>
     >,
-    phone: importProductModel(CategoryEnum.Phone) as Promise<
+    Phone: importProductModel(CategoryEnum.Phone) as Promise<
         modelTypes.product.PhoneSchema<true>
     >
 };
