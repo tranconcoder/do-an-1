@@ -7,7 +7,7 @@ export default {
     },
     refreshToken: {
         options: {
-            expiresIn: '30 seconds', // 1 day
+            expiresIn: '1 day', // 1 day
             algorithm: 'RS512'
         }
     }

@@ -2,12 +2,15 @@ import LoggerService from '../api/services/logger.service';
 
 export const TIMEZONE = 'Asia/Ho_Chi_Minh';
 
+const CRON_TIME_DEV = '* * * * *';
+
 // Cleanup key token scheduled
-export const CLEAN_UP_KEY_TOKEN_CRON_TIME = '* * * * *';
+export const CLEAN_UP_KEY_TOKEN_CRON_TIME =
+    process.env.CLEAN_UP_KEY_TOKEN_CRON_TIME || CRON_TIME_DEV;
 
 // Cleanup product remove failed scheduled
-// export const CLEAN_UP_PRODUCT_CRON_TIME = '0 0 */3 * *';
-export const CLEAN_UP_PRODUCT_CRON_TIME = '* * * * *';
+export const CLEAN_UP_PRODUCT_CRON_TIME =
+    process.env.CLEAN_UP_PRODUCT_CRON_TIME || CRON_TIME_DEV;
 
 export const getCronOptions = (
     options: serviceTypes.scheduled.arguments.GetCronOption

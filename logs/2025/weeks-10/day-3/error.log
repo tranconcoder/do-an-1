@@ -744,3 +744,8 @@ Use mongoose.model(name, schema)
 [2025-03-05T11:30:09.521Z] [error]: Server closed
 [2025-03-05T11:30:09.549Z] [error]: Server closed
 [2025-03-05T11:30:09.551Z] [error]: Server closed
+[2025-03-05T11:31:03.446Z] [error]: Client must be connected before running operations
+[2025-03-05T11:33:23.843Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-05T11:48:27.919Z] [error]: Server closed
+[2025-03-05T11:48:27.967Z] [error]: Server closed
+[2025-03-05T11:48:27.970Z] [error]: Server closed

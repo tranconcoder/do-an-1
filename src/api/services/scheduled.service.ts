@@ -13,7 +13,7 @@ import JwtService from './jwt.service';
 import LoggerService from './logger.service';
 
 // Libs
-import { CronCallback, CronJob, CronOnCompleteCallback } from 'cron';
+import { CronJob } from 'cron';
 import { asyncFilter } from '../utils/array.utils';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../enums/product.enum';
