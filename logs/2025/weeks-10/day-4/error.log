@@ -376,3 +376,7 @@
 [2025-03-06T11:47:00.016Z] [error]: Client must be connected before running operations
 [2025-03-06T11:48:00.038Z] [error]: Client must be connected before running operations
 [2025-03-06T12:28:17.922Z] [error]: HIDE::404::NotFound::User not found!::
+[2025-03-06T12:34:00.012Z] [error]: Client must be connected before running operations
+[2025-03-06T12:34:00.019Z] [error]: Client must be connected before running operations
+[2025-03-06T12:35:00.046Z] [error]: Client must be connected before running operations
+[2025-03-06T12:41:22.816Z] [error]: HIDE::400::BadRequest::Remove product failed::

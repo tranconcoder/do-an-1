@@ -52,7 +52,7 @@ export default class Phone extends Product {
 
     /* ------------------- Remove product ------------------- */
     public async removeProduct() {
-        await Promise.all([
+        return await Promise.all([
             /* ------------------- Remove product ------------------- */
             super.removeProduct(),
 
@@ -61,9 +61,16 @@ export default class Phone extends Product {
                 _id: super.getProductId(),
                 product_shop: super.getProductShop()
             })
-        ]).catch((error) => {
-            const message = error?.messgae || 'Remove product failed';
-            throw new BadRequestErrorResponse(message);
-        });
+        ])
+            .then(([product, child]) => {
+                // Throw error when not deleted count
+                if (!product.deletedCount && !child.deletedCount) throw null;
+
+                return product;
+            })
+            .catch((error) => {
+                const message = error?.messgae || 'Remove product failed';
+                throw new BadRequestErrorResponse(message);
+            });
     }
 }

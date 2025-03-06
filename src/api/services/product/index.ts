@@ -96,8 +96,8 @@ export abstract class Product
     }
 
     /* ------------------- Remove product ------------------- */
-    public async removeProduct(): Promise<void> {
-        await productModel.deleteOne({
+    public async removeProduct() {
+        return await productModel.deleteOne({
             _id: this._id,
             product_shop: this.product_shop
         });
@@ -134,7 +134,9 @@ export abstract class Product
 /*                         FACTORY                        */
 /* ====================================================== */
 export default class ProductFactory {
-    /* ------------------- Create product ------------------- */
+    /* ====================================================== */
+    /*                     CREATE PRODUCT                     */
+    /* ====================================================== */
     public static createProduct = async <
         K extends modelTypes.product.ProductList
     >(
@@ -150,6 +152,9 @@ export default class ProductFactory {
         return await instance.createProduct();
     };
 
+    /* ====================================================== */
+    /*                       GET PRODUCT                      */
+    /* ====================================================== */
     /* --------------- Get all product by shop -------------- */
     public static getAllProductByShop = async (productShop: string) => {
         if (!productShop) {
@@ -159,7 +164,9 @@ export default class ProductFactory {
         return await findAllProductByShop(productShop);
     };
 
-    /* ------------------- Update product ------------------- */
+    /* ====================================================== */
+    /*                     UPDATE PRODUCT                     */
+    /* ====================================================== */
     public static updateProduct = async ({
         product_id: _id,
         ...payload
@@ -202,7 +209,9 @@ export default class ProductFactory {
         return instance.updateProduct();
     };
 
-    /* ------------------- Remove product ------------------- */
+    /* ====================================================== */
+    /*                     REMOVE PRODUCT                     */
+    /* ====================================================== */
     public static removeProduct = async (
         id: serviceTypes.product.arguments.RemoveProduct,
         userId: string
