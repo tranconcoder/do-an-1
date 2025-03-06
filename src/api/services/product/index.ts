@@ -12,6 +12,7 @@ import {
     findProductByShopAndId,
     findProductCategoryById
 } from '../../models/repository/product.repo';
+import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
@@ -70,23 +71,16 @@ export abstract class Product
 
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
-        const { product_attributes, ...validProperties } =
-            this.getValidProperties();
+        const validProperties = this.getValidProperties();
 
         /* ------------------- Init set object ------------------ */
         const set: commonTypes.object.ObjectAnyKeys = {};
-        if (product_attributes) {
-            Object.keys(product_attributes).map((k) => {
-                const key = k as keyof typeof product_attributes;
-
-                set[`product_attributes.${key}`] = product_attributes[key];
-            });
-        }
+        get$SetNestedFromObject(validProperties, set);
+        console.log(set);
 
         return await productModel.updateOne(
             { _id: this.product_id },
             {
-                ...validProperties,
                 $set: set
             }
         );
@@ -155,6 +149,7 @@ export default class ProductFactory {
             );
 
         /* ----------------- Remove old category ---------------- */
+        /* ---------------- When changed category --------------- */
         if (
             payload.product_new_category &&
             payload.product_category !== payload.product_new_category

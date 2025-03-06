@@ -48,6 +48,8 @@ Xử dụng xác thực dựa tên JsonWebToken, bao gồm xử lý các trưở
 # Những kiến thức mới:
 
 -   Conditional type: Kiểu linh động dựa trên biến
+-   Các thuộc tính trong joi như when, alternative, try, joi types, joi type
+    strict
 
 # Todo:
 

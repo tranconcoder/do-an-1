@@ -26,8 +26,13 @@ export default class Phone extends Product {
 
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
+        const set = {};
+
         return await Promise.all([
+            /* ------------------- Update product ------------------- */
             super.updateProduct(),
+
+            /* ---------------- Update phone product ---------------- */
             phoneModel.updateOne(
                 { _id: super.getProductId() },
                 { $set: this.product_attributes }

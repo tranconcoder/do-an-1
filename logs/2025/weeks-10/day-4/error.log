@@ -260,3 +260,7 @@
 [2025-03-06T09:36:00.065Z] [error]: Client must be connected before running operations
 [2025-03-06T09:36:25.816Z] [error]: HIDE::400::ErrorResponse::"product_attributes.123" is not allowed::
 [2025-03-06T09:36:26.258Z] [error]: HIDE::400::ErrorResponse::"product_attributes.123" is not allowed::
+[2025-03-06T09:37:00.031Z] [error]: Client must be connected before running operations
+[2025-03-06T09:37:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:59:21.067Z] [error]: HIDE::500::SyntaxError::Expected double-quoted property name in JSON at position 369 (line 12 column 5)::
+[2025-03-06T09:59:24.124Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
