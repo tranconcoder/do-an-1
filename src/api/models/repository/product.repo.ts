@@ -18,3 +18,12 @@ export const deleteProductById = async (id: string) => {
         _id: new mongoose.Types.ObjectId(id)
     });
 };
+
+/* ------------ Get all product id as string ------------ */
+export const findProductIdStrList = async () => {
+    return (
+        await productModel.aggregate().project({
+            _id: { $toString: '$_id' }
+        })
+    ).map((x: { _id: string }) => x._id);
+};

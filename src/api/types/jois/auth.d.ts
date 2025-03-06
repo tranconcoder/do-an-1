@@ -12,7 +12,7 @@ declare global {
 
             interface SignUpSchema
                 extends Pick<
-                    UserSchema,
+                    modelTypes.auth.UserSchema,
                     'email' | 'fullName' | 'password' | 'phoneNumber'
                 > {}
 

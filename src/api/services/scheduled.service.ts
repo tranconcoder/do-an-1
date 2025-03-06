@@ -17,6 +17,7 @@ import { CronJob } from 'cron';
 import { asyncFilter } from '../utils/array.utils';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../enums/product.enum';
+import { findProductIdStrList } from '../models/repository/product.repo';
 
 export default class ScheduledService {
     public static startScheduledService = () => {
@@ -37,6 +38,7 @@ export default class ScheduledService {
 
         await Promise.allSettled(
             allKeyTokens.map(async (keyToken) => {
+                /* ------------- Check current refresh token ------------ */
                 const decoded = await JwtService.verifyJwt({
                     token: keyToken.refresh_token,
                     publicKey: keyToken.public_key
@@ -47,6 +49,7 @@ export default class ScheduledService {
                     throw new Error('Invalid key token');
                 }
 
+                /* -------------- Check used refresh token -------------- */
                 const newRefreshTokensUsed = await asyncFilter(
                     keyToken.refresh_tokens_used,
                     async (refreshTokenUsed) => {
@@ -60,22 +63,25 @@ export default class ScheduledService {
                     }
                 );
 
+                /* ----------------- Update cleanup data ---------------- */
+                keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
+                await keyToken.save();
+
+                /* --------- Counting refreh token used removed --------- */
                 refeshTokenUsedCleaned +=
                     keyToken.refresh_tokens_used.length -
                     newRefreshTokensUsed.length;
 
-                keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
-
-                await keyToken.save();
-
                 return true;
             })
         )
+            /* -------------- Couting key token removed ------------- */
             .then((resultList) => {
                 keyTokenCleaned = resultList.filter(
                     (x) => x.status === 'rejected'
                 ).length;
             })
+            /* --------------------- Show result -------------------- */
             .then(() => {
                 LoggerService.getInstance().info(
                     `Cleanup key token: ${keyTokenCleaned} key token cleaned`
@@ -91,13 +97,8 @@ export default class ScheduledService {
     /* ===================================================== */
     private static handleCleanUpProduct = async () => {
         /* ----------------- Get product id list ---------------- */
-        const productIds = new Set(
-            (
-                await productModel.aggregate().project({
-                    _id: { $toString: '$_id' }
-                })
-            ).map((x: { _id: string }) => x._id)
-        );
+        const productIds = new Set(await findProductIdStrList());
+        console.log(productIds);
 
         /* -------------- Get product child id list ------------- */
         const productChildModelName = Object.values(CategoryEnum);

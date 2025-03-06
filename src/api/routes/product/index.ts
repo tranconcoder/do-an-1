@@ -5,8 +5,9 @@ import catchError from '../../middlewares/catchError.middleware';
 import joiValidate from '../../middlewares/joiValidate.middleware';
 import {
     createProductSchema as createProductSchema,
-    deleteProductSchema
-} from '../../validations/joi/product.joi';
+    deleteProductSchema,
+    updateProductSchema
+} from '../../validations/joi/product/product.joi';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -28,6 +29,12 @@ productRouteValidate.delete(
     '/delete',
     joiValidate(deleteProductSchema),
     catchError(ProductController.deleteProduct)
+);
+
+productRouteValidate.put(
+    '/update',
+    joiValidate(updateProductSchema),
+    catchError(ProductController.updateProduct)
 );
 
 export default productRoute;

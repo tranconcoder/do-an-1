@@ -749,3 +749,4 @@ Use mongoose.model(name, schema)
 [2025-03-05T11:48:27.919Z] [error]: Server closed
 [2025-03-05T11:48:27.967Z] [error]: Server closed
 [2025-03-05T11:48:27.970Z] [error]: Server closed
+[2025-03-05T11:49:03.045Z] [error]: Client must be connected before running operations

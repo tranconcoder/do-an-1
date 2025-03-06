@@ -1,5 +1,3 @@
-import type { Document } from 'mongoose';
-
 /* ----------------------- Configs ---------------------- */
 import { getProduct } from '../../../configs/product.config';
 import mongoose from 'mongoose';
@@ -75,6 +73,7 @@ export abstract class Product
 /*                         FACTORY                        */
 /* ====================================================== */
 export default class ProductFactory {
+    /* ------------------- Create product ------------------- */
     public static createProduct = async <
         K extends modelTypes.product.ProductList
     >(
@@ -90,11 +89,19 @@ export default class ProductFactory {
         return await instance.createProduct();
     };
 
+    /* ------------------- Update product ------------------- */
+    public static updateProduct = async (
+        payload: serviceTypes.product.arguments.UpdateProduct
+    ) => {
+        return {};
+    };
+
+    /* ------------------- Remove product ------------------- */
     public static removeProduct = async <
         K extends modelTypes.product.ProductList
     >(
         type: K,
-        id: joiTypes.product.DeleteProductSchema['product_id']
+        id: serviceTypes.product.arguments.RemoveProduct
     ) => {
         const serviceClass = await getProduct<K>(type);
         if (!serviceClass)

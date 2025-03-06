@@ -2,7 +2,6 @@ import type { Document, HydratedDocument } from 'mongoose';
 import type mongoose from 'mongoose';
 import type { CategoryEnum } from '../../enums/product.enum';
 import { Product } from '../../services/product';
-import { extend } from 'lodash';
 
 declare global {
     namespace modelTypes {
@@ -15,7 +14,7 @@ declare global {
             >;
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
-            type CommonFields<T> = utils.IsDocument<T> & {
+            type CommonFields<T> = mongooseTypes.utils.IsDocument<T> & {
                 product_shop: mongoose.Types.ObjectId;
             };
 
@@ -80,5 +79,3 @@ declare global {
         }
     }
 }
-
-const a: HydratedDocument<{ age: string }>;

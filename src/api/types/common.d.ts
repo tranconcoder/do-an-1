@@ -35,6 +35,16 @@ declare global {
             ) extends (k: infer I) => void
                 ? I | undefined
                 : never;
+
+            type RequiredKeys<T> = {
+                [K in keyof T]-?: {} extends Pick<T, K> ? never : K;
+            }[keyof T];
+
+            type PartialNested<T> = {
+                [K in keyof T]?: T[K] extends object
+                    ? PartialNested<T[K]>
+                    : T[K];
+            };
         }
 
         /* ====================================================== */
@@ -60,6 +70,14 @@ declare global {
         namespace object {
             type ObjectAnyKeys<T = any> = Object & {
                 [key: string]: T;
+            };
+
+            type ObjectAnyValues<T> = {
+                [K in T]: any;
+            };
+
+            type ObjectNullValues<T> = {
+                [K in T]: null;
             };
         }
 
