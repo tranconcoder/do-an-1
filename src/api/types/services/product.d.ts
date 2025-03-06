@@ -30,6 +30,11 @@ declare global {
                 /* ------------------- Create product ------------------- */
                 interface CreateProduct extends definition.Product {}
 
+                /* --------------- Get all product by shop -------------- */
+                interface GetAllProductByShop
+                    extends joiTypes.product.definition
+                        .GetAllProductByShopSchema {}
+
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema {

@@ -281,3 +281,93 @@
 [2025-03-06T10:12:00.064Z] [error]: Client must be connected before running operations
 [2025-03-06T10:15:27.618Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-03-06T10:16:11.591Z] [error]: HIDE::400::ErrorResponse::"product_attributes.is_smartphone" must be a boolean::
+[2025-03-06T10:17:00.026Z] [error]: Client must be connected before running operations
+[2025-03-06T10:17:00.029Z] [error]: Client must be connected before running operations
+[2025-03-06T10:18:00.058Z] [error]: Client must be connected before running operations
+[2025-03-06T10:18:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T10:19:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:19:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:20:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:20:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:21:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:21:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T10:22:00.018Z] [error]: Client must be connected before running operations
+[2025-03-06T10:22:00.020Z] [error]: Client must be connected before running operations
+[2025-03-06T10:23:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:23:00.071Z] [error]: Client must be connected before running operations
+[2025-03-06T10:24:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:24:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:25:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:25:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:26:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:26:00.070Z] [error]: Client must be connected before running operations
+[2025-03-06T10:27:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T10:27:00.079Z] [error]: Client must be connected before running operations
+[2025-03-06T10:28:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:28:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T10:29:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:29:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:30:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:30:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:31:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:31:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:32:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:33:00.039Z] [error]: Client must be connected before running operations
+[2025-03-06T10:33:00.042Z] [error]: Client must be connected before running operations
+[2025-03-06T10:34:00.038Z] [error]: Client must be connected before running operations
+[2025-03-06T10:34:00.040Z] [error]: Client must be connected before running operations
+[2025-03-06T10:35:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:35:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:36:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:36:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:37:00.016Z] [error]: Client must be connected before running operations
+[2025-03-06T10:37:00.018Z] [error]: Client must be connected before running operations
+[2025-03-06T10:38:00.040Z] [error]: Client must be connected before running operations
+[2025-03-06T10:38:00.044Z] [error]: Client must be connected before running operations
+[2025-03-06T10:39:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:39:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T10:40:00.076Z] [error]: Client must be connected before running operations
+[2025-03-06T10:40:00.083Z] [error]: Client must be connected before running operations
+[2025-03-06T10:41:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:41:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:42:00.075Z] [error]: Client must be connected before running operations
+[2025-03-06T10:42:00.078Z] [error]: Client must be connected before running operations
+[2025-03-06T10:43:00.058Z] [error]: Client must be connected before running operations
+[2025-03-06T10:43:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:44:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:45:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:45:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:46:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:46:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:47:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:47:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T10:48:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T10:48:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:49:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:49:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:50:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:50:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:51:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:51:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T10:52:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T10:52:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:53:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T10:53:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:53:54.817Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T10:54:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T10:54:43.433Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-06T10:54:46.993Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-06T10:54:49.581Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-06T10:55:55.905Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-06T10:57:10.043Z] [error]: Operation `key_tokens.find()` buffering timed out after 10000ms
+[2025-03-06T10:57:10.047Z] [error]: Operation `products.aggregate()` buffering timed out after 10000ms
+[2025-03-06T11:18:42.062Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T11:18:53.041Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-06T11:18:59.864Z] [error]: HIDE::403::Forbidden::Validate itemPerPage, currentPage failed!::
+[2025-03-06T11:19:05.397Z] [error]: HIDE::403::Forbidden::Validate itemPerPage, currentPage failed!::
+[2025-03-06T11:19:14.284Z] [error]: HIDE::403::Forbidden::Validate itemPerPage, currentPage failed!::
+[2025-03-06T11:34:08.581Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T11:34:34.505Z] [error]: HIDE::404::NotFound::User not found!::
+[2025-03-06T11:34:44.694Z] [error]: HIDE::403::Forbidden::Can not permission to change this product!::

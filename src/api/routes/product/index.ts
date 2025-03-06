@@ -13,6 +13,7 @@ import {
     deleteProductSchema,
     updateProductSchema
 } from '../../validations/joi/product/index.joi';
+import { getAllProductByShopCheckParams } from '../../middlewares/product.middleware';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -23,6 +24,12 @@ const productRouteValidate = Router();
 productRoute.use(productRouteValidate);
 
 productRouteValidate.use(authenticate);
+
+productRouteValidate.get(
+    '/get-all-product-shop/:itemPerPage/:currentPage',
+    getAllProductByShopCheckParams,
+    catchError(ProductController.getAllProductByShop)
+);
 
 productRouteValidate.post(
     '/create',

@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { CategoryEnum } from '../../../enums/product.enum';
 import { createPhoneSchema, updatePhoneSchema } from './phone.joi';
-import { createClothesSchema, updateClothesSchema } from './cluthes.joi';
+import { createClothesSchema, updateClothesSchema } from './clothes.joi';
 
 /* ====================================================== */
 /*                     CREATE PRODUCT                     */
@@ -31,6 +31,17 @@ export const createProductSchema = Joi.object<
     ).required(),
     is_draft: Joi.boolean(),
     is_publish: Joi.boolean()
+});
+
+/* ====================================================== */
+/*                 GET ALL PRODUCT BY SHOP                */
+/* ====================================================== */
+export const getAllProductByShopSchema = Joi.object<
+    joiTypes.product.definition.GetAllProductByShopSchema,
+    true
+>({
+    currentPage: Joi.number().required(),
+    itemPerPage: Joi.number().required()
 });
 
 /* ====================================================== */

@@ -33,6 +33,14 @@ declare global {
                 }
 
                 /* ====================================================== */
+                /*                         GET ALL                        */
+                /* ====================================================== */
+                interface GetAllProductByShopSchema {
+                    itemPerPage: number;
+                    currentPage: number;
+                }
+
+                /* ====================================================== */
                 /*                         UPDATE                         */
                 /* ====================================================== */
                 interface UpdatePhoneSchema

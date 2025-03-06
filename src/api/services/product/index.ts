@@ -4,10 +4,12 @@ import mongoose from 'mongoose';
 import { productModel } from '../../models/product.model';
 import {
     BadRequestErrorResponse,
+    ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '../../response/error.response';
 import { CategoryEnum } from '../../enums/product.enum';
 import {
+    findAllProductByShop,
     findProductById,
     findProductByShopAndId,
     findProductCategoryById
@@ -69,6 +71,9 @@ export abstract class Product
         });
     }
 
+    /* ------------------ Get product shop ------------------ */
+    public async getAllProductByShop() {}
+
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
         const validProperties = this.getValidProperties();
@@ -106,9 +111,11 @@ export abstract class Product
     public getProductShop() {
         return this.product_shop;
     }
+
     public getProductId() {
         return this.product_id;
     }
+
     public setProductId(id: string) {
         this.product_id = id;
     }
@@ -134,13 +141,27 @@ export default class ProductFactory {
         return await instance.createProduct();
     };
 
+    /* --------------- Get all product by shop -------------- */
+    public static getAllProductByShop = async (productShop: string) => {
+        if (!productShop) {
+            throw new NotFoundErrorResponse('Not found product shop!');
+        }
+
+        return await findAllProductByShop(productShop);
+    };
+
     /* ------------------- Update product ------------------- */
     public static updateProduct = async (
-        payload: serviceTypes.product.arguments.UpdateProduct
+        payload: serviceTypes.product.arguments.UpdateProduct,
+        userId: string
     ) => {
         const product = await findProductById(payload.product_id);
 
         if (!product) throw new NotFoundErrorResponse('Not found product');
+        if (product.product_shop.toString() !== userId)
+            throw new ForbiddenErrorResponse(
+                'Can not permission to change this product!'
+            );
         if (product.product_category !== payload.product_category)
             throw new BadRequestErrorResponse(
                 `Current product category not is '${payload.product_category}'`

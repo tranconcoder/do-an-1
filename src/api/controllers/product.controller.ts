@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
 import { RequestWithBody } from '../types/request';
@@ -22,6 +21,23 @@ export default class ProductController {
         };
 
     /* ====================================================== */
+    /*                       GET PRODUCT                      */
+    /* ====================================================== */
+    /* --------------- Get all product by shop -------------- */
+    public static getAllProductByShop: RequestWithBody<undefined> = async (
+        req,
+        res,
+        _
+    ) => {
+        new SuccessResponse({
+            name: 'Get product shop',
+            message: 'Get product shop success',
+            statusCode: 200,
+            metadata: await ProductFactory.getAllProductByShop(req.userId || '')
+        }).send(res);
+    };
+
+    /* ====================================================== */
     /*                     UPDATE PRODUCT                     */
     /* ====================================================== */
     public static updateProduct: RequestWithBody<serviceTypes.product.arguments.UpdateProduct> =
@@ -30,10 +46,14 @@ export default class ProductController {
                 name: 'Update product',
                 statusCode: 200,
                 message: 'Update product success',
-                metadata: await ProductFactory.updateProduct({
-                    ...req.body,
-                    product_shop: req.userId as string
-                })
+                metadata:
+                    (await ProductFactory.updateProduct(
+                        {
+                            ...req.body,
+                            product_shop: req.userId as string
+                        },
+                        req.userId as string
+                    )) || {}
             }).send(res);
         };
 
