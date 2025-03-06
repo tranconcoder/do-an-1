@@ -7,13 +7,13 @@ export default class Clothes extends Product {
     /* ------------------- Create product ------------------- */
     public async createProduct() {
         // set id manually for product before create
-        super.setId(new mongoose.Types.ObjectId());
+        super.setProductId(new mongoose.Types.ObjectId().toString());
 
         return await Promise.all([
             super.createProduct(),
             clothesModel.create({
                 ...this.product_attributes,
-                _id: super.getId(),
+                _id: super.getProductId(),
                 product_shop: super.getProductShop()
             })
         ])
@@ -28,7 +28,7 @@ export default class Clothes extends Product {
         return await Promise.all([
             super.updateProduct(),
             clothesModel.updateOne(
-                { _id: super.getId() },
+                { _id: super.getProductId() },
                 { $set: this.product_attributes }
             )
         ]).then(([product]) => product);
@@ -38,7 +38,7 @@ export default class Clothes extends Product {
     public async removeProduct() {
         await Promise.all([
             super.removeProduct(),
-            clothesModel.deleteOne({ _id: super.getId() })
+            clothesModel.deleteOne({ _id: super.getProductId() })
         ]);
     }
 }

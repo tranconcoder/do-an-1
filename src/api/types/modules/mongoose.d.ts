@@ -1,4 +1,5 @@
 import type mongooseBase from 'mongoose';
+import { Document } from 'mongoose';
 
 declare global {
     namespace moduleTypes {
@@ -8,6 +9,8 @@ declare global {
                     ? string
                     : T[K];
             };
+
+            type IsDocument<T = false> = T extends true ? Document : {};
         }
     }
 }

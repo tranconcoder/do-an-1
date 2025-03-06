@@ -15,7 +15,7 @@ export default class ProductController {
                     req.body.product_category,
                     {
                         ...req.body,
-                        product_shop: new mongoose.Types.ObjectId(req.userId)
+                        product_shop: req.userId as string
                     }
                 )
             }).send(res);
@@ -24,7 +24,7 @@ export default class ProductController {
     /* ====================================================== */
     /*                     UPDATE PRODUCT                     */
     /* ====================================================== */
-    public static updateProduct: RequestWithBody<joiTypes.product.definition.UpdateProductSchema> =
+    public static updateProduct: RequestWithBody<serviceTypes.product.arguments.UpdateProduct> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Update product',
@@ -32,7 +32,7 @@ export default class ProductController {
                 message: 'Update product success',
                 metadata: await ProductFactory.updateProduct({
                     ...req.body,
-                    product_shop: new mongoose.Types.ObjectId(req.userId)
+                    product_shop: req.userId as string
                 })
             }).send(res);
         };

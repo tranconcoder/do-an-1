@@ -7,13 +7,13 @@ export default class Phone extends Product {
     /* ------------------- Create product ------------------- */
     public async createProduct() {
         // set id manually for product before create
-        super.setId(new mongoose.Types.ObjectId());
+        super.setProductId(new mongoose.Types.ObjectId().toString());
 
         return await Promise.all([
             super.createProduct(),
             phoneModel.create({
                 ...this.product_attributes,
-                _id: super.getId(),
+                _id: super.getProductId(),
                 product_shop: super.getProductShop()
             })
         ])
@@ -29,7 +29,7 @@ export default class Phone extends Product {
         return await Promise.all([
             super.updateProduct(),
             phoneModel.updateOne(
-                { _id: super.getId() },
+                { _id: super.getProductId() },
                 { $set: this.product_attributes }
             )
         ]).then(([product, attributes]) => {
@@ -43,7 +43,7 @@ export default class Phone extends Product {
     public async removeProduct() {
         await Promise.all([
             super.removeProduct(),
-            phoneModel.deleteOne({ _id: super.getId() })
+            phoneModel.deleteOne({ _id: super.getProductId() })
         ]).catch((error) => {
             const message = error?.messgae || 'Remove product failed';
             throw new BadRequestErrorResponse(message);

@@ -4,7 +4,7 @@ import { joiTypes } from '../joi';
 declare global {
     namespace modelTypes {
         namespace auth {
-            type UserSchema<D = false> = mongooseTypes.utils.IsDocument<D> & {
+            type UserSchema<D = false> = moduleTypes.mongoose.IsDocument<D> & {
                 phoneNumber: string;
                 password: string;
                 email: string;

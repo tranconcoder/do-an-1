@@ -37,3 +37,7 @@ export const findProductByShopAndId = async (
 ) => {
     return await productModel.findOne(payload);
 };
+
+export const findProductById = async (id: string) => {
+    return await productModel.findById(id);
+};

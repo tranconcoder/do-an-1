@@ -2,29 +2,37 @@
 import { getProduct } from '../../../configs/product.config';
 import mongoose from 'mongoose';
 import { productModel } from '../../models/product.model';
-import { NotFoundErrorResponse } from '../../response/error.response';
+import {
+    BadRequestErrorResponse,
+    NotFoundErrorResponse
+} from '../../response/error.response';
 import { CategoryEnum } from '../../enums/product.enum';
-import { findProductByShopAndId } from '../../models/repository/product.repo';
+import {
+    findProductById,
+    findProductByShopAndId
+} from '../../models/repository/product.repo';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
 /* ====================================================== */
 export abstract class Product
-    implements serviceTypes.product.arguments.CreateProduct
+    implements serviceTypes.product.definition.Product
 {
-    public _id?: mongoose.Types.ObjectId;
-    public product_shop?: mongoose.Types.ObjectId;
+    public product_id?: string;
+    public product_shop?: string;
     public product_name?: string;
     public product_cost?: number;
     public product_thumb?: string;
     public product_quantity?: number;
     public product_description?: string;
     public product_category?: CategoryEnum;
+    public product_new_category?: CategoryEnum;
     public product_attributes?: modelTypes.product.ProductSchemaList;
     public is_draft?: boolean;
     public is_publish?: boolean;
 
     public constructor({
+        product_id,
         product_shop,
         product_name,
         product_cost,
@@ -34,10 +42,9 @@ export abstract class Product
         product_category,
         product_attributes,
         is_draft,
-        is_publish,
-        _id = new mongoose.Types.ObjectId()
-    }: Partial<modelTypes.product.ProductSchema<true>>) {
-        this._id = _id as mongoose.Types.ObjectId;
+        is_publish
+    }: serviceTypes.product.definition.Product) {
+        this.product_id = product_id;
         this.product_shop = product_shop;
         this.product_name = product_name;
         this.product_cost = product_cost;
@@ -58,14 +65,14 @@ export abstract class Product
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
         return await productModel.updateOne(
-            { _id: this._id },
+            { _id: this.product_id },
             this.getValidProperties()
         );
     }
 
     /* ------------------- Remove product ------------------- */
     public async removeProduct(): Promise<void> {
-        await productModel.deleteOne({ _id: this._id });
+        await productModel.deleteOne({ _id: this.product_id });
     }
 
     private getValidProperties() {
@@ -85,11 +92,11 @@ export abstract class Product
     public getProductShop() {
         return this.product_shop;
     }
-    public getId() {
-        return this._id;
+    public getProductId() {
+        return this.product_id;
     }
-    public setId(id: mongoose.Types.ObjectId) {
-        this._id = id;
+    public setProductId(id: string) {
+        this.product_id = id;
     }
 }
 
@@ -117,8 +124,17 @@ export default class ProductFactory {
     public static updateProduct = async (
         payload: serviceTypes.product.arguments.UpdateProduct
     ) => {
-        console.log(payload);
-        const serviceClass = await getProduct(payload.product_category);
+        const product = await findProductById(payload.product_id);
+
+        if (!product) throw new NotFoundErrorResponse('Not found product');
+        if (product?.product_category !== payload.product_category)
+            throw new BadRequestErrorResponse('Invalid product category');
+
+        /* ----------------- Remove old category ---------------- */
+
+        const category =
+            payload.product_new_category || payload.product_category;
+        const serviceClass = await getProduct(category);
         const instance = new serviceClass(payload);
 
         return instance.updateProduct();
@@ -135,8 +151,7 @@ export default class ProductFactory {
         if (!serviceClass)
             throw new NotFoundErrorResponse('Not found product service');
 
-        const objId = new mongoose.Types.ObjectId(id);
-        const instance = new serviceClass({ _id: objId });
+        const instance = new serviceClass({ product_id: id });
 
         return await instance.removeProduct();
     };

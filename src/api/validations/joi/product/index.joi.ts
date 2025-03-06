@@ -59,13 +59,30 @@ export const updateProductSchema = Joi.object<
     product_thumb: Joi.string(),
     product_quantity: Joi.number(),
     product_description: Joi.string(),
-    product_attributes: Joi.when(
-        Joi.ref('product_new_category'),
-        Object.values(CategoryEnum).map((v) => ({
-            is: v,
-            then: Joi.alternatives().try(updateProductAttributes[v])
+
+    // When update category ==> add new attributes schema
+    // Not update ==> update attributes schema
+    product_attributes: Joi.when('product_new_category', {
+        switch: Object.values(CategoryEnum).map((category) => ({
+            is: category,
+            then: Joi.when('product_new_category', {
+                is: Joi.ref('product_category'),
+                then: updateProductAttributes[category],
+                otherwise: createProductAttributes[category]
+            })
         }))
-    ),
+    }).when(Joi.ref('product_new_category'), {
+        switch: [
+            ...Object.values(CategoryEnum).map((category) => ({
+                is: category,
+                then: {
+                    is: Joi.ref('product_category'),
+                    then: updateProductAttributes[category],
+                    otherwise: createProductAttributes[category]
+                }
+            }))
+        ]
+    }),
     is_publish: Joi.boolean(),
     is_draft: Joi.boolean()
 });

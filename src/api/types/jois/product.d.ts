@@ -1,4 +1,5 @@
 import '';
+import { CategoryEnum } from '../../enums/product.enum';
 
 declare global {
     module joiTypes {
@@ -48,7 +49,7 @@ declare global {
                         >,
                         Pick<CreateProductSchema, 'product_category'> {
                     product_id: string;
-                    product_new_category?: string;
+                    product_new_category?: CategoryEnum;
                 }
 
                 /* ====================================================== */

@@ -1,4 +1,5 @@
 import '';
+import { CategoryEnum } from '../../enums/product.enum';
 
 declare global {
     namespace serviceTypes {
@@ -9,11 +10,17 @@ declare global {
             namespace definition {
                 interface Product
                     extends Partial<
-                        Omit<
-                            modelTypes.product.ProductSchema,
-                            'product_rating_avg' | 'product_slug'
-                        >
-                    > {}
+                            Omit<
+                                moduleTypes.mongoose.ConvertObjectIdToString<modelTypes.product.ProductSchema>,
+                                'product_rating_avg' | 'product_slug'
+                            >
+                        >,
+                        Partial<
+                            Pick<
+                                joiTypes.product.definition.UpdateProductSchema,
+                                'product_new_category' | 'product_id'
+                            >
+                        > {}
             }
 
             /* ====================================================== */
@@ -26,8 +33,8 @@ declare global {
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema {
-                    // product_attributes: modelTypes.product.ProductSchemaList;
-                    _id: mongoose.Types.ObjectId;
+                    product_attributes: modelTypes.product.ProductSchemaList;
+                    product_shop: string;
                 }
 
                 /* ------------------- Remove product ------------------- */
