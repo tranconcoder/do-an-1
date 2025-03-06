@@ -273,3 +273,11 @@
 [2025-03-06T10:09:00.065Z] [error]: Client must be connected before running operations
 [2025-03-06T10:10:00.063Z] [error]: Client must be connected before running operations
 [2025-03-06T10:10:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T10:11:00.008Z] [error]: Client must be connected before running operations
+[2025-03-06T10:11:00.011Z] [error]: Client must be connected before running operations
+[2025-03-06T10:11:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:11:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T10:12:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:12:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T10:15:27.618Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T10:16:11.591Z] [error]: HIDE::400::ErrorResponse::"product_attributes.is_smartphone" must be a boolean::

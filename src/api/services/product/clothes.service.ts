@@ -31,7 +31,11 @@ export default class Clothes extends Product {
 
         return await Promise.all([
             super.updateProduct(),
-            clothesModel.updateOne({ _id: super.getProductId() }, { $set })
+            clothesModel.findOneAndUpdate(
+                { _id: super.getProductId() },
+                { $set },
+                { new: true }
+            )
         ]).then(([product]) => product);
     }
 

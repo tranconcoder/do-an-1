@@ -35,12 +35,12 @@ export default class Phone extends Product {
             super.updateProduct(),
 
             /* ---------------- Update phone product ---------------- */
-            phoneModel.updateOne({ _id: super.getProductId() }, { $set })
-        ]).then(([product, attributes]) => {
-            console.log(product, attributes);
-
-            return product;
-        });
+            phoneModel.findOneAndUpdate(
+                { _id: super.getProductId() },
+                { $set },
+                { new: true }
+            )
+        ]).then(([product]) => product);
     }
 
     /* ------------------- Remove product ------------------- */

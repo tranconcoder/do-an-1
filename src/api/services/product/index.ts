@@ -77,9 +77,10 @@ export abstract class Product
         const set: commonTypes.object.ObjectAnyKeys = {};
         get$SetNestedFromObject(validProperties, set);
 
-        return await productModel.updateOne(
+        return await productModel.findOneAndUpdate(
             { _id: this.product_id },
-            { $set: set }
+            { $set: set },
+            { new: true }
         );
     }
 
