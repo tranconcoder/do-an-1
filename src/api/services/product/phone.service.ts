@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { phoneModel } from '../../models/product.model';
 import { Product } from '.';
 import { BadRequestErrorResponse } from '../../response/error.response';
+import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 
 export default class Phone extends Product {
     /* ------------------- Create product ------------------- */
@@ -26,17 +27,15 @@ export default class Phone extends Product {
 
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
-        const set = {};
+        const $set = {};
+        get$SetNestedFromObject(this.product_attributes || {}, $set);
 
         return await Promise.all([
             /* ------------------- Update product ------------------- */
             super.updateProduct(),
 
             /* ---------------- Update phone product ---------------- */
-            phoneModel.updateOne(
-                { _id: super.getProductId() },
-                { $set: this.product_attributes }
-            )
+            phoneModel.updateOne({ _id: super.getProductId() }, { $set })
         ]).then(([product, attributes]) => {
             console.log(product, attributes);
 
