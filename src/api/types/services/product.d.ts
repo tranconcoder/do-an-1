@@ -9,16 +9,11 @@ declare global {
             /* ====================================================== */
             namespace definition {
                 interface Product
-                    extends Partial<
-                            Omit<
-                                moduleTypes.mongoose.ConvertObjectIdToString<modelTypes.product.ProductSchema>,
-                                'product_rating_avg' | 'product_slug'
-                            >
-                        >,
+                    extends Partial<modelTypes.product.ProductSchema>,
                         Partial<
                             Pick<
                                 joiTypes.product.definition.UpdateProductSchema,
-                                'product_new_category' | 'product_id'
+                                'product_new_category'
                             >
                         > {}
             }

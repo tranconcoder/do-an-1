@@ -18,7 +18,7 @@ const PRODUCT_SHOP_FIELD = {
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
-const productSchema = new Schema<modelTypes.product.ProductSchema>(
+const productSchema = new Schema<modelTypes.product.ProductSchema, true>(
     {
         ...PRODUCT_SHOP_FIELD,
         product_name: { type: String, required },

@@ -372,3 +372,7 @@
 [2025-03-06T11:34:34.505Z] [error]: HIDE::404::NotFound::User not found!::
 [2025-03-06T11:34:44.694Z] [error]: HIDE::403::Forbidden::Can not permission to change this product!::
 [2025-03-06T11:36:00.018Z] [error]: Client must be connected before running operations
+[2025-03-06T11:47:00.009Z] [error]: Client must be connected before running operations
+[2025-03-06T11:47:00.016Z] [error]: Client must be connected before running operations
+[2025-03-06T11:48:00.038Z] [error]: Client must be connected before running operations
+[2025-03-06T12:28:17.922Z] [error]: HIDE::404::NotFound::User not found!::

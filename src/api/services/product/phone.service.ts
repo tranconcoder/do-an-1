@@ -3,6 +3,7 @@ import { phoneModel } from '../../models/product.model';
 import { Product } from '.';
 import { BadRequestErrorResponse } from '../../response/error.response';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
+import { createPhone } from '../../models/repository/product/phoneModel.repo';
 
 export default class Phone extends Product {
     /* ------------------- Create product ------------------- */
@@ -11,8 +12,11 @@ export default class Phone extends Product {
         super.setProductId(new mongoose.Types.ObjectId().toString());
 
         return await Promise.all([
+            /* ------------------- Create product ------------------- */
             super.createProduct(),
-            phoneModel.create({
+
+            /* ---------------- Create phone product ---------------- */
+            createPhone({
                 ...this.product_attributes,
                 _id: super.getProductId(),
                 product_shop: super.getProductShop()

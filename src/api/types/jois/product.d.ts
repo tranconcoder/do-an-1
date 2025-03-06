@@ -28,6 +28,7 @@ declare global {
                         | 'product_rating_avg'
                         | 'product_slug'
                         | 'product_attributes'
+                        | '_id'
                     > {
                     product_attributes: modelTypes.product.ProductUnion;
                 }
@@ -52,10 +53,10 @@ declare global {
                         .PartialNested<CreateClothesSchema> {}
 
                 interface UpdateProductSchema
-                    extends Partial<
-                            Omit<CreateProductSchema, 'product_category'>
-                        >,
-                        Pick<CreateProductSchema, 'product_category'> {
+                    extends commonTypes.utils.PartialWithout<
+                        CreateProductSchema,
+                        'product_category'
+                    > {
                     product_id: string;
                     product_new_category?: CategoryEnum;
                 }

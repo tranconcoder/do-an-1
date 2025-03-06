@@ -11,9 +11,8 @@ import { CategoryEnum } from '../../enums/product.enum';
 import {
     findAllProductByShop,
     findProductById,
-    findProductByShopAndId,
     findProductCategoryById
-} from '../../models/repository/product.repo';
+} from '../../models/repository/product';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 
 /* ====================================================== */
@@ -22,8 +21,10 @@ import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 export abstract class Product
     implements serviceTypes.product.definition.Product
 {
-    public product_id?: string;
-    public product_shop?: string;
+    public _id?: string | mongoose.Types.ObjectId;
+    public product_slug?: string;
+    public product_rating_avg?: number;
+    public product_shop?: string | mongoose.Types.ObjectId;
     public product_name?: string;
     public product_cost?: number;
     public product_thumb?: string;
@@ -36,7 +37,9 @@ export abstract class Product
     public is_publish?: boolean;
 
     public constructor({
-        product_id,
+        _id,
+        product_slug,
+        product_rating_avg,
         product_shop,
         product_name,
         product_cost,
@@ -48,7 +51,9 @@ export abstract class Product
         is_draft,
         is_publish
     }: serviceTypes.product.definition.Product) {
-        this.product_id = product_id;
+        this._id = _id;
+        this.product_slug = product_slug;
+        this.product_rating_avg = product_rating_avg;
         this.product_shop = product_shop;
         this.product_name = product_name;
         this.product_cost = product_cost;
@@ -63,10 +68,10 @@ export abstract class Product
 
     /* ------------------- Create product ------------------- */
     public async createProduct() {
-        const { product_id, ...validProperties } = this.getValidProperties();
+        const { _id, ...validProperties } = this.getValidProperties();
 
         return await productModel.create({
-            _id: product_id,
+            _id,
             ...validProperties
         });
     }
@@ -79,12 +84,13 @@ export abstract class Product
         const validProperties = this.getValidProperties();
 
         /* ------------------- Init set object ------------------ */
-        const set: commonTypes.object.ObjectAnyKeys = {};
-        get$SetNestedFromObject(validProperties, set);
+        const $set: commonTypes.object.ObjectAnyKeys = {};
+        get$SetNestedFromObject(validProperties, $set);
+        console.log($set);
 
         return await productModel.findOneAndUpdate(
-            { _id: this.product_id },
-            { $set: set },
+            { _id: this._id },
+            { $set },
             { new: true }
         );
     }
@@ -92,7 +98,7 @@ export abstract class Product
     /* ------------------- Remove product ------------------- */
     public async removeProduct(): Promise<void> {
         await productModel.deleteOne({
-            _id: this.product_id,
+            _id: this._id,
             product_shop: this.product_shop
         });
     }
@@ -116,11 +122,11 @@ export abstract class Product
     }
 
     public getProductId() {
-        return this.product_id;
+        return this._id;
     }
 
-    public setProductId(id: string) {
-        this.product_id = id;
+    public setProductId(id: string | mongoose.Types.ObjectId) {
+        this._id = id;
     }
 }
 
@@ -154,10 +160,11 @@ export default class ProductFactory {
     };
 
     /* ------------------- Update product ------------------- */
-    public static updateProduct = async (
-        payload: serviceTypes.product.arguments.UpdateProduct
-    ) => {
-        const product = await findProductById(payload.product_id);
+    public static updateProduct = async ({
+        product_id: _id,
+        ...payload
+    }: serviceTypes.product.arguments.UpdateProduct) => {
+        const product = await findProductById(_id);
 
         if (!product) throw new NotFoundErrorResponse('Not found product!');
         if (product.product_shop.toString() !== payload.product_shop)
@@ -178,9 +185,7 @@ export default class ProductFactory {
             const removeServiceClass = await getProduct(
                 payload.product_category
             );
-            const instance = new removeServiceClass({
-                product_id: payload.product_id
-            });
+            const instance = new removeServiceClass({ _id });
 
             await instance.removeProduct();
         }
@@ -189,7 +194,10 @@ export default class ProductFactory {
         const category =
             payload.product_new_category || payload.product_category;
         const serviceClass = await getProduct(category);
-        const instance = new serviceClass(payload);
+        const instance = new serviceClass({
+            ...payload,
+            _id
+        });
 
         return instance.updateProduct();
     };
@@ -208,7 +216,7 @@ export default class ProductFactory {
             throw new NotFoundErrorResponse('Not found product service');
 
         const instance = new serviceClass({
-            product_id: id,
+            _id: id,
             product_shop: userId
         });
 

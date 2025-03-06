@@ -45,6 +45,9 @@ declare global {
                     ? PartialNested<T[K]>
                     : T[K];
             };
+
+            type PartialWithout<T, KW = '123' | 'dw23123'> = Partial<T> &
+                Pick<T, KW>;
         }
 
         /* ====================================================== */

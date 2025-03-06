@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { getProductModel } from '../../../configs/product.config';
+import { getProductModel } from '../../../../configs/product.config';
 import ErrorResponse, {
     NotFoundErrorResponse
-} from '../../response/error.response';
-import { productModel } from '../product.model';
+} from '../../../response/error.response';
+import { productModel } from '../../product.model';
 
 /* ====================================================== */
 /*                        FIND ALL                        */

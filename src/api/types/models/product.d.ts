@@ -15,7 +15,8 @@ declare global {
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
             type CommonFields<T> = moduleTypes.mongoose.IsDocument<T> & {
-                product_shop: mongoose.Types.ObjectId;
+                _id: mongoose.Types.ObjectId | string;
+                product_shop: mongoose.Types.ObjectId | string;
             };
 
             type ProductSchema<T = false> = CommonFields<T> & {

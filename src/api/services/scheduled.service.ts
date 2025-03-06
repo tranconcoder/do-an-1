@@ -17,7 +17,7 @@ import { CronJob } from 'cron';
 import { asyncFilter } from '../utils/array.utils';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../enums/product.enum';
-import { findProductIdStrList } from '../models/repository/product.repo';
+import { findProductIdStrList } from '../models/repository/product';
 
 export default class ScheduledService {
     public static startScheduledService = () => {
