@@ -48,6 +48,7 @@ declare global {
                         >,
                         Pick<CreateProductSchema, 'product_category'> {
                     product_id: string;
+                    product_new_category?: string;
                 }
 
                 /* ====================================================== */

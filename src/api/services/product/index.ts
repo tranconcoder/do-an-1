@@ -57,7 +57,6 @@ export abstract class Product
 
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
-        console.log(this);
         return await productModel.updateOne(
             { _id: this._id },
             this.getValidProperties()
@@ -118,10 +117,7 @@ export default class ProductFactory {
     public static updateProduct = async (
         payload: serviceTypes.product.arguments.UpdateProduct
     ) => {
-        /* ---------------- Check payload length ---------------- */
-        if (Object.keys(payload).length === 0)
-            throw new NotFoundErrorResponse('Not found payload to update');
-
+        console.log(payload);
         const serviceClass = await getProduct(payload.product_category);
         const instance = new serviceClass(payload);
 

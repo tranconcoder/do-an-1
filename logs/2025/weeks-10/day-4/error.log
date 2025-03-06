@@ -15,3 +15,27 @@
 [2025-03-06T05:47:48.250Z] [error]: HIDE::400::BadRequest::Save product failed::
 [2025-03-06T05:48:45.127Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is required::
 [2025-03-06T05:48:52.391Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_processor" is required::
+[2025-03-06T05:49:00.008Z] [error]: Client must be connected before running operations
+[2025-03-06T05:49:00.012Z] [error]: Client must be connected before running operations
+[2025-03-06T05:50:00.048Z] [error]: Client must be connected before running operations
+[2025-03-06T05:50:00.051Z] [error]: Client must be connected before running operations
+[2025-03-06T05:51:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T05:51:30.364Z] [error]: HIDE::500::SyntaxError::Expected double-quoted property name in JSON at position 347 (line 10 column 1)::
+[2025-03-06T05:51:35.257Z] [error]: HIDE::400::ErrorResponse::"product_attributes" is required::
+[2025-03-06T05:51:48.540Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T05:51:53.678Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is required::
+[2025-03-06T05:55:57.236Z] [error]: HIDE::400::ErrorResponse::"product_category" is required::
+[2025-03-06T05:59:13.578Z] [error]: HIDE::400::ErrorResponse::"product_category" is required::
+[2025-03-06T05:59:26.306Z] [error]: HIDE::400::ErrorResponse::"product_category" must be one of [Phone, Clothes]::
+[2025-03-06T06:05:19.115Z] [error]: HIDE::500::SyntaxError::Expected double-quoted property name in JSON at position 120 (line 5 column 1)::
+[2025-03-06T06:05:22.707Z] [error]: HIDE::400::ErrorResponse::"product_attributes" is required::
+[2025-03-06T06:06:08.071Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phonename" is not allowed::
+[2025-03-06T06:06:21.731Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_memory" is not allowed::
+[2025-03-06T06:06:34.847Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_memory" is not allowed to be empty::
+[2025-03-06T06:06:48.972Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_memory" is not allowed to be empty::
+[2025-03-06T06:06:52.067Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T06:06:58.523Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_me213mory" is not allowed::
+[2025-03-06T06:07:17.491Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_memory" is not allowed::
+[2025-03-06T06:07:23.753Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is not allowed to be empty::
+[2025-03-06T06:08:48.488Z] [error]: HIDE::400::ErrorResponse::"product_attributes.213" is not allowed::
+[2025-03-06T06:09:00.117Z] [error]: Client must be connected before running operations

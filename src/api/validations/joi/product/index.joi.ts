@@ -26,7 +26,7 @@ export const createProductSchema = Joi.object<
         'product_category',
         Object.values(CategoryEnum).map((v) => ({
             is: v,
-            then: Joi.alternatives().try(createProductAttributes[v]).required()
+            then: Joi.alternatives().try(createProductAttributes[v])
         }))
     ).required(),
     is_draft: Joi.boolean(),
@@ -36,7 +36,10 @@ export const createProductSchema = Joi.object<
 /* ====================================================== */
 /*                     UPDATE PRODUCT                     */
 /* ====================================================== */
-const updateProductAttributes = [updatePhoneSchema, updateClothesSchema];
+const updateProductAttributes = {
+    [CategoryEnum.Phone]: updatePhoneSchema,
+    [CategoryEnum.Clothes]: updateClothesSchema
+};
 export const updateProductSchema = Joi.object<
     joiTypes.product.definition.UpdateProductSchema,
     true
@@ -48,14 +51,21 @@ export const updateProductSchema = Joi.object<
         .required(),
 
     /* ---------------------- Optional ---------------------- */
+    product_new_category: Joi.string()
+        .valid(...Object.values(CategoryEnum))
+        .default(Joi.ref('product_category')),
     product_name: Joi.string(),
     product_cost: Joi.number(),
     product_thumb: Joi.string(),
     product_quantity: Joi.number(),
     product_description: Joi.string(),
-    product_attributes: Joi.alternatives()
-        .try(...updateProductAttributes)
-        .optional(),
+    product_attributes: Joi.when(
+        Joi.ref('product_new_category'),
+        Object.values(CategoryEnum).map((v) => ({
+            is: v,
+            then: Joi.alternatives().try(updateProductAttributes[v])
+        }))
+    ),
     is_publish: Joi.boolean(),
     is_draft: Joi.boolean()
 });
