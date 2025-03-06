@@ -47,13 +47,10 @@ export default class ProductController {
                 statusCode: 200,
                 message: 'Update product success',
                 metadata:
-                    (await ProductFactory.updateProduct(
-                        {
-                            ...req.body,
-                            product_shop: req.userId as string
-                        },
-                        req.userId as string
-                    )) || {}
+                    (await ProductFactory.updateProduct({
+                        ...req.body,
+                        product_shop: req.userId as string
+                    })) || {}
             }).send(res);
         };
 
@@ -62,7 +59,10 @@ export default class ProductController {
     /* ====================================================== */
     public static deleteProduct: RequestWithBody<joiTypes.product.definition.DeleteProductSchema> =
         async (req, res, _) => {
-            await ProductFactory.removeProduct(req.body.product_id);
+            await ProductFactory.removeProduct(
+                req.body.product_id,
+                req.userId as string
+            );
 
             new SuccessResponse({
                 message: 'Product deleted successfully',

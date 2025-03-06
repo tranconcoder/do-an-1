@@ -36,7 +36,10 @@ export default class Phone extends Product {
 
             /* ---------------- Update phone product ---------------- */
             phoneModel.findOneAndUpdate(
-                { _id: super.getProductId() },
+                {
+                    _id: super.getProductId(),
+                    product_shop: super.getProductShop()
+                },
                 { $set },
                 { new: true }
             )
@@ -46,8 +49,14 @@ export default class Phone extends Product {
     /* ------------------- Remove product ------------------- */
     public async removeProduct() {
         await Promise.all([
+            /* ------------------- Remove product ------------------- */
             super.removeProduct(),
-            phoneModel.deleteOne({ _id: super.getProductId() })
+
+            /* ---------------- Remove phone product ---------------- */
+            phoneModel.deleteOne({
+                _id: super.getProductId(),
+                product_shop: super.getProductShop()
+            })
         ]).catch((error) => {
             const message = error?.messgae || 'Remove product failed';
             throw new BadRequestErrorResponse(message);

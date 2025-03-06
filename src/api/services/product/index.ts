@@ -91,7 +91,10 @@ export abstract class Product
 
     /* ------------------- Remove product ------------------- */
     public async removeProduct(): Promise<void> {
-        await productModel.deleteOne({ _id: this.product_id });
+        await productModel.deleteOne({
+            _id: this.product_id,
+            product_shop: this.product_shop
+        });
     }
 
     private getValidProperties() {
@@ -152,13 +155,12 @@ export default class ProductFactory {
 
     /* ------------------- Update product ------------------- */
     public static updateProduct = async (
-        payload: serviceTypes.product.arguments.UpdateProduct,
-        userId: string
+        payload: serviceTypes.product.arguments.UpdateProduct
     ) => {
         const product = await findProductById(payload.product_id);
 
-        if (!product) throw new NotFoundErrorResponse('Not found product');
-        if (product.product_shop.toString() !== userId)
+        if (!product) throw new NotFoundErrorResponse('Not found product!');
+        if (product.product_shop.toString() !== payload.product_shop)
             throw new ForbiddenErrorResponse(
                 'Can not permission to change this product!'
             );
@@ -194,7 +196,8 @@ export default class ProductFactory {
 
     /* ------------------- Remove product ------------------- */
     public static removeProduct = async (
-        id: serviceTypes.product.arguments.RemoveProduct
+        id: serviceTypes.product.arguments.RemoveProduct,
+        userId: string
     ) => {
         const type: modelTypes.product.ProductList | undefined =
             await findProductCategoryById(id);
@@ -204,7 +207,10 @@ export default class ProductFactory {
         if (!serviceClass)
             throw new NotFoundErrorResponse('Not found product service');
 
-        const instance = new serviceClass({ product_id: id });
+        const instance = new serviceClass({
+            product_id: id,
+            product_shop: userId
+        });
 
         return await instance.removeProduct();
     };
