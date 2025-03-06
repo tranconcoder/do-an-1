@@ -1,0 +1,17 @@
+[2025-03-06T04:12:17.700Z] [error]: HIDE::400::ErrorResponse::"product_id" is required::
+[2025-03-06T04:12:32.931Z] [error]: HIDE::400::ErrorResponse::"product_id" is not allowed to be empty::
+[2025-03-06T04:12:35.897Z] [error]: HIDE::400::ErrorResponse::"product_category" is required::
+[2025-03-06T04:12:52.929Z] [error]: HIDE::400::ErrorResponse::"product_category" must be one of [Phone, Clothes]::
+[2025-03-06T04:19:04.412Z] [error]: read ECONNRESET
+[2025-03-06T04:19:04.413Z] [error]: read ECONNRESET
+[2025-03-06T04:41:32.676Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T04:42:51.341Z] [error]: HIDE::404::NotFound::Not found payload to update::
+[2025-03-06T04:46:10.181Z] [error]: HIDE::500::CastError::Cast to ObjectId failed for value "123" (type string) at path "_id" for model "Product"::
+[2025-03-06T05:05:58.223Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T05:20:28.768Z] [error]: HIDE::400::ErrorResponse::"is_publish" is required::
+[2025-03-06T05:36:33.901Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T05:38:10.319Z] [error]: HIDE::500::SyntaxError::Expected double-quoted property name in JSON at position 425 (line 14 column 1)::
+[2025-03-06T05:47:35.003Z] [error]: HIDE::400::ErrorResponse::"product_category" is required::
+[2025-03-06T05:47:48.250Z] [error]: HIDE::400::BadRequest::Save product failed::
+[2025-03-06T05:48:45.127Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is required::
+[2025-03-06T05:48:52.391Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_processor" is required::

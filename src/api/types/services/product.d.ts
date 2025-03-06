@@ -6,23 +6,28 @@ declare global {
             /* ====================================================== */
             /*                       DEFINITION                       */
             /* ====================================================== */
-            namespace definition {}
+            namespace definition {
+                interface Product
+                    extends Partial<
+                        Omit<
+                            modelTypes.product.ProductSchema,
+                            'product_rating_avg' | 'product_slug'
+                        >
+                    > {}
+            }
 
             /* ====================================================== */
             /*                   FUNCTION ARGUMENTS                   */
             /* ====================================================== */
             namespace arguments {
                 /* ------------------- Create product ------------------- */
-                interface CreateProduct
-                    extends Omit<
-                        modelTypes.product.ProductSchema,
-                        'product_rating_avg' | 'product_slug'
-                    > {}
+                interface CreateProduct extends definition.Product {}
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema {
                     // product_attributes: modelTypes.product.ProductSchemaList;
+                    _id: mongoose.Types.ObjectId;
                 }
 
                 /* ------------------- Remove product ------------------- */

@@ -4,6 +4,7 @@ import { Product } from '.';
 import { BadRequestErrorResponse } from '../../response/error.response';
 
 export default class Phone extends Product {
+    /* ------------------- Create product ------------------- */
     public async createProduct() {
         // set id manually for product before create
         super.setId(new mongoose.Types.ObjectId());
@@ -23,6 +24,22 @@ export default class Phone extends Product {
             });
     }
 
+    /* ------------------- Update product ------------------- */
+    public async updateProduct() {
+        return await Promise.all([
+            super.updateProduct(),
+            phoneModel.updateOne(
+                { _id: super.getId() },
+                { $set: this.product_attributes }
+            )
+        ]).then(([product, attributes]) => {
+            console.log(product, attributes);
+
+            return product;
+        });
+    }
+
+    /* ------------------- Remove product ------------------- */
     public async removeProduct() {
         await Promise.all([
             super.removeProduct(),

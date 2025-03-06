@@ -98,7 +98,6 @@ export default class ScheduledService {
     private static handleCleanUpProduct = async () => {
         /* ----------------- Get product id list ---------------- */
         const productIds = new Set(await findProductIdStrList());
-        console.log(productIds);
 
         /* -------------- Get product child id list ------------- */
         const productChildModelName = Object.values(CategoryEnum);

@@ -6,7 +6,10 @@ import { createClothesSchema, updateClothesSchema } from './cluthes.joi';
 /* ====================================================== */
 /*                     CREATE PRODUCT                     */
 /* ====================================================== */
-const createProductAttributes = [createPhoneSchema, createClothesSchema];
+const createProductAttributes = {
+    [CategoryEnum.Phone]: createPhoneSchema,
+    [CategoryEnum.Clothes]: createClothesSchema
+};
 export const createProductSchema = Joi.object<
     joiTypes.product.definition.CreateProductSchema,
     true
@@ -19,11 +22,15 @@ export const createProductSchema = Joi.object<
     product_category: Joi.string()
         .valid(...Object.values(CategoryEnum))
         .required(),
-    product_attributes: Joi.alternatives()
-        .try(...createProductAttributes)
-        .required(),
-    is_draft: Joi.boolean().required(),
-    is_publish: Joi.boolean().required()
+    product_attributes: Joi.when(
+        'product_category',
+        Object.values(CategoryEnum).map((v) => ({
+            is: v,
+            then: Joi.alternatives().try(createProductAttributes[v]).required()
+        }))
+    ).required(),
+    is_draft: Joi.boolean(),
+    is_publish: Joi.boolean()
 });
 
 /* ====================================================== */

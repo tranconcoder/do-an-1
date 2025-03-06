@@ -1,13 +1,18 @@
 import { Router } from 'express';
-import { authenticate } from '../../middlewares/jwt.middleware';
+/* --------------------- Controller --------------------- */
 import ProductController from '../../controllers/product.controller';
+
+/* --------------------- Middleware --------------------- */
+import { authenticate } from '../../middlewares/jwt.middleware';
 import catchError from '../../middlewares/catchError.middleware';
 import joiValidate from '../../middlewares/joiValidate.middleware';
+
+/* ------------------------- Joi ------------------------ */
 import {
-    createProductSchema as createProductSchema,
+    createProductSchema,
     deleteProductSchema,
     updateProductSchema
-} from '../../validations/joi/product/product.joi';
+} from '../../validations/joi/product/index.joi';
 
 const productRoute = Router();
 const productRouteValidate = Router();

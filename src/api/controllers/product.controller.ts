@@ -30,7 +30,10 @@ export default class ProductController {
                 name: 'Update product',
                 statusCode: 200,
                 message: 'Update product success',
-                metadata: await ProductFactory.updateProduct(req.body)
+                metadata: await ProductFactory.updateProduct({
+                    ...req.body,
+                    product_shop: new mongoose.Types.ObjectId(req.userId)
+                })
             }).send(res);
         };
 

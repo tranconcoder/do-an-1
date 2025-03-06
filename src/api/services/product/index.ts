@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { productModel } from '../../models/product.model';
 import { NotFoundErrorResponse } from '../../response/error.response';
 import { CategoryEnum } from '../../enums/product.enum';
+import { findProductByShopAndId } from '../../models/repository/product.repo';
 
 /* ====================================================== */
 /*                      CREATOR CLASS                     */
@@ -11,17 +12,17 @@ import { CategoryEnum } from '../../enums/product.enum';
 export abstract class Product
     implements serviceTypes.product.arguments.CreateProduct
 {
-    public _id: mongoose.Types.ObjectId;
-    public product_shop: mongoose.Types.ObjectId;
-    public product_name: string;
-    public product_cost: number;
-    public product_thumb: string;
-    public product_quantity: number;
-    public product_description: string;
-    public product_category: CategoryEnum;
-    public product_attributes: modelTypes.product.ProductSchemaList;
-    public is_draft: boolean;
-    public is_publish: boolean;
+    public _id?: mongoose.Types.ObjectId;
+    public product_shop?: mongoose.Types.ObjectId;
+    public product_name?: string;
+    public product_cost?: number;
+    public product_thumb?: string;
+    public product_quantity?: number;
+    public product_description?: string;
+    public product_category?: CategoryEnum;
+    public product_attributes?: modelTypes.product.ProductSchemaList;
+    public is_draft?: boolean;
+    public is_publish?: boolean;
 
     public constructor({
         product_shop,
@@ -37,25 +38,49 @@ export abstract class Product
         _id = new mongoose.Types.ObjectId()
     }: Partial<modelTypes.product.ProductSchema<true>>) {
         this._id = _id as mongoose.Types.ObjectId;
-        this.product_shop = product_shop || new mongoose.Types.ObjectId();
-        this.product_name = product_name || '';
-        this.product_cost = product_cost || 0;
-        this.product_thumb = product_thumb || '';
-        this.product_quantity = product_quantity || 0;
-        this.product_description = product_description || '';
-        this.product_category = product_category || CategoryEnum.Phone;
-        this.product_attributes = (product_attributes ||
-            {}) as modelTypes.product.ProductSchemaList;
-        this.is_draft = is_draft || true;
-        this.is_publish = is_publish || false;
+        this.product_shop = product_shop;
+        this.product_name = product_name;
+        this.product_cost = product_cost;
+        this.product_thumb = product_thumb;
+        this.product_quantity = product_quantity;
+        this.product_description = product_description;
+        this.product_category = product_category;
+        this.product_attributes = product_attributes;
+        this.is_draft = is_draft;
+        this.is_publish = is_publish;
     }
 
+    /* ------------------- Create product ------------------- */
     public async createProduct() {
-        return await productModel.create(this);
+        return await productModel.create(this.getValidProperties());
     }
 
+    /* ------------------- Update product ------------------- */
+    public async updateProduct() {
+        console.log(this);
+        return await productModel.updateOne(
+            { _id: this._id },
+            this.getValidProperties()
+        );
+    }
+
+    /* ------------------- Remove product ------------------- */
     public async removeProduct(): Promise<void> {
         await productModel.deleteOne({ _id: this._id });
+    }
+
+    private getValidProperties() {
+        const validProperties: serviceTypes.product.definition.Product = {};
+
+        Object.keys(this).forEach((k) => {
+            const key = k as keyof typeof validProperties;
+
+            if (this[key] !== undefined) {
+                Object.assign(validProperties, { [key]: this[key] });
+            }
+        });
+
+        return validProperties;
     }
 
     public getProductShop() {
@@ -93,7 +118,14 @@ export default class ProductFactory {
     public static updateProduct = async (
         payload: serviceTypes.product.arguments.UpdateProduct
     ) => {
-        return {};
+        /* ---------------- Check payload length ---------------- */
+        if (Object.keys(payload).length === 0)
+            throw new NotFoundErrorResponse('Not found payload to update');
+
+        const serviceClass = await getProduct(payload.product_category);
+        const instance = new serviceClass(payload);
+
+        return instance.updateProduct();
     };
 
     /* ------------------- Remove product ------------------- */

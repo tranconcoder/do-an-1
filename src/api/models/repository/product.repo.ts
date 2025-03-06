@@ -27,3 +27,13 @@ export const findProductIdStrList = async () => {
         })
     ).map((x: { _id: string }) => x._id);
 };
+
+/* ------------- Find product by shop and id ------------ */
+export const findProductByShopAndId = async (
+    payload: Pick<
+        modelTypes.product.ProductSchema<true>,
+        'product_shop' | '_id'
+    >
+) => {
+    return await productModel.findOne(payload);
+};
