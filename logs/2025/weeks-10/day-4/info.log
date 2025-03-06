@@ -858,3 +858,21 @@
 [2025-03-06T10:01:14.916Z] [info]: Server closed
 [2025-03-06T10:01:14.932Z] [info]: Server closed
 [2025-03-06T10:01:14.937Z] [info]: Server closed
+[2025-03-06T10:02:00.123Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-06T10:02:00.124Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-06T10:02:00.135Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-06T10:03:00.155Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-06T10:03:00.161Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-06T10:03:00.161Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-06T10:04:00.132Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-06T10:04:00.138Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-06T10:04:00.138Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-06T10:05:00.132Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-06T10:05:00.133Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-06T10:05:00.142Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-06T10:06:00.155Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-06T10:06:00.160Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-06T10:06:00.160Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-06T10:06:13.545Z] [info]: Server closed
+[2025-03-06T10:06:13.571Z] [info]: Server closed
+[2025-03-06T10:06:13.576Z] [info]: Server closed

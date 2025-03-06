@@ -13,7 +13,7 @@ export const get$SetNestedFromObject = (
     Object.keys(source).forEach((k) => {
         const targetKey = parent === '' ? k : `${parent}.${k}`;
 
-        if (source[k] instanceof Object) {
+        if (source[k] instanceof Object && !Array.isArray(source[k])) {
             get$SetNestedFromObject(source[k], target, targetKey);
         } else {
             target[targetKey] = source[k];
