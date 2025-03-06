@@ -73,11 +73,21 @@ export abstract class Product
         const { product_attributes, ...validProperties } =
             this.getValidProperties();
 
+        /* ------------------- Init set object ------------------ */
+        const set: commonTypes.object.ObjectAnyKeys = {};
+        if (product_attributes) {
+            Object.keys(product_attributes).map((k) => {
+                const key = k as keyof typeof product_attributes;
+
+                set[`product_attributes.${key}`] = product_attributes[key];
+            });
+        }
+
         return await productModel.updateOne(
             { _id: this.product_id },
             {
                 ...validProperties,
-                $set: { product_attributes }
+                $set: set
             }
         );
     }

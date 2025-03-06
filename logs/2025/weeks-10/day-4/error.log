@@ -189,3 +189,74 @@
 [2025-03-06T09:06:00.060Z] [error]: Client must be connected before running operations
 [2025-03-06T09:06:00.063Z] [error]: Client must be connected before running operations
 [2025-03-06T09:06:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:07:00.010Z] [error]: Client must be connected before running operations
+[2025-03-06T09:07:00.014Z] [error]: Client must be connected before running operations
+[2025-03-06T09:07:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:07:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:07:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:08:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T09:08:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:09:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:09:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T09:10:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:10:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:11:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:11:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T09:12:00.039Z] [error]: Client must be connected before running operations
+[2025-03-06T09:12:00.041Z] [error]: Client must be connected before running operations
+[2025-03-06T09:12:59.689Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T09:13:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T09:13:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:14:00.038Z] [error]: Client must be connected before running operations
+[2025-03-06T09:14:00.041Z] [error]: Client must be connected before running operations
+[2025-03-06T09:14:16.169Z] [error]: HIDE::500::MongoServerError::Cannot apply $addToSet to non-array field. Field named 'product_attributes' has non-array type object::
+[2025-03-06T09:15:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:15:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:16:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:16:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:16:15.082Z] [error]: HIDE::500::MongoServerError::The positional operator did not find the match needed from the query.::
+[2025-03-06T09:16:41.968Z] [error]: HIDE::500::MongoServerError::The positional operator did not find the match needed from the query.::
+[2025-03-06T09:17:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:17:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:18:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:18:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T09:19:00.009Z] [error]: Client must be connected before running operations
+[2025-03-06T09:19:00.012Z] [error]: Client must be connected before running operations
+[2025-03-06T09:20:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:20:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:21:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:21:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T09:22:00.059Z] [error]: Client must be connected before running operations
+[2025-03-06T09:22:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:23:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:23:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:24:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:24:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T09:25:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:26:00.038Z] [error]: Client must be connected before running operations
+[2025-03-06T09:26:00.041Z] [error]: Client must be connected before running operations
+[2025-03-06T09:27:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:27:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:28:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:28:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T09:29:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:29:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:30:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:30:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:31:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:31:00.067Z] [error]: Client must be connected before running operations
+[2025-03-06T09:32:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:33:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:33:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:33:51.881Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T09:34:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:34:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:34:32.835Z] [error]: HIDE::500::MongoServerError::Modifiers operate on fields but we found type array instead. For example: {$mod: {<field>: ...}} not {$set: [ null ]}::
+[2025-03-06T09:35:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:35:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:36:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:36:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:36:25.816Z] [error]: HIDE::400::ErrorResponse::"product_attributes.123" is not allowed::
+[2025-03-06T09:36:26.258Z] [error]: HIDE::400::ErrorResponse::"product_attributes.123" is not allowed::
