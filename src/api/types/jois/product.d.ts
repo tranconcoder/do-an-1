@@ -55,11 +55,7 @@ declare global {
                 /* ====================================================== */
                 /*                         DELETE                         */
                 /* ====================================================== */
-                interface DeleteProductSchema
-                    extends Pick<
-                        modelTypes.product.ProductSchema,
-                        'product_category'
-                    > {
+                interface DeleteProductSchema {
                     product_id: string;
                 }
             }

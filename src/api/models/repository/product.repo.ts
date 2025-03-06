@@ -41,3 +41,7 @@ export const findProductByShopAndId = async (
 export const findProductById = async (id: string) => {
     return await productModel.findById(id);
 };
+
+export const findProductCategoryById = async (id: string) => {
+    return await findProductById(id).then((x) => x?.product_category);
+};

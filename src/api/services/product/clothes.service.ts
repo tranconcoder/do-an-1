@@ -9,6 +9,8 @@ export default class Clothes extends Product {
         // set id manually for product before create
         super.setProductId(new mongoose.Types.ObjectId().toString());
 
+        console.log(super.getProductId());
+
         return await Promise.all([
             super.createProduct(),
             clothesModel.create({

@@ -62,7 +62,7 @@ export const updateProductSchema = Joi.object<
 
     // When update category ==> add new attributes schema
     // Not update ==> update attributes schema
-    product_attributes: Joi.when('product_new_category', {
+    product_attributes: Joi.when(Joi.ref('product_new_category'), {
         switch: Object.values(CategoryEnum).map((category) => ({
             is: category,
             then: Joi.when('product_new_category', {
@@ -94,8 +94,5 @@ export const deleteProductSchema = Joi.object<
     joiTypes.product.definition.DeleteProductSchema,
     true
 >({
-    product_id: Joi.string().required(),
-    product_category: Joi.string()
-        .valid(...Object.values(CategoryEnum))
-        .required()
+    product_id: Joi.string().required()
 });

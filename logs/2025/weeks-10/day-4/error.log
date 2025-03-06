@@ -54,3 +54,138 @@
 [2025-03-06T07:39:35.576Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-03-06T08:19:44.552Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-03-06T08:20:08.379Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is required::
+[2025-03-06T08:23:00.046Z] [error]: Client must be connected before running operations
+[2025-03-06T08:23:00.050Z] [error]: Client must be connected before running operations
+[2025-03-06T08:23:31.589Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_processor" is required::
+[2025-03-06T08:23:44.031Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:23:48.587Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:24:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:24:00.645Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:24:21.282Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:24:32.027Z] [error]: HIDE::400::ErrorResponse::"product_category" must be one of [Phone, Clothes]::
+[2025-03-06T08:24:38.605Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:24:46.697Z] [error]: HIDE::400::ErrorResponse::"product_category" must be one of [Phone, Clothes]::
+[2025-03-06T08:24:54.939Z] [error]: HIDE::400::BadRequest::Invalid product category::
+[2025-03-06T08:25:00.018Z] [error]: Client must be connected before running operations
+[2025-03-06T08:25:00.021Z] [error]: Client must be connected before running operations
+[2025-03-06T08:26:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T08:26:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:27:00.003Z] [error]: Client must be connected before running operations
+[2025-03-06T08:27:00.006Z] [error]: Client must be connected before running operations
+[2025-03-06T08:28:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:28:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:29:00.004Z] [error]: Client must be connected before running operations
+[2025-03-06T08:29:00.006Z] [error]: Client must be connected before running operations
+[2025-03-06T08:30:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:30:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:31:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T08:31:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:32:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:32:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:33:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:33:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:34:00.057Z] [error]: Client must be connected before running operations
+[2025-03-06T08:34:00.058Z] [error]: Client must be connected before running operations
+[2025-03-06T08:34:31.721Z] [error]: HIDE::400::BadRequest::Current product category not is 'Clothes'::
+[2025-03-06T08:34:39.118Z] [error]: HIDE::400::ErrorResponse::"product_attributes.size" is required::
+[2025-03-06T08:35:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:35:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:35:27.576Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T08:36:00.008Z] [error]: Client must be connected before running operations
+[2025-03-06T08:36:00.009Z] [error]: Client must be connected before running operations
+[2025-03-06T08:36:50.085Z] [error]: HIDE::400::ErrorResponse::"product_desription" is not allowed::
+[2025-03-06T08:37:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:37:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:37:20.371Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_processor" is required::
+[2025-03-06T08:37:42.902Z] [error]: HIDE::400::ErrorResponse::"product_attributes.phone_processor" is required::
+[2025-03-06T08:38:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:38:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:38:21.629Z] [error]: HIDE::400::ErrorResponse::"product_rating_avg" is not allowed::
+[2025-03-06T08:38:35.033Z] [error]: HIDE::400::ErrorResponse::"product_slug" is not allowed::
+[2025-03-06T08:38:44.371Z] [error]: HIDE::400::ErrorResponse::"is_draft" must be a boolean::
+[2025-03-06T08:39:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:39:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:39:05.440Z] [error]: HIDE::400::ErrorResponse::"is_pusblish" is not allowed::
+[2025-03-06T08:39:55.862Z] [error]: HIDE::400::ErrorResponse::"product_shop" is not allowed::
+[2025-03-06T08:40:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:40:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:41:00.048Z] [error]: Client must be connected before running operations
+[2025-03-06T08:41:00.050Z] [error]: Client must be connected before running operations
+[2025-03-06T08:42:00.020Z] [error]: Client must be connected before running operations
+[2025-03-06T08:42:00.022Z] [error]: Client must be connected before running operations
+[2025-03-06T08:43:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:43:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:44:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:44:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:45:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:45:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:46:00.014Z] [error]: Client must be connected before running operations
+[2025-03-06T08:46:00.017Z] [error]: Client must be connected before running operations
+[2025-03-06T08:47:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:47:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:48:00.059Z] [error]: Client must be connected before running operations
+[2025-03-06T08:48:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T08:49:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:49:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:50:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:50:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:50:11.248Z] [error]: HIDE::400::BadRequest::Current product category not is 'Phone'::
+[2025-03-06T08:51:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:51:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T08:52:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:52:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:53:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:53:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:54:00.059Z] [error]: Client must be connected before running operations
+[2025-03-06T08:54:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T08:55:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:55:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:56:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T08:56:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:57:00.011Z] [error]: Client must be connected before running operations
+[2025-03-06T08:57:00.014Z] [error]: Client must be connected before running operations
+[2025-03-06T08:57:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:57:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:57:13.497Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-06T08:57:25.601Z] [error]: HIDE::404::NotFound::Product not found!::
+[2025-03-06T08:58:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:58:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T08:58:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T08:58:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T08:59:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:59:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T08:59:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T08:59:00.065Z] [error]: Client must be connected before running operations
+[2025-03-06T09:00:00.017Z] [error]: Client must be connected before running operations
+[2025-03-06T09:00:00.019Z] [error]: Client must be connected before running operations
+[2025-03-06T09:00:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:00:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:01:00.059Z] [error]: Client must be connected before running operations
+[2025-03-06T09:01:00.059Z] [error]: Client must be connected before running operations
+[2025-03-06T09:01:00.061Z] [error]: Client must be connected before running operations
+[2025-03-06T09:01:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:02:00.005Z] [error]: Client must be connected before running operations
+[2025-03-06T09:02:00.008Z] [error]: Client must be connected before running operations
+[2025-03-06T09:02:00.029Z] [error]: Client must be connected before running operations
+[2025-03-06T09:02:00.031Z] [error]: Client must be connected before running operations
+[2025-03-06T09:03:00.064Z] [error]: Client must be connected before running operations
+[2025-03-06T09:03:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:03:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:03:00.070Z] [error]: Client must be connected before running operations
+[2025-03-06T09:04:00.058Z] [error]: Client must be connected before running operations
+[2025-03-06T09:04:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T09:04:00.062Z] [error]: Client must be connected before running operations
+[2025-03-06T09:04:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.015Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.019Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.066Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.068Z] [error]: Client must be connected before running operations
+[2025-03-06T09:05:00.069Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.009Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.012Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.056Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.060Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.063Z] [error]: Client must be connected before running operations
+[2025-03-06T09:06:00.064Z] [error]: Client must be connected before running operations

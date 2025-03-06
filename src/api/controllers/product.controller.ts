@@ -42,10 +42,7 @@ export default class ProductController {
     /* ====================================================== */
     public static deleteProduct: RequestWithBody<joiTypes.product.definition.DeleteProductSchema> =
         async (req, res, _) => {
-            await ProductFactory.removeProduct(
-                req.body.product_category,
-                req.body.product_id
-            );
+            await ProductFactory.removeProduct(req.body.product_id);
 
             new SuccessResponse({
                 message: 'Product deleted successfully',

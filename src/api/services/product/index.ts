@@ -9,7 +9,8 @@ import {
 import { CategoryEnum } from '../../enums/product.enum';
 import {
     findProductById,
-    findProductByShopAndId
+    findProductByShopAndId,
+    findProductCategoryById
 } from '../../models/repository/product.repo';
 
 /* ====================================================== */
@@ -59,14 +60,25 @@ export abstract class Product
 
     /* ------------------- Create product ------------------- */
     public async createProduct() {
-        return await productModel.create(this.getValidProperties());
+        const { product_id, ...validProperties } = this.getValidProperties();
+
+        return await productModel.create({
+            _id: product_id,
+            ...validProperties
+        });
     }
 
     /* ------------------- Update product ------------------- */
     public async updateProduct() {
+        const { product_attributes, ...validProperties } =
+            this.getValidProperties();
+
         return await productModel.updateOne(
             { _id: this.product_id },
-            this.getValidProperties()
+            {
+                ...validProperties,
+                $set: { product_attributes }
+            }
         );
     }
 
@@ -127,11 +139,27 @@ export default class ProductFactory {
         const product = await findProductById(payload.product_id);
 
         if (!product) throw new NotFoundErrorResponse('Not found product');
-        if (product?.product_category !== payload.product_category)
-            throw new BadRequestErrorResponse('Invalid product category');
+        if (product.product_category !== payload.product_category)
+            throw new BadRequestErrorResponse(
+                `Current product category not is '${payload.product_category}'`
+            );
 
         /* ----------------- Remove old category ---------------- */
+        if (
+            payload.product_new_category &&
+            payload.product_category !== payload.product_new_category
+        ) {
+            const removeServiceClass = await getProduct(
+                payload.product_category
+            );
+            const instance = new removeServiceClass({
+                product_id: payload.product_id
+            });
 
+            await instance.removeProduct();
+        }
+
+        /* ------------------- Update product ------------------- */
         const category =
             payload.product_new_category || payload.product_category;
         const serviceClass = await getProduct(category);
@@ -141,13 +169,14 @@ export default class ProductFactory {
     };
 
     /* ------------------- Remove product ------------------- */
-    public static removeProduct = async <
-        K extends modelTypes.product.ProductList
-    >(
-        type: K,
+    public static removeProduct = async (
         id: serviceTypes.product.arguments.RemoveProduct
     ) => {
-        const serviceClass = await getProduct<K>(type);
+        const type: modelTypes.product.ProductList | undefined =
+            await findProductCategoryById(id);
+        if (!type) throw new NotFoundErrorResponse('Product not found!');
+
+        const serviceClass = await getProduct(type);
         if (!serviceClass)
             throw new NotFoundErrorResponse('Not found product service');
 
