@@ -54,10 +54,11 @@ declare global {
                 }
 
                 interface SetDraftProduct
-                    extends Pick<
-                        modelTypes.product.ProductSchema,
-                        '_id' | 'product_shop'
-                    > {}
+                    extends joiTypes.product.definition.SetDraftProductSchema {
+                    product_shop: string;
+                }
+
+                interface SetPublishProduct extends SetDraftProduct {}
 
                 /* ------------------- Remove product ------------------- */
                 type RemoveProduct =

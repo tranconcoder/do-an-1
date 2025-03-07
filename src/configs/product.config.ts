@@ -3,11 +3,9 @@ import Clothes from '../api/services/product/clothes.service';
 import Phone from '../api/services/product/phone.service';
 
 /* ------------------------ Utils ----------------------- */
-import {
-    importProductModel,
-    importProductService
-} from '../api/utils/product.util';
+import { importProductService } from '../api/utils/product.util';
 import { CategoryEnum } from '../api/enums/product.enum';
+import { clothesModel, phoneModel } from '../api/models/product.model';
 
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;
 
@@ -19,12 +17,8 @@ const services = {
 } as const;
 
 const models = {
-    Clothes: importProductModel(CategoryEnum.Clothes) as Promise<
-        modelTypes.product.ClothesSchema<true>
-    >,
-    Phone: importProductModel(CategoryEnum.Phone) as Promise<
-        modelTypes.product.PhoneSchema<true>
-    >
+    Clothes: clothesModel,
+    Phone: phoneModel
 };
 
 export const getProduct = async <T extends modelTypes.product.ProductList>(
@@ -33,10 +27,8 @@ export const getProduct = async <T extends modelTypes.product.ProductList>(
     return (await services[category]) as GetKeyType<typeof services, T>;
 };
 
-export const getProductModel = async <K extends modelTypes.product.ProductList>(
-    key: K
-) => {
-    return (await models[key]) as commonTypes.utils.UnionToPartialIntersection<
-        GetKeyType<typeof models, K>
+export const getProductModel = (key: keyof typeof models) => {
+    return models[key] as commonTypes.utils.UnionToPartialIntersection<
+        typeof models[keyof typeof models]
     >;
 };

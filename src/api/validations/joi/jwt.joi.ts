@@ -1,12 +1,13 @@
 import Joi from 'joi';
 import _ from 'lodash';
+import { mongooseId } from '../../../configs/joi.config';
 
 /* ====================================================== */
 /*                      TOKEN PAYLOAD SCHEMA              */
 /* ====================================================== */
 const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.JwtDecode> =
     {
-        id: Joi.string().required(),
+        id: mongooseId,
         role: Joi.string().required(),
         exp: Joi.number().required(),
         iat: Joi.number().required()

@@ -2,7 +2,6 @@
 import { getProduct } from '../../../configs/product.config';
 import {
     BadRequestErrorResponse,
-    ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '../../response/error.response';
 import {
@@ -10,9 +9,9 @@ import {
     findAllProductDraftByShop,
     findAllProductPublishByShop,
     findOneProduct,
-    findProductById,
     findProductCategoryById,
-    setDraftProduct
+    setDraftProduct,
+    setPublishProduct
 } from '../../models/repository/product';
 
 /* ====================================================== */
@@ -117,6 +116,13 @@ export default class ProductFactory {
         payload: serviceTypes.product.arguments.SetDraftProduct
     ) => {
         return await setDraftProduct(payload);
+    };
+
+    /* ================ Set publish product  ================ */
+    public static setPublishProduct = async (
+        payload: serviceTypes.product.arguments.SetPublishProduct
+    ) => {
+        return await setPublishProduct(payload);
     };
 
     /* ====================================================== */

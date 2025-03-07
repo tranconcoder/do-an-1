@@ -110,9 +110,36 @@ export default class ProductController {
             }).send(res);
         };
 
-    public static setDraftProduct: RequestWithBody<
-        Pick<serviceTypes.product.arguments.SetDraftProduct, '_id'>
-    > = async (req, res, next) => {};
+    public static setDraftProduct: RequestWithBody<joiTypes.product.definition.SetDraftProductSchema> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Set draft product',
+                message: 'Set draft product success',
+                statusCode: 200,
+                metadata: {
+                    setDraftSuccess: await ProductFactory.setDraftProduct({
+                        product_id: req.params.product_id,
+                        product_shop: req.userId as string
+                    })
+                }
+            }).send(res);
+        };
+
+    /* ================ Set publish product  ================ */
+    public static setPublishProduct: RequestWithBody<joiTypes.product.definition.SetPublishProductSchema> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Set publish product',
+                message: 'Set publish product success',
+                statusCode: 200,
+                metadata: {
+                    setDraftSuccess: await ProductFactory.setPublishProduct({
+                        product_id: req.params.product_id,
+                        product_shop: req.userId as string
+                    })
+                }
+            }).send(res);
+        };
 
     /* ====================================================== */
     /*                     DELETE PRODUCT                     */

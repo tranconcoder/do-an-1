@@ -5,8 +5,7 @@ import ProductController from '../../controllers/product.controller';
 /* --------------------- Middleware --------------------- */
 import { authenticate } from '../../middlewares/jwt.middleware';
 import catchError from '../../middlewares/catchError.middleware';
-import joiValidate, {
-    validateRequestParams
+import validateRequestBody, {
 } from '../../middlewares/joiValidate.middleware';
 
 /* ------------------------- Joi ------------------------ */
@@ -15,7 +14,8 @@ import {
     deleteProductSchema,
     updateProductSchema
 } from '../../validations/joi/product/index.joi';
-import productGetRoute from './product.get';
+import productGetRoute from './get.route';
+import productPatchRoute from './patch.route';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -33,21 +33,24 @@ productRouteValidate.use(productGetRoute);
 /* --------------- Product create post route  --------------- */
 productRouteValidate.post(
     '/create',
-    joiValidate(createProductSchema),
+    validateRequestBody(createProductSchema),
     catchError(ProductController.createProduct)
+);
+
+/* ================ Product patch route  ================ */
+productRouteValidate.use(productPatchRoute);
+
+productRouteValidate.put(
+    '/update',
+    validateRequestBody(updateProductSchema),
+    catchError(ProductController.updateProduct)
 );
 
 /* ------------------ Product delete route ------------------ */
 productRouteValidate.delete(
     '/delete',
-    joiValidate(deleteProductSchema),
+    validateRequestBody(deleteProductSchema),
     catchError(ProductController.deleteProduct)
-);
-
-productRouteValidate.put(
-    '/update',
-    joiValidate(updateProductSchema),
-    catchError(ProductController.updateProduct)
 );
 
 export default productRoute;

@@ -16,8 +16,8 @@ declare global {
                 [K in keyof T | undefined]: K extends undefined
                     ? never
                     : T[K] extends (...args: any[]) => any
-                    ? K
-                    : never;
+                      ? K
+                      : never;
             }[keyof T];
 
             type ExtractMethods<T> = Pick<T, ExtractMethodNames<T>>;
@@ -27,8 +27,8 @@ declare global {
             ) => infer R
                 ? R
                 : T extends { prototype: infer P }
-                ? P
-                : any;
+                  ? P
+                  : any;
 
             type UnionToPartialIntersection<U> = (
                 U extends any ? (k: U) => void : never

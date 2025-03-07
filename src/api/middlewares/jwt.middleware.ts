@@ -6,7 +6,7 @@ import catchError from './catchError.middleware';
 import JwtService from '../services/jwt.service';
 import KeyTokenService from '../services/keyToken.service';
 
-export const authenticate = catchError(async (req, res, next) => {
+export const authenticate = catchError(async (req, _, next) => {
     /* -------------- Get token from header ------------- */
     const authHeader = req.headers.authorization;
     const accessToken = authHeader && authHeader.split(' ').at(1);

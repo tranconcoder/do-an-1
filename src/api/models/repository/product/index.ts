@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { getProductModel } from '../../../../configs/product.config';
 import { ITEM_PER_PAGE } from '../../../../configs/server.config';
 import ErrorResponse, {
@@ -18,6 +17,18 @@ export const queryPaginate = async (query: object, page: number) => {
         .skip((page - 1) * ITEM_PER_PAGE)
         .limit(ITEM_PER_PAGE)
         .lean();
+};
+
+export const queryProductByShop = async (
+    query: Partial<modelTypes.product.ProductSchema>,
+    productShop: string
+) => {
+    const product = await productModel.findById(query);
+    if (!product) throw new NotFoundErrorResponse('Not found product!');
+    if (product.product_shop.toString() !== productShop)
+        throw new ForbiddenErrorResponse('Product shop is not match!');
+
+    return product;
 };
 
 /* ====================================================== */
@@ -97,10 +108,7 @@ export const findAllProductUnpublishByShop = async ({
 /* ====================================================== */
 /* ------------- Find product by shop and id ------------ */
 export const findProductByShopAndId = async (
-    payload: Pick<
-        modelTypes.product.ProductSchema<true>,
-        'product_shop' | '_id'
-    >
+    payload: Pick<modelTypes.product.ProductSchema, 'product_shop' | '_id'>
 ) => {
     return await productModel.findOne(payload);
 };
@@ -126,20 +134,30 @@ export const findProductCategoryById = async (id: string) => {
 /* ====================================================== */
 /* =================== Draft product  =================== */
 export const setDraftProduct = async ({
-    _id,
+    product_id: _id,
     product_shop
 }: serviceTypes.product.arguments.SetDraftProduct) => {
     /* ================== Validate product ================== */
-    const product = await productModel.findById(_id);
-    if (!product) throw new NotFoundErrorResponse('Not found product!');
-    if (product.product_shop.toString() !== product_shop)
-        throw new ForbiddenErrorResponse('Not permission to update');
+    const product = await queryProductByShop({ _id }, product_shop);
 
     /* =================== Handle update  =================== */
     product.is_draft = true;
-    const newProduct = await product.updateOne();
+    product.is_publish = false;
 
-    return newProduct === product;
+    return product === (await product.save());
+};
+
+/* ================== Publish product  ================== */
+export const setPublishProduct = async ({
+    product_id: _id,
+    product_shop
+}: serviceTypes.product.arguments.SetPublishProduct) => {
+    const product = await queryProductByShop({ _id }, product_shop);
+
+    product.is_publish = true;
+    product.is_draft = false;
+
+    return product === (await product.save());
 };
 
 /* ====================================================== */
@@ -150,14 +168,11 @@ export const deleteProductById = async (id: string) => {
     const product = await productModel.findByIdAndDelete(id);
     if (!product) throw new ErrorResponse(400, 'Delete product failed!');
 
-    const productChildModel = await getProductModel(product.product_category);
-    if (!productChildModel) {
+    const productChildModel = getProductModel(product.product_category);
+    if (!productChildModel)
         throw new NotFoundErrorResponse('Not found product!');
-    }
 
-    return await productChildModel.deleteOne({
-        _id: new mongoose.Types.ObjectId(id)
-    });
+    return productChildModel.deleteOne({ _id: id });
 };
 
 /* ----------------- Delete one product ----------------- */
@@ -167,3 +182,6 @@ export const deleteOneProduct = async (
     const { deletedCount } = await productModel.deleteOne(payload);
     return deletedCount;
 };
+
+// const a: Model<{test:number}, {num: string}, {age: string}, {age: number}, {test: string}> = {} as any;
+// a.findOneAndDelete().then(x => x.test)

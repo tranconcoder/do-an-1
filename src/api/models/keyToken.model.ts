@@ -1,4 +1,4 @@
-import { InferRawDocType, Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { USER_MODEL_NAME } from './user.model';
 import { required, timestamps } from '../../configs/mongoose.config';
 

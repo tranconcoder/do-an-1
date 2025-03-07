@@ -1,5 +1,6 @@
 import type mongooseBase from 'mongoose';
-import { Document } from 'mongoose';
+import mongoose, { HydratedDocument, Models } from 'mongoose';
+import mongooseLib, { Document, model, Model } from 'mongoose';
 
 declare global {
     namespace moduleTypes {
@@ -10,7 +11,9 @@ declare global {
                     : T[K];
             };
 
-            type IsDocument<T = false> = T extends true ? Document : {};
+            type IsModel<T = false, K = any> = T extends true
+                ? mongooseLib.Model<{}, {}, {}, {}, HydratedDocument<K>>
+                : {};
         }
     }
 }

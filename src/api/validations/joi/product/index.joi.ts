@@ -2,6 +2,7 @@ import Joi from 'joi';
 import { CategoryEnum } from '../../../enums/product.enum';
 import { createPhoneSchema, updatePhoneSchema } from './phone.joi';
 import { createClothesSchema, updateClothesSchema } from './clothes.joi';
+import { mongooseId } from '../../../../configs/joi.config';
 
 /* ====================================================== */
 /*                     CREATE PRODUCT                     */
@@ -57,8 +58,10 @@ export const getAllProductUndraftByShopSchema = getAllProductByShopSchema;
 export const getAllProductUnpublishByShopSchema = getAllProductByShopSchema;
 
 /* ====================================================== */
-/*                     UPDATE PRODUCT                     */
+/*                         UPDATE                         */
 /* ====================================================== */
+
+/* =================== Update product =================== */
 const updateProductAttributes = {
     [CategoryEnum.Phone]: updatePhoneSchema,
     [CategoryEnum.Clothes]: updateClothesSchema
@@ -68,7 +71,7 @@ export const updateProductSchema = Joi.object<
     true
 >({
     /* ---------------------- Required ---------------------- */
-    product_id: Joi.string().required(),
+    product_id: mongooseId,
     product_category: Joi.string()
         .valid(...Object.values(CategoryEnum))
         .required(),
@@ -110,6 +113,18 @@ export const updateProductSchema = Joi.object<
     is_draft: Joi.boolean()
 });
 
+/* ================= Set draft product  ================= */
+export const setDraftProductSchema = Joi.object<
+    joiTypes.product.definition.SetDraftProductSchema,
+    true
+>({
+    product_id: mongooseId
+});
+
+
+/* ================ Set publish product  ================ */
+export const SetPublishProductSchema = setDraftProductSchema;
+
 /* ====================================================== */
 /*                     DELETE PRODUCT                     */
 /* ====================================================== */
@@ -117,5 +132,5 @@ export const deleteProductSchema = Joi.object<
     joiTypes.product.definition.DeleteProductSchema,
     true
 >({
-    product_id: Joi.string().required()
+    product_id: mongooseId
 });

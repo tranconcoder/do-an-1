@@ -13,12 +13,18 @@ declare global {
                 /* ====================================================== */
                 interface CreatePhoneSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<modelTypes.product.PhoneSchema, 'product_shop'>
+                        Omit<
+                            modelTypes.product.PhoneSchema,
+                            'product_shop' | '_id'
+                        >
                     > {}
 
                 interface CreateClothesSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<modelTypes.product.ClothesSchema, 'product_shop'>
+                        Omit<
+                            modelTypes.product.ClothesSchema,
+                            'product_shop' | '_id'
+                        >
                     > {}
 
                 interface CreateProductSchema
@@ -71,6 +77,13 @@ declare global {
                     product_id: string;
                     product_new_category?: CategoryEnum;
                 }
+
+                interface SetDraftProductSchema {
+                    product_id: string;
+                }
+
+                interface SetPublishProductSchema
+                    extends SetDraftProductSchema {}
 
                 /* ====================================================== */
                 /*                         DELETE                         */
