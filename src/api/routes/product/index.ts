@@ -5,8 +5,7 @@ import ProductController from '../../controllers/product.controller';
 /* --------------------- Middleware --------------------- */
 import { authenticate } from '../../middlewares/jwt.middleware';
 import catchError from '../../middlewares/catchError.middleware';
-import validateRequestBody, {
-} from '../../middlewares/joiValidate.middleware';
+import validateRequestBody from '../../middlewares/joiValidate.middleware';
 
 /* ------------------------- Joi ------------------------ */
 import {
@@ -16,6 +15,9 @@ import {
 } from '../../validations/joi/product/index.joi';
 import productGetRoute from './get.route';
 import productPatchRoute from './patch.route';
+import productPutRoute from './put.route';
+import productDeleteRoute from './delete.route';
+import productPostRoute from './post.route';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -27,30 +29,24 @@ productRoute.use(productRouteValidate);
 
 productRouteValidate.use(authenticate);
 
-/* ------------------- Product get route  ------------------- */
+
+/* ===================== GET route  ===================== */
 productRouteValidate.use(productGetRoute);
 
-/* --------------- Product create post route  --------------- */
-productRouteValidate.post(
-    '/create',
-    validateRequestBody(createProductSchema),
-    catchError(ProductController.createProduct)
-);
 
-/* ================ Product patch route  ================ */
+/* ===================== POST route ===================== */
+productRouteValidate.use(productPostRoute);
+
+
+/* ==================== PATCH route  ==================== */
 productRouteValidate.use(productPatchRoute);
 
-productRouteValidate.put(
-    '/update',
-    validateRequestBody(updateProductSchema),
-    catchError(ProductController.updateProduct)
-);
 
-/* ------------------ Product delete route ------------------ */
-productRouteValidate.delete(
-    '/delete',
-    validateRequestBody(deleteProductSchema),
-    catchError(ProductController.deleteProduct)
-);
+/* ===================== PUT route  ===================== */
+productRouteValidate.use(productPutRoute);
+
+
+/* ==================== DELETE route ==================== */
+productRouteValidate.use(productDeleteRoute);
 
 export default productRoute;
