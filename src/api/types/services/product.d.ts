@@ -28,7 +28,17 @@ declare global {
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
                     extends joiTypes.product.definition
-                        .GetAllProductByShopSchema {}
+                            .GetAllProductByShopSchema,
+                        Pick<
+                            modelTypes.product.ProductSchema,
+                            'product_shop'
+                        > {}
+
+                interface GetAllDraftByShop
+                    extends Pick<
+                        modelTypes.product.ProductSchema,
+                        'product_shop'
+                    > {}
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct

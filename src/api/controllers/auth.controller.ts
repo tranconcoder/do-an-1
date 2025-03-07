@@ -1,7 +1,8 @@
+import type { RequestWithBody } from '../types/request';
 import type { RequestHandler } from 'express';
+
 import AuthService from '../services/auth.service';
 import { CreatedResponse, OkResponse } from '../response/success.response';
-import { RequestWithBody } from '../types/request';
 
 export default class AuthController {
     /* ===================================================== */

@@ -40,8 +40,7 @@ export const getAllProductByShopSchema = Joi.object<
     joiTypes.product.definition.GetAllProductByShopSchema,
     true
 >({
-    currentPage: Joi.number().required(),
-    itemPerPage: Joi.number().required()
+    currentPage: Joi.number().required()
 });
 
 /* ====================================================== */

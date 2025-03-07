@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
-import { Product } from '.';
+import { Product } from './product.service';
 import { clothesModel } from '../../models/product.model';
 import { BadRequestErrorResponse } from '../../response/error.response';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
+import { deleteOneClothes } from '../../models/repository/product/clothesModel.repo';
 
 export default class Clothes extends Product {
     /* ------------------- Create product ------------------- */
@@ -41,9 +42,15 @@ export default class Clothes extends Product {
 
     /* ------------------- Remove product ------------------- */
     public async removeProduct() {
-        await Promise.all([
+        return await Promise.all([
             super.removeProduct(),
-            clothesModel.deleteOne({ _id: super.getProductId() })
-        ]);
+
+            deleteOneClothes({
+                _id: super.getProductId(),
+                product_shop: super.getProductShop()
+            })
+        ]).then(([productDeletedCount, childDeletedCount]) => {
+            return productDeletedCount + childDeletedCount;
+        });
     }
 }

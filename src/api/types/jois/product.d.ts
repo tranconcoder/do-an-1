@@ -37,7 +37,6 @@ declare global {
                 /*                         GET ALL                        */
                 /* ====================================================== */
                 interface GetAllProductByShopSchema {
-                    itemPerPage: number;
                     currentPage: number;
                 }
 

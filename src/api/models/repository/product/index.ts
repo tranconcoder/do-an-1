@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { getProductModel } from '../../../../configs/product.config';
+import { ITEM_PER_PAGE } from '../../../../configs/server.config';
 import ErrorResponse, {
     NotFoundErrorResponse
 } from '../../../response/error.response';
@@ -17,9 +18,26 @@ export const findProductIdStrList = async () => {
     ).map((x: { _id: string }) => x._id);
 };
 
-export const findAllProductByShop = async (productShop: string) => {
+/* -------------- Find all product by shop -------------- */
+export const findAllProductByShop = async ({
+    currentPage,
+    product_shop
+}: serviceTypes.product.arguments.GetAllProductByShop) => {
+    if (!currentPage || currentPage < 1)
+        throw new ErrorResponse(400, 'Invalid pagination');
+
+    return await productModel
+        .find({ product_shop })
+        .sort({ createdAt: -1 })
+        .skip((currentPage - 1) * ITEM_PER_PAGE)
+        .limit(ITEM_PER_PAGE)
+        .lean();
+};
+
+export const findAllProductDraftByShop = async (productShop: string) => {
     return await productModel.find({
-        product_shop: productShop
+        product_shop: productShop,
+        is_draft: true
     });
 };
 
@@ -39,6 +57,12 @@ export const findProductByShopAndId = async (
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async (id: string) => {
     return await productModel.findById(id);
+};
+
+export const findOneProduct = async (
+    payload: Partial<modelTypes.product.ProductSchema>
+) => {
+    return await productModel.findOne(payload);
 };
 
 /* ------------- Find product category by id ------------ */
@@ -62,4 +86,12 @@ export const deleteProductById = async (id: string) => {
     return await productChildModel.deleteOne({
         _id: new mongoose.Types.ObjectId(id)
     });
+};
+
+/* ----------------- Delete one product ----------------- */
+export const deleteOneProduct = async (
+    payload: Partial<modelTypes.product.ProductSchema>
+) => {
+    const { deletedCount } = await productModel.deleteOne(payload);
+    return deletedCount;
 };

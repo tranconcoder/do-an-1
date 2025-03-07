@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 import { phoneModel } from '../../models/product.model';
-import { Product } from '.';
 import { BadRequestErrorResponse } from '../../response/error.response';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
-import { createPhone } from '../../models/repository/product/phoneModel.repo';
+import {
+    createPhone,
+    deleteOnePhone
+} from '../../models/repository/product/phoneModel.repo';
+import { Product } from './product.service';
 
 export default class Phone extends Product {
     /* ------------------- Create product ------------------- */
@@ -57,20 +60,12 @@ export default class Phone extends Product {
             super.removeProduct(),
 
             /* ---------------- Remove phone product ---------------- */
-            phoneModel.deleteOne({
+            deleteOnePhone({
                 _id: super.getProductId(),
                 product_shop: super.getProductShop()
             })
-        ])
-            .then(([product, child]) => {
-                // Throw error when not deleted count
-                if (!product.deletedCount && !child.deletedCount) throw null;
-
-                return product;
-            })
-            .catch((error) => {
-                const message = error?.messgae || 'Remove product failed';
-                throw new BadRequestErrorResponse(message);
-            });
+        ]).then(([productDeletedCount, childDeletedCount]) => {
+            return productDeletedCount + childDeletedCount;
+        });
     }
 }

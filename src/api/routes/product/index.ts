@@ -26,9 +26,14 @@ productRoute.use(productRouteValidate);
 productRouteValidate.use(authenticate);
 
 productRouteValidate.get(
-    '/get-all-product-shop/:itemPerPage/:currentPage',
+    '/product-shop/all/:currentPage',
     getAllProductByShopCheckParams,
     catchError(ProductController.getAllProductByShop)
+);
+
+productRouteValidate.get(
+    '/product-shop/draft/all/:currentPage',
+    catchError(ProductController.getAllDraftByShop)
 );
 
 productRouteValidate.post(

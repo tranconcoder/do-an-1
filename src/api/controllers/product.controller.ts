@@ -1,6 +1,6 @@
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
-import { RequestWithBody } from '../types/request';
+import { RequestWithBody, RequestWithParams } from '../types/request';
 
 export default class ProductController {
     /* ====================================================== */
@@ -24,18 +24,18 @@ export default class ProductController {
     /*                       GET PRODUCT                      */
     /* ====================================================== */
     /* --------------- Get all product by shop -------------- */
-    public static getAllProductByShop: RequestWithBody<undefined> = async (
-        req,
-        res,
-        _
-    ) => {
-        new SuccessResponse({
-            name: 'Get product shop',
-            message: 'Get product shop success',
-            statusCode: 200,
-            metadata: await ProductFactory.getAllProductByShop(req.userId || '')
-        }).send(res);
-    };
+    public static getAllProductByShop: RequestWithParams<joiTypes.product.definition.GetAllProductByShopSchema> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Get product shop',
+                message: 'Get product shop success',
+                statusCode: 200,
+                metadata: await ProductFactory.getAllProductByShop({
+                    product_shop: req.userId as string,
+                    currentPage: Number(req.params.currentPage)
+                })
+            }).send(res);
+        };
 
     /* ====================================================== */
     /*                     UPDATE PRODUCT                     */
