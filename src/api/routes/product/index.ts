@@ -5,7 +5,9 @@ import ProductController from '../../controllers/product.controller';
 /* --------------------- Middleware --------------------- */
 import { authenticate } from '../../middlewares/jwt.middleware';
 import catchError from '../../middlewares/catchError.middleware';
-import joiValidate from '../../middlewares/joiValidate.middleware';
+import joiValidate, {
+    validateRequestParams
+} from '../../middlewares/joiValidate.middleware';
 
 /* ------------------------- Joi ------------------------ */
 import {
@@ -13,7 +15,7 @@ import {
     deleteProductSchema,
     updateProductSchema
 } from '../../validations/joi/product/index.joi';
-import { getAllProductByShopCheckParams } from '../../middlewares/product.middleware';
+import productGetRoute from './product.get';
 
 const productRoute = Router();
 const productRouteValidate = Router();
@@ -23,25 +25,19 @@ const productRouteValidate = Router();
 /* -------------------------------------------------------------------------- */
 productRoute.use(productRouteValidate);
 
-productRouteValidate.use(authenticate);
+productRouteValidate.use(authenticate)
 
-productRouteValidate.get(
-    '/product-shop/all/:currentPage',
-    getAllProductByShopCheckParams,
-    catchError(ProductController.getAllProductByShop)
-);
+/* ------------------- Product get route  ------------------- */
+productRouteValidate.use(productGetRoute);
 
-productRouteValidate.get(
-    '/product-shop/draft/all/:currentPage',
-    catchError(ProductController.getAllDraftByShop)
-);
-
+/* --------------- Product create post route  --------------- */
 productRouteValidate.post(
     '/create',
     joiValidate(createProductSchema),
     catchError(ProductController.createProduct)
 );
 
+/* ------------------ Product delete route ------------------ */
 productRouteValidate.delete(
     '/delete',
     joiValidate(deleteProductSchema),

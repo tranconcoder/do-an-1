@@ -40,6 +40,18 @@ declare global {
                     currentPage: number;
                 }
 
+                interface GetAllProductDraftByShopSchema
+                    extends GetAllProductByShopSchema {}
+
+                interface GetAllProductPublishByShopSchema
+                    extends GetAllProductByShopSchema {}
+
+                interface GetAllProductUndraftByShopSchema
+                    extends GetAllProductByShopSchema {}
+
+                interface GetAllProductUnpublishByShopSchema
+                    extends GetAllProductByShopSchema {}
+
                 /* ====================================================== */
                 /*                         UPDATE                         */
                 /* ====================================================== */

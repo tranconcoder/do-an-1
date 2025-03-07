@@ -36,12 +36,25 @@ export const createProductSchema = Joi.object<
 /* ====================================================== */
 /*                 GET ALL PRODUCT BY SHOP                */
 /* ====================================================== */
+/* --------------- Get all product by shop -------------- */
 export const getAllProductByShopSchema = Joi.object<
     joiTypes.product.definition.GetAllProductByShopSchema,
     true
 >({
     currentPage: Joi.number().required()
 });
+
+/* ------------ Get all product draft by shop ----------- */
+export const getAllProductDraftByShopSchema = getAllProductByShopSchema;
+
+/* ----------- Get all product publish by shop ---------- */
+export const getAllProductPublishByShopSchema = getAllProductByShopSchema;
+
+/* ------------- Get all produt undraft by shop ------------- */
+export const getAllProductUndraftByShopSchema = getAllProductByShopSchema;
+
+/* ---------- Get all product unpublish by shop ---------- */
+export const getAllProductUnpublishByShopSchema = getAllProductByShopSchema;
 
 /* ====================================================== */
 /*                     UPDATE PRODUCT                     */

@@ -7,6 +7,8 @@ import {
 } from '../../response/error.response';
 import {
     findAllProductByShop,
+    findAllProductDraftByShop,
+    findAllProductPublishByShop,
     findOneProduct,
     findProductById,
     findProductCategoryById
@@ -44,13 +46,32 @@ export default class ProductFactory {
         return await findAllProductByShop(payload);
     };
 
-    public static getAllDraftByShop = async (
-        payload: serviceTypes.product.arguments.GetAllDraftByShop
+    /* ------------ Get all product draft by shop ----------- */
+    public static getAllProductDraftByShop = async (
+        payload: serviceTypes.product.arguments.GetAllProductDraftByShop
     ) => {
-        const query: Partial<modelTypes.product.ProductSchema> = {
-            ...payload,
-            is_draft: true,
-        };
+        return await findAllProductDraftByShop(payload);
+    };
+
+    /* ----------- Get all product publish by shop ---------- */
+    public static getAllProductPublishByShop = async (
+        payload: serviceTypes.product.arguments.GetAllProductPublishByShop
+    ) => {
+        return await findAllProductPublishByShop(payload);
+    };
+
+    /* ------------ Get all product undraft by shop  ------------ */
+    public static getAllProductUndraftByShop = async (
+        payload: serviceTypes.product.arguments.GetAllProductUndraftByShop
+    ) => {
+        return await findAllProductDraftByShop(payload);
+    };
+
+    /* ----------- Get all product unpublish by shop ---------- */
+    public static getAllProductUnpublishByShop = async (
+        payload: serviceTypes.product.arguments.GetAllProductUnpublishByShop
+    ) => {
+        return await findAllProductPublishByShop(payload);
     };
 
     /* ====================================================== */

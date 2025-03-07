@@ -1,0 +1,25 @@
+[2025-03-07T03:12:43.894Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-07T03:12:53.600Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-07T03:13:23.741Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-07T03:14:39.343Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-07T03:15:05.779Z] [error]: HIDE::500::MongooseError::Operation `key_tokens.findOne()` buffering timed out after 10000ms::
+[2025-03-07T03:15:10.005Z] [error]: Operation `key_tokens.find()` buffering timed out after 10000ms
+[2025-03-07T03:15:10.007Z] [error]: Operation `products.aggregate()` buffering timed out after 10000ms
+[2025-03-07T03:16:01.237Z] [error]: Client must be connected before running operations
+[2025-03-07T03:16:01.240Z] [error]: Client must be connected before running operations
+[2025-03-07T03:17:02.927Z] [error]: Client must be connected before running operations
+[2025-03-07T03:17:02.930Z] [error]: Client must be connected before running operations
+[2025-03-07T03:18:00.898Z] [error]: Client must be connected before running operations
+[2025-03-07T03:18:00.901Z] [error]: Client must be connected before running operations
+[2025-03-07T03:19:01.867Z] [error]: Client must be connected before running operations
+[2025-03-07T03:19:01.870Z] [error]: Client must be connected before running operations
+[2025-03-07T03:20:02.112Z] [error]: Client must be connected before running operations
+[2025-03-07T03:20:02.114Z] [error]: Client must be connected before running operations
+[2025-03-07T03:20:56.511Z] [error]: HIDE::500::MongooseError::Operation `key_tokens.findOne()` buffering timed out after 10000ms::
+[2025-03-07T03:21:00.076Z] [error]: Client must be connected before running operations
+[2025-03-07T03:21:10.899Z] [error]: Operation `key_tokens.find()` buffering timed out after 10000ms
+[2025-03-07T03:21:10.903Z] [error]: Operation `products.aggregate()` buffering timed out after 10000ms
+[2025-03-07T03:22:00.059Z] [error]: read ECONNRESET
+[2025-03-07T03:22:00.311Z] [error]: read ECONNRESET
+[2025-03-07T03:38:12.587Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-07T07:39:23.690Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

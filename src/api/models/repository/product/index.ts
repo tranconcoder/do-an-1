@@ -39,11 +39,56 @@ export const findAllProductByShop = async ({
     return queryPaginate({ product_shop }, currentPage);
 };
 
-export const findAllProductDraftByShop = async (productShop: string) => {
-    return await productModel.find({
-        product_shop: productShop,
+/* ------------- Find all product draft by shop ------------- */
+export const findAllProductDraftByShop = async ({
+    product_shop,
+    currentPage
+}: serviceTypes.product.arguments.GetAllProductDraftByShop) => {
+    const query: Partial<modelTypes.product.ProductSchema> = {
+        product_shop,
         is_draft: true
-    });
+    };
+
+    return queryPaginate(query, currentPage);
+};
+
+/* ------------ Find all product publish by shop ------------ */
+export const findAllProductPublishByShop = async ({
+    product_shop,
+    currentPage
+}: serviceTypes.product.arguments.GetAllProductPublishByShop) => {
+    const query: Partial<modelTypes.product.ProductSchema> = {
+        product_shop,
+        is_publish: true
+    };
+
+    return queryPaginate(query, currentPage);
+};
+
+/* ------------ Find all product undraft by shop ------------ */
+export const findAllProductUndraftByShop = async ({
+    product_shop,
+    currentPage
+}: serviceTypes.product.arguments.GetAllProductUndraftByShop) => {
+    const query: Partial<modelTypes.product.ProductSchema> = {
+        product_shop,
+        is_draft: false
+    };
+
+    return queryPaginate(query, currentPage);
+};
+
+/* ------------ Find all product unpublish by shop ------------ */
+export const findAllProductUnpublishByShop = async ({
+    product_shop,
+    currentPage
+}: serviceTypes.product.arguments.GetAllProductUnpublishByShop) => {
+    const query: Partial<modelTypes.product.ProductSchema> = {
+        product_shop,
+        is_publish: false
+    };
+
+    return queryPaginate(query, currentPage);
 };
 
 /* ====================================================== */

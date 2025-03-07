@@ -34,8 +34,17 @@ declare global {
                             'product_shop'
                         > {}
 
-                interface GetAllDraftByShop
-                    extends GetAllProductByShop{}
+                interface GetAllProductDraftByShop
+                    extends GetAllProductByShop {}
+
+                interface GetAllProductPublishByShop
+                    extends GetAllProductByShop {}
+
+                interface GetAllProductUndraftByShop
+                    extends GetAllProductByShop {}
+
+                interface GetAllProductUnpublishByShop
+                    extends GetAllProductByShop {}
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
