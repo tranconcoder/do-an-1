@@ -11,7 +11,8 @@ import {
     findAllProductPublishByShop,
     findOneProduct,
     findProductById,
-    findProductCategoryById
+    findProductCategoryById,
+    setDraftProduct
 } from '../../models/repository/product';
 
 /* ====================================================== */
@@ -109,6 +110,13 @@ export default class ProductFactory {
         const instance = new serviceClass({ ...payload, _id });
 
         return instance.updateProduct();
+    };
+
+    /* ================= Set draft product  ================= */
+    public static setDraftProduct = async (
+        payload: serviceTypes.product.arguments.SetDraftProduct
+    ) => {
+        return await setDraftProduct(payload);
     };
 
     /* ====================================================== */

@@ -110,6 +110,10 @@ export default class ProductController {
             }).send(res);
         };
 
+    public static setDraftProduct: RequestWithBody<
+        Pick<serviceTypes.product.arguments.SetDraftProduct, '_id'>
+    > = async (req, res, next) => {};
+
     /* ====================================================== */
     /*                     DELETE PRODUCT                     */
     /* ====================================================== */

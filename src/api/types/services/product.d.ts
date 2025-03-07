@@ -48,10 +48,16 @@ declare global {
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
-                    extends joiTypes.product.definition.UpdateProductSchema {
+                    extends joiTypes.product.definition.UpdateProductSchema,
+                        Pick<modelTypes.product.ProductSchema, 'product_shop'> {
                     product_attributes: modelTypes.product.ProductSchemaList;
-                    product_shop: string;
                 }
+
+                interface SetDraftProduct
+                    extends Pick<
+                        modelTypes.product.ProductSchema,
+                        '_id' | 'product_shop'
+                    > {}
 
                 /* ------------------- Remove product ------------------- */
                 type RemoveProduct =

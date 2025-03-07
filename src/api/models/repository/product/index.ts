@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { getProductModel } from '../../../../configs/product.config';
 import { ITEM_PER_PAGE } from '../../../../configs/server.config';
 import ErrorResponse, {
+    ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '../../../response/error.response';
 import { productModel } from '../../product.model';
@@ -118,6 +119,27 @@ export const findOneProduct = async (
 /* ------------- Find product category by id ------------ */
 export const findProductCategoryById = async (id: string) => {
     return await findProductById(id).then((x) => x?.product_category);
+};
+
+/* ====================================================== */
+/*                         UPDATE                         */
+/* ====================================================== */
+/* =================== Draft product  =================== */
+export const setDraftProduct = async ({
+    _id,
+    product_shop
+}: serviceTypes.product.arguments.SetDraftProduct) => {
+    /* ================== Validate product ================== */
+    const product = await productModel.findById(_id);
+    if (!product) throw new NotFoundErrorResponse('Not found product!');
+    if (product.product_shop.toString() !== product_shop)
+        throw new ForbiddenErrorResponse('Not permission to update');
+
+    /* =================== Handle update  =================== */
+    product.is_draft = true;
+    const newProduct = await product.updateOne();
+
+    return newProduct === product;
 };
 
 /* ====================================================== */

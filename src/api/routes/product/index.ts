@@ -25,7 +25,7 @@ const productRouteValidate = Router();
 /* -------------------------------------------------------------------------- */
 productRoute.use(productRouteValidate);
 
-productRouteValidate.use(authenticate)
+productRouteValidate.use(authenticate);
 
 /* ------------------- Product get route  ------------------- */
 productRouteValidate.use(productGetRoute);
