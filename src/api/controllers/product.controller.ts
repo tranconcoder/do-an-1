@@ -37,6 +37,11 @@ export default class ProductController {
             }).send(res);
         };
 
+        
+        public static getAllDraftProductByShop: RequestWithParams<joiTypes.product.definition.GetAllProductByShopSchema> = async (req, res, next) => {
+
+        }
+
     /* ====================================================== */
     /*                     UPDATE PRODUCT                     */
     /* ====================================================== */

@@ -1,18 +1,16 @@
-import type { Request, Response, NextFunction } from 'express';
-
-import ErrorResponse from '../response/error.response';
 import { Schema } from 'joi';
+import catchError from './catchError.middleware';
 
-export default function joiValidate(joiSchema: Schema) {
-    return async (req: Request, _: Response, next: NextFunction) => {
-        try {
-            await joiSchema.validateAsync(req.body);
-
-            next();
-        } catch (err: any) {
-            const message = err?.message || 'Validate request body failed!';
-
-            next(new ErrorResponse(400, undefined, message));
-        }
-    };
+export default function validateRequestBody(schema: Schema) {
+    return catchError(async (req, _, next) => {
+        await schema.validateAsync(req.body);
+        next();
+    });
 }
+
+export const validateRequestParams = (schema: Schema) => {
+    return catchError(async (req, _, next) => {
+        await schema.validateAsync(req.params);
+        next();
+    });
+};

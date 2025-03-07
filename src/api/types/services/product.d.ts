@@ -35,10 +35,7 @@ declare global {
                         > {}
 
                 interface GetAllDraftByShop
-                    extends Pick<
-                        modelTypes.product.ProductSchema,
-                        'product_shop'
-                    > {}
+                    extends GetAllProductByShop{}
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct

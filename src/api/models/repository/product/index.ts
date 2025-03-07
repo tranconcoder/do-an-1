@@ -6,6 +6,19 @@ import ErrorResponse, {
 } from '../../../response/error.response';
 import { productModel } from '../../product.model';
 
+// Common
+export const queryPaginate = async (query: object, page: number) => {
+    if (!page || page < 1)
+        throw new NotFoundErrorResponse('Current page invalid!');
+
+    return await productModel
+        .find(query)
+        .sort({ created_at: -1 })
+        .skip((page - 1) * ITEM_PER_PAGE)
+        .limit(ITEM_PER_PAGE)
+        .lean();
+};
+
 /* ====================================================== */
 /*                        FIND ALL                        */
 /* ====================================================== */
@@ -23,15 +36,7 @@ export const findAllProductByShop = async ({
     currentPage,
     product_shop
 }: serviceTypes.product.arguments.GetAllProductByShop) => {
-    if (!currentPage || currentPage < 1)
-        throw new ErrorResponse(400, 'Invalid pagination');
-
-    return await productModel
-        .find({ product_shop })
-        .sort({ createdAt: -1 })
-        .skip((currentPage - 1) * ITEM_PER_PAGE)
-        .limit(ITEM_PER_PAGE)
-        .lean();
+    return queryPaginate({ product_shop }, currentPage);
 };
 
 export const findAllProductDraftByShop = async (productShop: string) => {
