@@ -6,9 +6,9 @@ import jwtConfig from '../../configs/jwt.config';
 import { jwtDecodeSchema } from '../validations/joi/jwt.joi';
 
 export default class JwtService {
-    /* ================================================== */
-    /*          GENERATE REFRESH TOKEN AND ACCESS         */
-    /* ================================================== */
+    /* ------------------------------------------------------ */
+    /*        Generate refresh token and access token         */
+    /* ------------------------------------------------------ */
     public static signJwt = async ({
         privateKey,
         payload,
@@ -54,9 +54,10 @@ export default class JwtService {
         }
     };
 
-    /* ================================================== */
-    /*                  VERIFY JWT TOKEN                  */
-    /* ================================================== */
+
+/* ------------------------------------------------------ */
+/*                    Verify jwt token                    */
+/* ------------------------------------------------------ */
     public static verifyJwt = async ({
         token,
         publicKey
@@ -69,9 +70,10 @@ export default class JwtService {
         });
     };
 
-    /* ================================================== */
-    /*                 PARSE TOKEN PAYLOAD                */
-    /* ================================================== */
+
+/* ------------------------------------------------------ */
+/*                  Parse token payload                   */
+/* ------------------------------------------------------ */
     public static parseJwtPayload = (
         token: string
     ): serviceTypes.jwt.arguments.ParseJwtPayload => {

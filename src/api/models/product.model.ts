@@ -12,9 +12,9 @@ const PRODUCT_SHOP_FIELD = {
     }
 };
 
-/* ====================================================== */
-/*                         PRODUCT                        */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                        Product                         */
+/* ------------------------------------------------------ */
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
@@ -52,9 +52,9 @@ productSchema.pre('save', addSlug);
 
 export const productModel = model(PRODUCT_MODEL_NAME, productSchema);
 
-/* ====================================================== */
-/*                          PHONE                         */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                         Phone                          */
+/* ------------------------------------------------------ */
 export const PHONE_MODEL_NAME = CategoryEnum.Phone;
 export const PHONE_COLLECTION_NAME = 'phone';
 
@@ -104,13 +104,12 @@ const phoneSchema = new Schema<modelTypes.product.PhoneSchema>(
         timestamps
     }
 );
-
 export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
-/* ---------------------- END PHONE --------------------- */
 
-/* ====================================================== */
-/*                         CLOTHES                        */
-/* ====================================================== */
+
+/* ------------------------------------------------------ */
+/*                        Clothes                         */
+/* ------------------------------------------------------ */
 export const CLOTHES_MODEL_NAME = CategoryEnum.Clothes;
 export const CLOTHES_COLLECTION_NAME = 'clothes';
 

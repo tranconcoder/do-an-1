@@ -3,9 +3,9 @@ import ProductFactory from '../services/product';
 import { RequestWithBody, RequestWithParams } from '../types/request';
 
 export default class ProductController {
-    /* ====================================================== */
-    /*                     CREATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Create product                     */
+    /* ------------------------------------------------------ */
     public static createProduct: RequestWithBody<joiTypes.product.definition.CreateProductSchema> =
         async (req, res, _) => {
             new CreatedResponse({
@@ -20,10 +20,10 @@ export default class ProductController {
             }).send(res);
         };
 
-    /* ====================================================== */
-    /*                       GET PRODUCT                      */
-    /* ====================================================== */
-    /* ================= Get product by id  ================= */
+    /* ------------------------------------------------------ */
+    /*                      Get product                       */
+    /* ------------------------------------------------------ */
+    /* ----------------- Get product by id  ----------------- */
     public static getProductById: RequestWithParams<serviceTypes.product.arguments.GetProductById> =
         async (req, res, _) => {
             new SuccessResponse({
@@ -106,9 +106,10 @@ export default class ProductController {
             }).send(res);
         };
 
-    /* ====================================================== */
-    /*                     UPDATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Update product                     */
+    /* ------------------------------------------------------ */
+    /* ------------------- Update product ------------------- */
     public static updateProduct: RequestWithBody<serviceTypes.product.arguments.UpdateProduct> =
         async (req, res, _) => {
             new SuccessResponse({
@@ -123,6 +124,7 @@ export default class ProductController {
             }).send(res);
         };
 
+    /* ----------------- Set draft product  ----------------- */
     public static setDraftProduct: RequestWithBody<joiTypes.product.definition.SetDraftProductSchema> =
         async (req, res, _) => {
             new SuccessResponse({
@@ -138,7 +140,7 @@ export default class ProductController {
             }).send(res);
         };
 
-    /* ================ Set publish product  ================ */
+    /* ---------------- Set publish product  ---------------- */
     public static setPublishProduct: RequestWithBody<joiTypes.product.definition.SetPublishProductSchema> =
         async (req, res, _) => {
             new SuccessResponse({
@@ -154,9 +156,9 @@ export default class ProductController {
             }).send(res);
         };
 
-    /* ====================================================== */
-    /*                     DELETE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Delete product                     */
+    /* ------------------------------------------------------ */
     public static deleteProduct: RequestWithBody<joiTypes.product.definition.DeleteProductSchema> =
         async (req, res, _) => {
             await ProductFactory.removeProduct(

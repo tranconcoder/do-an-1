@@ -2,9 +2,9 @@ import Joi from 'joi';
 import _ from 'lodash';
 import { mongooseId } from '../../../configs/joi.config';
 
-/* ====================================================== */
-/*                      TOKEN PAYLOAD SCHEMA              */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                  Token payload schema                  */
+/* ------------------------------------------------------ */
 const jwtPayload: joiTypes.utils.ConvertObjectToJoiType<joiTypes.jwt.definition.JwtDecode> =
     {
         id: mongooseId,

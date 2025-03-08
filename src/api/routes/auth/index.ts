@@ -36,9 +36,10 @@ authRoute.post(
     catchError(AuthController.newToken)
 );
 
-/* ====================================================== */
-/*                     VALIDATE ROUTE                     */
-/* ====================================================== */
+
+/* ------------------------------------------------------ */
+/*                    Validate routes                     */
+/* ------------------------------------------------------ */
 authRoute.use(authRouteValidate);
 
 authRouteValidate.use(authenticate);

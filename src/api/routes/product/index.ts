@@ -6,7 +6,8 @@ import { authenticate } from '../../middlewares/jwt.middleware';
 
 /* ------------------------- Joi ------------------------ */
 
-/* ======================= Routes ======================= */
+
+/* ----------------------- Routes ----------------------- */
 import productGetRoute from './get.route';
 import productPatchRoute from './patch.route';
 import productPutRoute from './put.route';
@@ -16,10 +17,9 @@ import productPostRoute from './post.route';
 const productRoute = Router();
 const productRouteValidate = Router();
 
-/* ===================== GET route  ===================== */
+
+/* ------------------------ GET  ------------------------ */
 productRoute.use(productGetRoute);
-
-
 
 /* ====================================================== */
 /*                  AUTHENTICATE ROUTES                   */
@@ -27,16 +27,20 @@ productRoute.use(productGetRoute);
 productRoute.use(productRouteValidate);
 productRouteValidate.use(authenticate);
 
-/* ===================== POST route ===================== */
+
+/* ------------------------ POST ------------------------ */
 productRouteValidate.use(productPostRoute);
 
-/* ==================== PATCH route  ==================== */
+
+/* ----------------------- PATCH  ----------------------- */
 productRouteValidate.use(productPatchRoute);
 
-/* ===================== PUT route  ===================== */
+
+/* ------------------------ PUT  ------------------------ */
 productRouteValidate.use(productPutRoute);
 
-/* ==================== DELETE route ==================== */
+
+/* ----------------------- DELETE ----------------------- */
 productRouteValidate.use(productDeleteRoute);
 
 export default productRoute;

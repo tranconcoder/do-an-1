@@ -31,9 +31,14 @@ export const queryProductByShop = async (
     return product;
 };
 
-/* ====================================================== */
-/*                        FIND ALL                        */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                         Search                         */
+/* ------------------------------------------------------ */
+/* ------------------- Search product ------------------- */
+
+/* ------------------------------------------------------ */
+/*                        Find all                        */
+/* ------------------------------------------------------ */
 /* ------------ Find all product id as string ------------ */
 export const findProductIdStrList = async () => {
     return (
@@ -103,9 +108,6 @@ export const findAllProductUnpublishByShop = async ({
     return queryPaginate(query, currentPage);
 };
 
-/* ====================================================== */
-/*                        FIND ONE                        */
-/* ====================================================== */
 /* ------------- Find product by shop and id ------------ */
 export const findProductByShopAndId = async (
     payload: Pick<modelTypes.product.ProductSchema, 'product_shop' | '_id'>
@@ -132,25 +134,25 @@ export const findProductCategoryById = async (id: string) => {
     return await findProductById(id).then((x) => x?.product_category);
 };
 
-/* ====================================================== */
-/*                         UPDATE                         */
-/* ====================================================== */
-/* =================== Draft product  =================== */
+/* ------------------------------------------------------ */
+/*                         Update                         */
+/* ------------------------------------------------------ */
+/* ----------------- Set draft product  ----------------- */
 export const setDraftProduct = async ({
     product_id: _id,
     product_shop
 }: serviceTypes.product.arguments.SetDraftProduct) => {
-    /* ================== Validate product ================== */
+    /* ------------------ Validate product ------------------ */
     const product = await queryProductByShop({ _id }, product_shop);
 
-    /* =================== Handle update  =================== */
+    /* ------------------- Handle update  ------------------- */
     product.is_draft = true;
     product.is_publish = false;
 
     return product === (await product.save());
 };
 
-/* ================== Publish product  ================== */
+/* ---------------- Set publish product  ---------------- */
 export const setPublishProduct = async ({
     product_id: _id,
     product_shop
@@ -163,9 +165,9 @@ export const setPublishProduct = async ({
     return product === (await product.save());
 };
 
-/* ====================================================== */
-/*                         DELETE                         */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                         Delete                         */
+/* ------------------------------------------------------ */
 /* ---------------- Delete product by id ---------------- */
 export const deleteProductById = async (_id: string) => {
     const product = await productModel.findByIdAndDelete(_id, { new: true });
@@ -188,5 +190,3 @@ export const deleteOneProduct = async (
     return deletedCount;
 };
 
-// const a: Model<{test:number}, {num: string}, {age: string}, {age: number}, {test: string}> = {} as any;
-// a.findOneAndDelete().then(x => x.test)

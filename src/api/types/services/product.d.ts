@@ -15,7 +15,9 @@ declare global {
                                 joiTypes.product.definition.UpdateProductSchema,
                                 'product_new_category'
                             >
-                        > {}
+                        > {
+                    product_attributes?: modelTypes.product.ProductSchemaList;
+                }
             }
 
             /* ====================================================== */
@@ -27,7 +29,7 @@ declare global {
 
                 /* ================= Get product by id  ================= */
                 interface GetProductById
-                    extends joiTypes.product.definition.GetProductByIdSchema{}
+                    extends joiTypes.product.definition.GetProductByIdSchema {}
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop

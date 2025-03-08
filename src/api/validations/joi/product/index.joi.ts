@@ -35,6 +35,18 @@ export const createProductSchema = Joi.object<
 });
 
 /* ====================================================== */
+/*                         SEARCH                         */
+/* ====================================================== */
+/* =================== Search product =================== */
+export const searchProductSchema = Joi.object<
+    joiTypes.product.definition.SearchProductSchema,
+    true
+>({
+    search: Joi.string().required(),
+    page: Joi.number().required()
+});
+
+/* ====================================================== */
 /*                 GET ALL PRODUCT BY SHOP                */
 /* ====================================================== */
 

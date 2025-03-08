@@ -15,13 +15,13 @@ import {
     setPublishProduct
 } from '../../models/repository/product';
 
-/* ====================================================== */
-/*                         FACTORY                        */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                        Factory                         */
+/* ------------------------------------------------------ */
 export default class ProductFactory {
-    /* ====================================================== */
-    /*                     CREATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Create product                     */
+    /* ------------------------------------------------------ */
     public static createProduct = async <
         K extends modelTypes.product.ProductList
     >(
@@ -37,11 +37,11 @@ export default class ProductFactory {
         return await instance.createProduct();
     };
 
-    /* ====================================================== */
-    /*                       GET PRODUCT                      */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                      Get product                       */
+    /* ------------------------------------------------------ */
 
-    /* ================= Get product by id  ================= */
+    /* ----------------- Get product by id  ----------------- */
     public static getProductById = async (productId: string) => {
         return await findProductById(productId);
     };
@@ -81,9 +81,9 @@ export default class ProductFactory {
         return await findAllProductPublishByShop(payload);
     };
 
-    /* ====================================================== */
-    /*                     UPDATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Update product                     */
+    /* ------------------------------------------------------ */
     public static updateProduct = async ({
         product_id: _id,
         ...payload
@@ -118,23 +118,23 @@ export default class ProductFactory {
         return instance.updateProduct();
     };
 
-    /* ================= Set draft product  ================= */
+    /* ----------------- Set draft product  ----------------- */
     public static setDraftProduct = async (
         payload: serviceTypes.product.arguments.SetDraftProduct
     ) => {
         return await setDraftProduct(payload);
     };
 
-    /* ================ Set publish product  ================ */
+    /* ---------------- Set publish product  ---------------- */
     public static setPublishProduct = async (
         payload: serviceTypes.product.arguments.SetPublishProduct
     ) => {
         return await setPublishProduct(payload);
     };
 
-    /* ====================================================== */
-    /*                     REMOVE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Remove product                     */
+    /* ------------------------------------------------------ */
     public static removeProduct = async (
         id: serviceTypes.product.arguments.RemoveProduct,
         userId: string

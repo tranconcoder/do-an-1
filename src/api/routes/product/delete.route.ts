@@ -7,7 +7,8 @@ import { deleteProductSchema } from '../../validations/joi/product/index.joi';
 const productDeleteRoute = Router();
 
 
-/* =================== Delete product =================== */
+
+/* ------------------- Delete product ------------------- */
 productDeleteRoute.delete(
     '/delete',
     validateRequestBody(deleteProductSchema),

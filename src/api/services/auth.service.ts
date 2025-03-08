@@ -19,9 +19,9 @@ import JwtService from './jwt.service';
 import LoggerService from './logger.service';
 
 export default class AuthService {
-    /* ===================================================== */
-    /*                        SIGN UP                        */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                        Sign up                         */
+    /* ------------------------------------------------------ */
     public static signUp = async ({
         phoneNumber,
         email,
@@ -83,9 +83,9 @@ export default class AuthService {
         return jwtTokenPair;
     };
 
-    /* ===================================================== */
-    /*                         LOGIN                         */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                         Login                          */
+    /* ------------------------------------------------------ */
     public static login = async ({
         phoneNumber,
         password
@@ -134,17 +134,17 @@ export default class AuthService {
         };
     };
 
-    /* ===================================================== */
-    /*                         LOGOUT                        */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                         Logout                         */
+    /* ------------------------------------------------------ */
     public static logout = async (userId: string) => {
         /* ----- Handle remove refresh token in valid list ---- */
         return await KeyTokenService.deleteKeyTokenByUserId(userId);
     };
 
-    /* ===================================================== */
-    /*                  HANDLE REFRESH TOKEN                 */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                  Handle refresh token                  */
+    /* ------------------------------------------------------ */
     public static newToken = async ({
         refreshToken
     }: serviceTypes.auth.arguments.NewToken) => {

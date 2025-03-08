@@ -13,16 +13,16 @@ import {
 const productGetRoute = Router();
 const productGetRouteValidate = Router();
 
-/* ================= Get product by id  ================= */
+/* ----------------- Get product by id  ----------------- */
 productGetRoute.get(
     '/get-by-id/:product_id',
     validateRequestParams(getProductByIdSchema),
     catchError(ProductController.getProductById)
 );
 
-/* ====================================================== */
-/*                    VALIDATE ROUTES                     */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                    Validated routes                    */
+/* ------------------------------------------------------ */
 productGetRoute.use(productGetRouteValidate);
 productGetRouteValidate.use(authenticate);
 

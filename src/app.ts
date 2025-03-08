@@ -21,9 +21,9 @@ import { NotFoundErrorResponse } from './api/response/error.response';
 
 const app = express();
 
-/* ====================================================== */
-/*                   EXPRESS MIDDLEWARE                   */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                  Express middlewares                   */
+/* ------------------------------------------------------ */
 // Body parser
 app.use(express.json());
 app.use(express.raw());
@@ -31,9 +31,9 @@ app.use(express.text());
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-/* ====================================================== */
-/*                       MIDDLEWARE;                      */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                      Middlewares                       */
+/* ------------------------------------------------------ */
 // Morgan
 app.use(morgan('dev'));
 // Helmet for security
@@ -41,9 +41,9 @@ app.use(helmet());
 // Compression
 app.use(compression());
 
-/* ====================================================== */
-/*                        DATABASE;                       */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                        Database                        */
+/* ------------------------------------------------------ */
 MongoDB.getInstance().connect();
 
 // Start service

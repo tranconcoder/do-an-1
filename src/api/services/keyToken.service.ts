@@ -6,17 +6,17 @@ import mongoose from 'mongoose';
 import keyTokenModel from '../models/keyToken.model';
 
 export default class KeyTokenService {
-    /* ===================================================== */
-    /*                  GET TOKEN BY USER ID                 */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                  Get token by userId                   */
+    /* ------------------------------------------------------ */
     public static findTokenByUserId = async (userId: string) => {
         const id = new mongoose.Types.ObjectId(userId);
         return await keyTokenModel.findOne({ user: id });
     };
 
-    /* ===================================================== */
-    /*            SAVE NEW KEY TOKEN WHEN SIGN UP            */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*             Save new key token on sign up              */
+    /* ------------------------------------------------------ */
     public static findOneAndReplace = async ({
         userId,
         privateKey,
@@ -42,9 +42,9 @@ export default class KeyTokenService {
         return keyToken ? keyToken._id : null;
     };
 
-    /* ===================================================== */
-    /*           		SAVE NEW TOKEN GENERATED 		  */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                Save new token generated                */
+    /* ------------------------------------------------------ */
     public static replaceRefreshTokenWithNew = async ({
         userId,
         refreshToken,
@@ -62,9 +62,9 @@ export default class KeyTokenService {
         return updateResult.modifiedCount > 0;
     };
 
-    /* ===================================================== */
-    /*             GENERATE TOKEN PAIR ON SIGN UP            */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*             Generate token pair on sign up             */
+    /* ------------------------------------------------------ */
     public static generateTokenPair = () => {
         return crypto.generateKeyPairSync('rsa', {
             modulusLength: 4096,
@@ -79,9 +79,9 @@ export default class KeyTokenService {
         });
     };
 
-    /* ===================================================== */
-    /*                  REMOVE REFRESH TOKEN                 */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                  Remove refresh token                  */
+    /* ------------------------------------------------------ */
     public static deleteKeyTokenByUserId = async (userId: string) => {
         return await keyTokenModel.deleteOne({
             user: userId

@@ -1,9 +1,9 @@
 import Joi from 'joi';
 import _ from 'lodash';
 
-/* ====================================================== */
-/*                       USER SCHEMA                      */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                      User schema                       */
+/* ------------------------------------------------------ */
 const user: joiTypes.utils.ConvertObjectToJoiType<joiTypes.auth.UserSchema> = {
     email: Joi.string().email().required(),
     fullName: Joi.string().required().min(4).max(30),
@@ -18,23 +18,23 @@ const user: joiTypes.utils.ConvertObjectToJoiType<joiTypes.auth.UserSchema> = {
     role: Joi.string().required()
 };
 
-/* ====================================================== */
-/*                      LOGIN SCHEMA                      */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                      Login schema                      */
+/* ------------------------------------------------------ */
 export const loginSchema = Joi.object<joiTypes.auth.LoginSchema, true>(
     _.pick(user, ['phoneNumber', 'password'])
 );
 
-/* ====================================================== */
-/*                      SIGNUP SCHEMA                     */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                      Sinup schema                      */
+/* ------------------------------------------------------ */
 export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema, true>(
     _.pick(user, ['email', 'fullName', 'password', 'phoneNumber'])
 );
 
-/* ====================================================== */
-/*                      NEW TOKEN SCHEMA                  */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                    New token schema                    */
+/* ------------------------------------------------------ */
 export const newTokenSchema = Joi.object<joiTypes.auth.NewTokenSchema>({
     refreshToken: Joi.string().required()
 });

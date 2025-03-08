@@ -1,13 +1,9 @@
-/* ====================================================== */
-/*                      CREATOR CLASS                     */
-/* ====================================================== */
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../../enums/product.enum';
 import { productModel } from '../../models/product.model';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 import { deleteOneProduct } from '../../models/repository/product';
 
-/* ====================================================== */
 export abstract class Product
     implements serviceTypes.product.definition.Product
 {
@@ -56,9 +52,9 @@ export abstract class Product
         this.is_publish = is_publish;
     }
 
-    /* ====================================================== */
-    /*                     CREATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Create product                     */
+    /* ------------------------------------------------------ */
     public async createProduct() {
         const { _id, ...validProperties } = this.getValidProperties();
 
@@ -68,13 +64,13 @@ export abstract class Product
         });
     }
 
-    /* ====================================================== */
-    /*                      FIND PRODUCT                      */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                      Find product                      */
+    /* ------------------------------------------------------ */
 
-    /* ====================================================== */
-    /*                     UPDATE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Update product                     */
+    /* ------------------------------------------------------ */
     public async updateProduct() {
         const validProperties = this.getValidProperties();
 
@@ -89,9 +85,9 @@ export abstract class Product
         );
     }
 
-    /* ====================================================== */
-    /*                     REMOVE PRODUCT                     */
-    /* ====================================================== */
+    /* ------------------------------------------------------ */
+    /*                     Remove product                     */
+    /* ------------------------------------------------------ */
     public async removeProduct() {
         return await deleteOneProduct({
             _id: this._id,

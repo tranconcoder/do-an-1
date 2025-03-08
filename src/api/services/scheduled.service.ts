@@ -25,10 +25,9 @@ export default class ScheduledService {
         this.cleanUpProductCronJob.start();
     };
 
-    /* ===================================================== */
-    /*          CLEANUP KEY TOKEN EXPIRED OR BANNED          */
-    /* ===================================================== */
-
+    /* ------------------------------------------------------ */
+    /*          Clenaup key token expired or banned           */
+    /* ------------------------------------------------------ */
     private static handleCleanUpKeyToken = async () => {
         const allKeyTokens = await keyTokenModel.find();
 
@@ -92,9 +91,9 @@ export default class ScheduledService {
             });
     };
 
-    /* ===================================================== */
-    /*                CLEANUP PRODUCT DATA                   */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                  Cleanup product data                  */
+    /* ------------------------------------------------------ */
     private static handleCleanUpProduct = async () => {
         /* ----------------- Get product id list ---------------- */
         const productIds = new Set(await findProductIdStrList());
@@ -143,9 +142,10 @@ export default class ScheduledService {
         });
     };
 
-    /* ====================================================== */
-    /*                        CRON JOBS                       */
-    /* ====================================================== */
+
+/* ------------------------------------------------------ */
+/*                       Cron jobs                        */
+/* ------------------------------------------------------ */
     public static cleanUpKeyTokenCronJob = CronJob.from(
         getCronOptions({
             cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,

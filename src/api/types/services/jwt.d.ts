@@ -15,7 +15,7 @@ declare global {
 
                 interface JwtPayload
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Pick<modelTypes.auth.UserSchema<true>, 'role'>
+                        Pick<modelTypes.auth.UserSchema, 'role'>
                     > {
                     id: string;
                 }

@@ -5,9 +5,9 @@ import AuthService from '../services/auth.service';
 import { CreatedResponse, OkResponse } from '../response/success.response';
 
 export default class AuthController {
-    /* ===================================================== */
-    /*                        SIGN UP                        */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                        Sign up                         */
+    /* ------------------------------------------------------ */
     public static signUp: RequestHandler = async (req, res, next) => {
         new CreatedResponse({
             message: 'Sign up success!',
@@ -15,9 +15,9 @@ export default class AuthController {
         }).send(res);
     };
 
-    /* ===================================================== */
-    /*                         LOGIN                         */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                         Login                          */
+    /* ------------------------------------------------------ */
     public static login: RequestHandler = async (req, res, next) => {
         new OkResponse({
             message: 'Login success!',
@@ -25,9 +25,9 @@ export default class AuthController {
         }).send(res);
     };
 
-    /* ===================================================== */
-    /*                         LOGOUT                        */
-    /* ===================================================== */
+    /* ------------------------------------------------------ */
+    /*                         Logout                         */
+    /* ------------------------------------------------------ */
     public static logout: RequestHandler = async (req, res, next) => {
         await AuthService.logout(req.userId || '');
 
@@ -37,9 +37,10 @@ export default class AuthController {
         }).send(res);
     };
 
-    /* ===================================================== */
-    /*                  HANDLE REFRESH TOKEN                 */
-    /* ===================================================== */
+
+/* ------------------------------------------------------ */
+/*                  Handle refresh token                  */
+/* ------------------------------------------------------ */
     public static newToken: RequestWithBody<joiTypes.auth.NewTokenSchema> =
         async (req, res, _) => {
             new OkResponse({
