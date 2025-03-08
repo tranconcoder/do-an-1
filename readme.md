@@ -43,16 +43,24 @@ Xử dụng xác thực dựa tên JsonWebToken, bao gồm xử lý các trưở
 1. Người dùng đăng ký:
     - Kiểm tra thông tin đã tồn tại?
     - Mã hóa mật khẩu
-    -
+    - Lưu thông tin người dùng vào cơ sở dữ liệu
+    - Trả về thông tin người dùng đã đăng ký
+    - Tạo token cho người dùng
+    - Gửi token cho người dùng
 
 # Những kiến thức mới:
 
--   Conditional type: Kiểu linh động dựa trên biến
--   Các thuộc tính trong joi như when, alternative, try, joi types, joi type
-    strict
+- Conditional type: Kiểu linh động dựa trên biến
+- Các thuộc tính trong joi như when, alternative, try, joi types, joi type
+  strict
 
 # Todo:
 
--   Xây dựng API tạo sản phẩm
--   Xây dựng API xóa sản phẩm
--   Xây dựng CronJob để clean sản phẩm nếu trong quá trình tạo hoặc xóa bị lỗi
+- Xây dựng API tạo sản phẩm
+- Xây dựng API xóa sản phẩm
+- Xây dựng CronJob để clean sản phẩm nếu trong quá trình tạo hoặc xóa bị lỗi
+- Xây dựng API update sản phẩm
+- API lấy sản phẩm của shop
+- API lấy sản phẩm nháp của shop
+- API lấy sản phẩm đang bán của shop
+- findOneProduct api

@@ -25,6 +25,10 @@ declare global {
                 /* ------------------- Create product ------------------- */
                 interface CreateProduct extends definition.Product {}
 
+                /* ================= Get product by id  ================= */
+                interface GetProductById
+                    extends joiTypes.product.definition.GetProductByIdSchema{}
+
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
                     extends joiTypes.product.definition

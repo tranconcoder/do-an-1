@@ -115,7 +115,10 @@ export const findProductByShopAndId = async (
 
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async (id: string) => {
-    return await productModel.findById(id);
+    const product = await productModel.findById(id);
+    if (!product) throw new NotFoundErrorResponse('Not found product!');
+
+    return product;
 };
 
 export const findOneProduct = async (

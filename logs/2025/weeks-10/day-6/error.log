@@ -1,0 +1,9 @@
+[2025-03-08T05:54:36.355Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-08T05:56:42.065Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-08T05:56:47.394Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-08T05:56:50.681Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-08T05:56:52.915Z] [error]: HIDE::500::ValidationError::"product_id" is required::
+[2025-03-08T05:58:27.520Z] [error]: HIDE::500::ValidationError::"product_id" length must be 24 characters long::
+[2025-03-08T05:58:32.467Z] [error]: HIDE::500::ValidationError::"product_id" must only contain hexadecimal characters::
+[2025-03-08T05:58:34.882Z] [error]: HIDE::500::ValidationError::"product_id" must only contain hexadecimal characters::
+[2025-03-08T05:58:40.352Z] [error]: HIDE::500::ValidationError::"product_id" length must be 24 characters long::

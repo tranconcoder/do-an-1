@@ -23,6 +23,19 @@ export default class ProductController {
     /* ====================================================== */
     /*                       GET PRODUCT                      */
     /* ====================================================== */
+    /* ================= Get product by id  ================= */
+    public static getProductById: RequestWithParams<serviceTypes.product.arguments.GetProductById> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Get product by id',
+                message: 'Get product by id success',
+                statusCode: 200,
+                metadata: await ProductFactory.getProductById(
+                    req.params.product_id
+                )
+            }).send(res);
+        };
+
     /* --------------- Get all product by shop -------------- */
     public static getAllProductByShop: RequestWithParams<joiTypes.product.definition.GetAllProductByShopSchema> =
         async (req, res, _) => {

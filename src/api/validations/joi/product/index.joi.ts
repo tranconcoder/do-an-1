@@ -37,6 +37,15 @@ export const createProductSchema = Joi.object<
 /* ====================================================== */
 /*                 GET ALL PRODUCT BY SHOP                */
 /* ====================================================== */
+
+/* ================= Get product by id  ================= */
+export const getProductByIdSchema = Joi.object<
+    joiTypes.product.definition.GetProductByIdSchema,
+    true
+>({
+    product_id: mongooseId
+});
+
 /* --------------- Get all product by shop -------------- */
 export const getAllProductByShopSchema = Joi.object<
     joiTypes.product.definition.GetAllProductByShopSchema,

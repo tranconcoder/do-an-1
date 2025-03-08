@@ -9,6 +9,7 @@ import {
     findAllProductDraftByShop,
     findAllProductPublishByShop,
     findOneProduct,
+    findProductById,
     findProductCategoryById,
     setDraftProduct,
     setPublishProduct
@@ -39,6 +40,12 @@ export default class ProductFactory {
     /* ====================================================== */
     /*                       GET PRODUCT                      */
     /* ====================================================== */
+
+    /* ================= Get product by id  ================= */
+    public static getProductById = async (productId: string) => {
+        return await findProductById(productId);
+    };
+
     /* --------------- Get all product by shop -------------- */
     public static getAllProductByShop = async ({
         ...payload
