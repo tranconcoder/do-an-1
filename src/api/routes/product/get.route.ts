@@ -1,18 +1,34 @@
 import { Router } from 'express';
 import ProductController from '../../controllers/product.controller';
 import catchError from '../../middlewares/catchError.middleware';
-import { validateRequestParams } from '../../middlewares/joiValidate.middleware';
+import validateRequestBody, {
+    validateRequestParams,
+    validateRequestQuery
+} from '../../middlewares/joiValidate.middleware';
 import { authenticate } from '../../middlewares/jwt.middleware';
 import {
     getAllProductByShopSchema,
     getAllProductDraftByShopSchema,
     getAllProductPublishByShopSchema,
-    getProductByIdSchema
+    getProductByIdSchema,
+    searchProductSchema
 } from '../../validations/joi/product/index.joi';
 
 const productGetRoute = Router();
 const productGetRouteValidate = Router();
 
+/* ------------------------------------------------------ */
+/*                         Search                         */
+/* ------------------------------------------------------ */
+productGetRoute.get(
+    '/search',
+    validateRequestQuery(searchProductSchema),
+    catchError(ProductController.searchProduct as any)
+);
+
+/* ------------------------------------------------------ */
+/*                          Get                           */
+/* ------------------------------------------------------ */
 /* ----------------- Get product by id  ----------------- */
 productGetRoute.get(
     '/get-by-id/:product_id',
@@ -26,6 +42,9 @@ productGetRoute.get(
 productGetRoute.use(productGetRouteValidate);
 productGetRouteValidate.use(authenticate);
 
+/* ------------------------------------------------------ */
+/*                          Get                           */
+/* ------------------------------------------------------ */
 /* ---------------- Get all product by shop  ---------------- */
 productGetRouteValidate.get(
     '/product-shop/all/:currentPage',

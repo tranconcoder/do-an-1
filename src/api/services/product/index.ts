@@ -11,6 +11,7 @@ import {
     findOneProduct,
     findProductById,
     findProductCategoryById,
+    searchProduct,
     setDraftProduct,
     setPublishProduct
 } from '../../models/repository/product';
@@ -38,9 +39,17 @@ export default class ProductFactory {
     };
 
     /* ------------------------------------------------------ */
+    /*                         Search                         */
+    /* ------------------------------------------------------ */
+    public static searchProduct = async (
+        payload: serviceTypes.product.arguments.SearchProduct
+    ) => {
+        return await searchProduct(payload);
+    };
+
+    /* ------------------------------------------------------ */
     /*                      Get product                       */
     /* ------------------------------------------------------ */
-
     /* ----------------- Get product by id  ----------------- */
     public static getProductById = async (productId: string) => {
         return await findProductById(productId);

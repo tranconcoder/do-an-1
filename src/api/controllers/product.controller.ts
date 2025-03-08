@@ -1,6 +1,11 @@
+import { RequestHandler } from 'express';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
-import { RequestWithBody, RequestWithParams } from '../types/request';
+import {
+    RequestWithBody,
+    RequestWithParams,
+    RequestWithQuery
+} from '../types/request';
 
 export default class ProductController {
     /* ------------------------------------------------------ */
@@ -17,6 +22,22 @@ export default class ProductController {
                         product_shop: req.userId as string
                     }
                 )
+            }).send(res);
+        };
+
+    /* ------------------------------------------------------ */
+    /*                         Search                         */
+    /* ------------------------------------------------------ */
+    public static searchProduct: RequestWithQuery<serviceTypes.product.arguments.SearchProduct> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Search product',
+                message: 'Search product success',
+                statusCode: 200,
+                metadata: await ProductFactory.searchProduct({
+                    page: Number(req.query.page),
+                    search: req.query.search
+                })
             }).send(res);
         };
 

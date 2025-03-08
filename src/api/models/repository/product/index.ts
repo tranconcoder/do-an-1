@@ -35,6 +35,28 @@ export const queryProductByShop = async (
 /*                         Search                         */
 /* ------------------------------------------------------ */
 /* ------------------- Search product ------------------- */
+export const searchProduct = async ({
+    page,
+    search
+}: serviceTypes.product.arguments.SearchProduct) => {
+    if (!page || page < 1)
+        throw new NotFoundErrorResponse('Current page invalid!');
+
+    return await productModel
+        .find(
+            {
+                is_publish: true,
+                is_draft: false,
+                $text: { $search: search }
+            },
+            {
+                score: { $meta: 'textScore' }
+            }
+        )
+        .sort({ score: { $meta: 'textScore' } })
+        .skip((page - 1) * ITEM_PER_PAGE)
+        .limit(ITEM_PER_PAGE);
+};
 
 /* ------------------------------------------------------ */
 /*                        Find all                        */
@@ -189,4 +211,3 @@ export const deleteOneProduct = async (
     const { deletedCount } = await productModel.deleteOne(payload);
     return deletedCount;
 };
-

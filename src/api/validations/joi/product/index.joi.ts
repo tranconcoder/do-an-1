@@ -4,9 +4,9 @@ import { createPhoneSchema, updatePhoneSchema } from './phone.joi';
 import { createClothesSchema, updateClothesSchema } from './clothes.joi';
 import { mongooseId } from '../../../../configs/joi.config';
 
-/* ====================================================== */
-/*                     CREATE PRODUCT                     */
-/* ====================================================== */
+/* ------------------------------------------------------ */
+/*                     Create product                     */
+/* ------------------------------------------------------ */
 const createProductAttributes = {
     [CategoryEnum.Phone]: createPhoneSchema,
     [CategoryEnum.Clothes]: createClothesSchema
@@ -34,10 +34,10 @@ export const createProductSchema = Joi.object<
     is_publish: Joi.boolean()
 });
 
-/* ====================================================== */
-/*                         SEARCH                         */
-/* ====================================================== */
-/* =================== Search product =================== */
+/* ------------------------------------------------------ */
+/*                         Search                         */
+/* ------------------------------------------------------ */
+/* ------------------- Search product ------------------- */
 export const searchProductSchema = Joi.object<
     joiTypes.product.definition.SearchProductSchema,
     true
@@ -46,11 +46,10 @@ export const searchProductSchema = Joi.object<
     page: Joi.number().required()
 });
 
-/* ====================================================== */
-/*                 GET ALL PRODUCT BY SHOP                */
-/* ====================================================== */
-
-/* ================= Get product by id  ================= */
+/* ------------------------------------------------------ */
+/*                          Get                           */
+/* ------------------------------------------------------ */
+/* ----------------- Get product by id  ----------------- */
 export const getProductByIdSchema = Joi.object<
     joiTypes.product.definition.GetProductByIdSchema,
     true

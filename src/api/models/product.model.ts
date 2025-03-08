@@ -48,6 +48,14 @@ const productSchema = new Schema<modelTypes.product.ProductSchema, true>(
         timestamps
     }
 );
+// Create index to search product
+productSchema.index({
+    product_name: 'text',
+    product_description: 'text',
+    product_category: 'text'
+});
+
+// Create slug for product
 productSchema.pre('save', addSlug);
 
 export const productModel = model(PRODUCT_MODEL_NAME, productSchema);
@@ -105,7 +113,6 @@ const phoneSchema = new Schema<modelTypes.product.PhoneSchema>(
     }
 );
 export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
-
 
 /* ------------------------------------------------------ */
 /*                        Clothes                         */
