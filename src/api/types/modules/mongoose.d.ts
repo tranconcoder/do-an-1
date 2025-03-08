@@ -14,6 +14,16 @@ declare global {
             type IsModel<T = false, K = any> = T extends true
                 ? mongooseLib.Model<{}, {}, {}, {}, HydratedDocument<K>>
                 : {};
+
+            type MongooseType<T, isModel, isDocument> = (isModel extends true
+                ? Model<{}, {}, {}, {}, HydratedDocument<T>>
+                : {}) &
+                (isDocument extends true ? HydratedDocument<T> : {}) &
+                (isModel extends false
+                    ? isDocument extends false
+                        ? T
+                        : {}
+                    : {});
         }
     }
 }

@@ -15,19 +15,21 @@ declare global {
             >;
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
-            type CommonFields<
-                T,
-                schemaType,
-                commonType = {
-                    _id: mongoose.Types.ObjectId | string;
-                    product_shop: mongoose.Types.ObjectId | string;
-                }
-            > = T extends true
-                ? moduleTypes.mongoose.IsModel<T, schemaType & commonType>
-                : schemaType & commonType;
+            type CommonFields = {
+                _id: mongoose.Types.ObjectId | string;
+                product_shop: mongoose.Types.ObjectId | string;
+            };
 
-            type ProductSchema<T = false> = CommonFields<
-                T,
+            type MongooseInit<isModel, isDocument, T> =
+                moduleTypes.mongoose.MongooseType<
+                    T & CommonFields,
+                    isModel,
+                    isDocument
+                >;
+
+            type ProductSchema<isModel = false, isDoc = false> = MongooseInit<
+                isModel,
+                isDoc,
                 {
                     product_name: string;
                     product_cost: number;
@@ -43,8 +45,9 @@ declare global {
                 }
             >;
 
-            type PhoneSchema<T = false> = CommonFields<
-                T,
+            type PhoneSchema<isMode = false, isDoc = false> = MongooseInit<
+                isMode,
+                isDoc,
                 {
                     phone_processor: string;
                     phone_brand: string;
@@ -86,8 +89,9 @@ declare global {
                 }
             >;
 
-            type ClothesSchema<T = false> = CommonFields<
-                T,
+            type ClothesSchema<isModel = false, isDoc = false> = MongooseInit<
+                isModel,
+                isDoc,
                 {
                     size: string;
                     color: string;

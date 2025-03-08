@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 export default class UserService {
     public static newInstance = (
-        user: serviceTypes.user.arguments.NewInstanceArgs
+        user: serviceTypes.user.arguments.NewInstance
     ) => {
         return new userModel(user);
     };

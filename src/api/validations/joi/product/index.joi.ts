@@ -121,7 +121,6 @@ export const setDraftProductSchema = Joi.object<
     product_id: mongooseId
 });
 
-
 /* ================ Set publish product  ================ */
 export const SetPublishProductSchema = setDraftProductSchema;
 

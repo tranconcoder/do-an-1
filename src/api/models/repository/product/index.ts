@@ -164,15 +164,17 @@ export const setPublishProduct = async ({
 /*                         DELETE                         */
 /* ====================================================== */
 /* ---------------- Delete product by id ---------------- */
-export const deleteProductById = async (id: string) => {
-    const product = await productModel.findByIdAndDelete(id);
+export const deleteProductById = async (_id: string) => {
+    const product = await productModel.findByIdAndDelete(_id, { new: true });
     if (!product) throw new ErrorResponse(400, 'Delete product failed!');
 
     const productChildModel = getProductModel(product.product_category);
     if (!productChildModel)
         throw new NotFoundErrorResponse('Not found product!');
 
-    return productChildModel.deleteOne({ _id: id });
+    const { deletedCount } = await productChildModel.deleteOne({ _id });
+
+    return deletedCount > 0;
 };
 
 /* ----------------- Delete one product ----------------- */

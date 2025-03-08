@@ -29,6 +29,6 @@ export const getProduct = async <T extends modelTypes.product.ProductList>(
 
 export const getProductModel = (key: keyof typeof models) => {
     return models[key] as commonTypes.utils.UnionToPartialIntersection<
-        typeof models[keyof typeof models]
+        (typeof models)[keyof typeof models]
     >;
 };
