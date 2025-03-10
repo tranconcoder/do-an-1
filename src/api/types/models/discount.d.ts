@@ -14,7 +14,9 @@ declare global {
                 discount_min_cost?: number; // Minimum cost to apply discount
                 discount_start_at: Date;
                 discount_end_at: Date;
-                is_admin_voucher?: boolean;
+                is_admin_voucher: boolean;
+                is_available: boolean;
+                is_publish: boolean
             }
         }
     }

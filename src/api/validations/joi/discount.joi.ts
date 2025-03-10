@@ -18,5 +18,7 @@ export const createDiscountSchema =
         discount_start_at: Joi.date().required(),
         discount_end_at: Joi.date()
             .greater(Joi.ref('discount_start_at'))
-            .required()
+            .required(),
+        is_available: Joi.boolean().default(true),
+        is_publish: Joi.boolean().default(true)
     });

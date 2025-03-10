@@ -2545,3 +2545,11 @@
 [2025-03-10T11:19:00.058Z] [error]: Client must be connected before running operations
 [2025-03-10T11:19:00.062Z] [error]: Client must be connected before running operations
 [2025-03-10T11:20:00.060Z] [error]: Client must be connected before running operations
+[2025-03-10T11:54:28.176Z] [error]: Client must be connected before running operations
+[2025-03-10T11:54:28.177Z] [error]: Client must be connected before running operations
+[2025-03-10T11:54:32.894Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-10T11:54:52.278Z] [error]: HIDE::500::ValidationError::"discount_code" is required::
+[2025-03-10T11:55:00.031Z] [error]: Client must be connected before running operations
+[2025-03-10T11:55:00.033Z] [error]: Client must be connected before running operations
+[2025-03-10T11:56:00.058Z] [error]: Client must be connected before running operations
+[2025-03-10T11:56:00.060Z] [error]: Client must be connected before running operations
