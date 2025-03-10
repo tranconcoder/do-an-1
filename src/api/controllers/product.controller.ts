@@ -35,7 +35,7 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.searchProduct({
                     page: Number(req.query.page),
-                    query: req.query.query,
+                    query: req.query.query
                 })
             }).send(res);
         };

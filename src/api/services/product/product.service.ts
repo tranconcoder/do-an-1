@@ -65,7 +65,7 @@ export abstract class Product
         this._id = new mongoose.Types.ObjectId(); // Generate new id
         const payload = this.getValidProperties();
 
-        await Promise.all([
+        return await Promise.all([
             /* -------------------- Create inventory -------------------- */
             createInventory({
                 inventory_product: payload._id as moduleTypes.mongoose.ObjectId,

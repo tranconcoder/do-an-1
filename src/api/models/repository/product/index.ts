@@ -67,6 +67,28 @@ export const searchProduct = async ({
         .limit(ITEM_PER_PAGE);
 };
 
+/* ---------------------------------------------------------- */
+/*                          Find one                          */
+/* ---------------------------------------------------------- */
+/* ----------------- Find product by id ----------------- */
+export const findProductById = async (id: string) => {
+    const product = await productModel.findById(id);
+    if (!product) throw new NotFoundErrorResponse('Not found product!');
+
+    return product;
+};
+
+export const findOneProduct = async (
+    payload: Partial<modelTypes.product.ProductSchema>
+) => {
+    return await productModel.findOne(payload);
+};
+
+/* ------------- Find product category by id ------------ */
+export const findProductCategoryById = async (id: string) => {
+    return await findProductById(id).then((x) => x?.product_category);
+};
+
 /* ------------------------------------------------------ */
 /*                        Find all                        */
 /* ------------------------------------------------------ */
@@ -144,25 +166,6 @@ export const findProductByShopAndId = async (
     payload: Pick<modelTypes.product.ProductSchema, 'product_shop' | '_id'>
 ) => {
     return await productModel.findOne(payload);
-};
-
-/* ----------------- Find product by id ----------------- */
-export const findProductById = async (id: string) => {
-    const product = await productModel.findById(id);
-    if (!product) throw new NotFoundErrorResponse('Not found product!');
-
-    return product;
-};
-
-export const findOneProduct = async (
-    payload: Partial<modelTypes.product.ProductSchema>
-) => {
-    return await productModel.findOne(payload);
-};
-
-/* ------------- Find product category by id ------------ */
-export const findProductCategoryById = async (id: string) => {
-    return await findProductById(id).then((x) => x?.product_category);
 };
 
 /* ------------------------------------------------------ */
