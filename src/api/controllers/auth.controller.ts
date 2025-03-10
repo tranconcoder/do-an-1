@@ -8,7 +8,7 @@ export default class AuthController {
     /* ------------------------------------------------------ */
     /*                        Sign up                         */
     /* ------------------------------------------------------ */
-    public static signUp: RequestHandler = async (req, res, next) => {
+    public static signUp: RequestHandler = async (req, res, _) => {
         new CreatedResponse({
             message: 'Sign up success!',
             metadata: await AuthService.signUp(req.body)
@@ -18,7 +18,7 @@ export default class AuthController {
     /* ------------------------------------------------------ */
     /*                         Login                          */
     /* ------------------------------------------------------ */
-    public static login: RequestHandler = async (req, res, next) => {
+    public static login: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Login success!',
             metadata: await AuthService.login(req.body)
@@ -28,7 +28,7 @@ export default class AuthController {
     /* ------------------------------------------------------ */
     /*                         Logout                         */
     /* ------------------------------------------------------ */
-    public static logout: RequestHandler = async (req, res, next) => {
+    public static logout: RequestHandler = async (req, res, _) => {
         await AuthService.logout(req.userId || '');
 
         new OkResponse({

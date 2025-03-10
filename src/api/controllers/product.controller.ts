@@ -1,4 +1,3 @@
-import { RequestHandler } from 'express';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
 import {
@@ -36,7 +35,7 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.searchProduct({
                     page: Number(req.query.page),
-                    search: req.query.search
+                    query: req.query.query,
                 })
             }).send(res);
         };

@@ -42,7 +42,7 @@ export const searchProductSchema = Joi.object<
     joiTypes.product.definition.SearchProductSchema,
     true
 >({
-    search: Joi.string().required(),
+    query: Joi.string().required(),
     page: Joi.number().required()
 });
 

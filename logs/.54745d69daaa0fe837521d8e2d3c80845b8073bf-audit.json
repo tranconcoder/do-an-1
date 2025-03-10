@@ -44,6 +44,16 @@
             "date": 1741413180173,
             "name": "logs/2025/weeks-10/day-6/info.log",
             "hash": "6204a3ab212742ecbb9d2c85811f4f1e46970308ef877ac8defd5aa31a89f76e"
+        },
+        {
+            "date": 1741526341871,
+            "name": "logs/2025/weeks-11/day-0/info.log",
+            "hash": "2ca45505936f92159b66f2fb33379c847ba420c5c4c257259257e0840be80c84"
+        },
+        {
+            "date": 1741539600409,
+            "name": "logs/2025/weeks-11/day-1/info.log",
+            "hash": "5850e3c0bc825dbdc679b39781ad799c2dd6876c8a1aa4359b47bac55b58d544"
         }
     ],
     "hashType": "sha256"

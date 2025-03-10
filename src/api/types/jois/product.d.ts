@@ -45,7 +45,7 @@ declare global {
 
                 /* =================== Search product =================== */
                 interface SearchProductSchema {
-                    search: string;
+                    query: string;
                     page: number;
                 }
 

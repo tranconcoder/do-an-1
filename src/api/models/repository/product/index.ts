@@ -37,7 +37,7 @@ export const queryProductByShop = async (
 /* ------------------- Search product ------------------- */
 export const searchProduct = async ({
     page,
-    search
+    query
 }: serviceTypes.product.arguments.SearchProduct) => {
     if (!page || page < 1)
         throw new NotFoundErrorResponse('Current page invalid!');
@@ -47,7 +47,7 @@ export const searchProduct = async ({
             {
                 is_publish: true,
                 is_draft: false,
-                $text: { $search: search }
+                $text: { $search: query}
             },
             {
                 score: { $meta: 'textScore' }

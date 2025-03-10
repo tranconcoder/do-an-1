@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import ProductController from '../../controllers/product.controller';
 import catchError from '../../middlewares/catchError.middleware';
-import validateRequestBody, {
+import {
     validateRequestParams,
     validateRequestQuery
 } from '../../middlewares/joiValidate.middleware';
