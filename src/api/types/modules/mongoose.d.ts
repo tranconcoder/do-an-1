@@ -5,6 +5,8 @@ import mongooseLib, { Document, model, Model } from 'mongoose';
 declare global {
     namespace moduleTypes {
         namespace mongoose {
+            type ObjectId = mongooseBase.Types.ObjectId | string;
+
             type ConvertObjectIdToString<T> = {
                 [K in keyof T]: T[K] extends mongooseBase.Types.ObjectId
                     ? string

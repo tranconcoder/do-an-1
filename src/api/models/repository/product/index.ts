@@ -31,6 +31,15 @@ export const queryProductByShop = async (
     return product;
 };
 
+/* ---------------------------------------------------------- */
+/*                           Create                           */
+/* ---------------------------------------------------------- */
+export const createProduct = async (
+    payload: serviceTypes.product.arguments.CreateProduct
+) => {
+    return await productModel.create(payload);
+};
+
 /* ------------------------------------------------------ */
 /*                         Search                         */
 /* ------------------------------------------------------ */
@@ -47,7 +56,7 @@ export const searchProduct = async ({
             {
                 is_publish: true,
                 is_draft: false,
-                $text: { $search: query}
+                $text: { $search: query }
             },
             {
                 score: { $meta: 'textScore' }

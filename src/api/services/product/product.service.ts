@@ -1,8 +1,14 @@
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../../enums/product.enum';
 import { productModel } from '../../models/product.model';
+import { createProduct } from '../../models/repository/product';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 import { deleteOneProduct } from '../../models/repository/product';
+import {
+    createInventory,
+    updateInventoryStock
+} from '../../models/repository/inventory/index';
+import { BadRequestErrorResponse } from '../../response/error.response';
 
 export abstract class Product
     implements serviceTypes.product.definition.Product
@@ -56,23 +62,40 @@ export abstract class Product
     /*                     Create product                     */
     /* ------------------------------------------------------ */
     public async createProduct() {
-        const { _id, ...validProperties } = this.getValidProperties();
+        this._id = new mongoose.Types.ObjectId(); // Generate new id
+        const payload = this.getValidProperties();
 
-        return await productModel.create({
-            _id,
-            ...validProperties
-        });
+        await Promise.all([
+            /* -------------------- Create inventory -------------------- */
+            createInventory({
+                inventory_product: payload._id as moduleTypes.mongoose.ObjectId,
+                inventory_stock: payload.product_quantity as number,
+                inventory_shop: payload.product_shop as string
+            }),
+
+            /* --------------------- Create product --------------------- */
+            createProduct(payload)
+        ])
+            /* ------------- Return created product to user ------------- */
+            .then(([, product]) => product);
     }
-
-    /* ------------------------------------------------------ */
-    /*                      Find product                      */
-    /* ------------------------------------------------------ */
 
     /* ------------------------------------------------------ */
     /*                     Update product                     */
     /* ------------------------------------------------------ */
     public async updateProduct() {
         const validProperties = this.getValidProperties();
+
+        /* --------- Update inventory quantity when exists  --------- */
+        if (validProperties.product_quantity) {
+            const updateStockSuccess = updateInventoryStock(
+                validProperties._id?.toString() as string,
+                validProperties.product_quantity
+            );
+
+            if (!updateStockSuccess)
+                throw new BadRequestErrorResponse('Error update quantity!');
+        }
 
         /* ------------------- Init set object ------------------ */
         const $set: commonTypes.object.ObjectAnyKeys = {};

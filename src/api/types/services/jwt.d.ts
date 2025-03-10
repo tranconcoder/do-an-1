@@ -1,4 +1,4 @@
-import type { JwtPayload as BaseJwtPaylaod, SignOptions } from 'jsonwebtoken';
+import type { JwtPayload as BaseJwtPayload, SignOptions } from 'jsonwebtoken';
 import { isArguments } from 'lodash';
 
 declare global {
@@ -22,7 +22,7 @@ declare global {
 
                 interface JwtDecode
                     extends JwtPayload,
-                        Required<Pick<BaseJwtPaylaod, 'iat' | 'exp'>> {}
+                        Required<Pick<BaseJwtPayload, 'iat' | 'exp'>> {}
 
                 type JwtConfig = {
                     [key in keyof serviceTypes.jwt.definition.JwtPair]: {

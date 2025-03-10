@@ -97,6 +97,7 @@ declare global {
                     color: string;
                 }
             >;
+
         }
     }
 }
