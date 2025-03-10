@@ -1,3 +1,5 @@
+import { productModel } from '../models/product.model';
+
 export const addFieldToSchemaDefinition = <T, K>(schema: T, field: K) => {
     return {
         ...schema,
@@ -19,4 +21,14 @@ export const get$SetNestedFromObject = (
             target[targetKey] = source[k];
         }
     });
+};
+
+export const omitFields = <T = string>(fields: T[]) => {
+    const results: commonTypes.object.ObjectAnyKeys = {};
+
+    fields.forEach((field) => {
+        results[field as string] = 0;
+    });
+
+    return results;
 };

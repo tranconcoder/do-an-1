@@ -17,7 +17,7 @@ const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
             required
         },
         discount_value: { type: Number, required },
-        discount_count: { type: Number, required },
+        discount_count: { type: Number },
         discount_min_cost: { type: Number },
         discount_products: {
             type: [{ type: ObjectId, ref: PRODUCT_MODEL_NAME }],
@@ -26,7 +26,7 @@ const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
         discount_end_at: { type: Date, required },
         discount_start_at: { type: Date, required },
         is_admin_voucher: { type: Boolean, default: false, select: false },
-        is_available: { type: Boolean, default: false }
+        is_available: { type: Boolean, default: false, select: false }
     },
     {
         timestamps,

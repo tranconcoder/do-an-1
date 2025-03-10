@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createDiscount } from '../models/repository/discount/index';
 
 export default class DiscountService {

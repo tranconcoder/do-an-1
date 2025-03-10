@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import discountModel from '../../discount.model';
 
 /* ---------------------------------------------------------- */
@@ -12,5 +13,12 @@ const queryCreate = async (data: modelTypes.discount.DiscountSchema) =>
 export const createDiscount = async (
     data: modelTypes.discount.DiscountSchema
 ) => {
-    return await queryCreate(data);
+    const discount = await queryCreate(data);
+
+    return _.omit(discount.toObject(), [
+        'is_admin_voucher',
+        'created_at',
+        'updated_at',
+        '__v'
+    ]);
 };
